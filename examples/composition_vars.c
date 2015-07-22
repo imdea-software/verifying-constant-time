@@ -41,6 +41,7 @@ are fixed.
 #define PRIVATE_OUTPUT(x) __SMACK_code("assume {:private_output \"@\"} true;",x)
 #define PUBLIC_INPUT(x) __SMACK_code("assume {:public_input \"@\"} true;",x)
 #define PUBLIC_OUTPUT(x) __SMACK_code("assume {:public_output \"@\"} true;",x)
+#define DECLASSIFIED_OUTPUT(x) __SMACK_code("assume {:declassified_output \"@\"} true;",x)
 
 // out -> privin -> privout
 // in -> privin -> privout
