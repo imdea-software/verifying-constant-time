@@ -1,0 +1,3 @@
+[submodule "examples/amazon-s2n/s2n"]
+	path = examples/amazon-s2n/s2n
+	url = git@github.com:awslabs/s2n.git
