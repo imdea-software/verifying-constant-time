@@ -17,5 +17,5 @@ int s2n_verify_cbc_wrapper(struct s2n_connection *conn, struct s2n_hmac_state *h
   declassified_return();
   declassified_out(mem_region(decrypted->data,decrypted->size));
 
-  s2n_verify_cbc_wrapper(conn,hmac,decrypted);
+  return s2n_verify_cbc_wrapper(conn,hmac,decrypted);
 }
