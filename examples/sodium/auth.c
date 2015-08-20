@@ -14,7 +14,6 @@ int crypto_auth_pub(unsigned char *out, const unsigned char *in,
   public_in(region_of_var(inlen));
   public_in(mem_region(in,inlen));
   declassified_out(mem_region(out,crypto_auth_BYTES));
-  
 
   return crypto_auth(out,in,inlen,k);
 }
