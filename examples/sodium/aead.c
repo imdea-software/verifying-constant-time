@@ -16,14 +16,14 @@ int crypto_aead_chacha20poly1305_encrypt(unsigned char *c,
   public_in(region_of_var(c));
   public_in(region_of_var(clen_p));
   public_in(region_of_var(m));
-  public_in(region_of_var(mlen));
   public_in(region_of_var(ad));
-  public_in(region_of_var(adlen));
   public_in(region_of_var(nsec));
   public_in(region_of_var(npub));
   public_in(region_of_var(k));
 
   /* More useful annotations */
+  public_in(region_of_var(mlen));
+  public_in(region_of_var(adlen));
   public_in(mem_region(ad,adlen));
   public_in(mem_region(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
