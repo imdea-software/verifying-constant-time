@@ -21,7 +21,7 @@ We omit annotations for private since nothing needs to be generated
 /* Our security annotations talk about memory regions. We keep them
    abstract and allow them to be specified from address and length */
 typedef __SMACK_region;
-__SMACK_region mem_region(void*, size_t);
+__SMACK_region mem_region(const void*, size_t);
 
 /* Some wrappers to define the memory regions covered by actual
    variables and by fields of a struct or union */
