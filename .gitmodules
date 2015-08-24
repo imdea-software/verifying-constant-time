@@ -1,3 +1,6 @@
 [submodule "examples/amazon-s2n/s2n"]
 	path = examples/amazon-s2n/s2n
 	url = git@github.com:awslabs/s2n.git
+[submodule "examples/curve25519-donna/donna"]
+	path = examples/curve25519-donna/donna
+	url = git@github.com:agl/curve25519-donna.git
