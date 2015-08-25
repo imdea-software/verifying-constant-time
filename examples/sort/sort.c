@@ -4,8 +4,7 @@ This is modified from Manuel's example to remove modularity
 
 For the entry point, parameters must be tagged as to their
 security level when operating as inputs and possibly as
-outputs. The function output must always be tagged for
-security when it is not void.
+outputs.
 
 */
 #include "../smack.h"
@@ -34,11 +33,12 @@ void sort3(int *conds, int *out3, int *in3) {
 }
 
 void sort3_wrapper(int *conds, int *out, int *in) {
-  //  private_in(mem_region(out,3 * sizeof(*out)));
-  //  private_in(mem_region(in, 3 * sizeof(*out)));
+  /* Boilerplate */
+  public_in(region_of_var(conds));
+  public_in(region_of_var(out));
+  public_in(region_of_var(in));
 
-  //  private_out(mem_region(out,3 * sizeof(*out)));
-  //  private_out(mem_region(in, 3 * sizeof(*out)));
+  /* Useful */
   declassified_out(mem_region(conds, sizeof(*conds)));
 
   sort3(conds,out,in);
