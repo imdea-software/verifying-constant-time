@@ -5,6 +5,7 @@ struct __SMACK_region {
 };
 
 __SMACK_region* mem_region(const void* addr,size_t len) { return NULL; }
+__SMACK_region* of_var(void* v) { return NULL; }
 
 void public_in(__SMACK_region* r) { return; }
 

@@ -25,11 +25,11 @@ __SMACK_region* mem_region(const void*, size_t);
 
 /* Some wrappers to define the memory regions covered by actual
    variables and by fields of a struct or union */
-#define region_of_var(__v)\
-  mem_region(&__v, sizeof(__v))
+__SMACK_region* of_var(void*);
+#define region_of_var(__v) of_var((void*) __v)
 
 #define region_of_field(__s,__f)\
-  mem_region(&__s + offsetof(__f), sizeof(__s.__f))
+  mem_region(&(__s.__f)), sizeof(__s.__f))
 
 /* The abstract prototypes that form our annotation language */
 void public_in(__SMACK_region*);
