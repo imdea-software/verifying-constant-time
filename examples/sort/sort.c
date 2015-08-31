@@ -32,7 +32,7 @@ void sort3(int *conds, int *out3, int *in3) {
   conds[2] = sort2(out3,in3);
 }
 
-void sort3_wrapper(int *conds, int *out, int *in) {
+int sort3_wrapper(int *conds, int *out, int *in) {
   /* Boilerplate */
   public_in(region_of_var(conds));
   public_in(region_of_var(out));
@@ -41,5 +41,11 @@ void sort3_wrapper(int *conds, int *out, int *in) {
   /* Useful */
   declassified_out(mem_region(conds, 3 * sizeof(*conds)));
 
+  /* Useful for testing out more of the assertion generation */
+  public_in(mem_region(conds,3 * sizeof(conds)));
+
+  public_return();
+
   sort3(conds,out,in);
+  return 3;
 }
