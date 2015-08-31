@@ -4,3 +4,9 @@
 [submodule "examples/curve25519-donna/donna"]
 	path = examples/curve25519-donna/donna
 	url = https://github.com/agl/curve25519-donna.git
+[submodule "tools/boogie"]
+	path = tools/boogie
+	url = https://github.com/boogie-org/boogie.git
+[submodule "tools/z3"]
+	path = tools/z3
+	url = https://github.com/Z3Prover/z3.git
