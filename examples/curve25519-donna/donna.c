@@ -2,6 +2,13 @@
 
 #include <stdint.h>
 
+/* Compile with:
+  clang -DTEST ../smack.c donna/curve25519-donna.c donna.c
+or:
+  clang -DTEST ../smack.c donna/curve25519-donna-c64.c donna.c
+(but not on a 32 bit OS as that makes clang segfault, which is bad)
+*/
+
 typedef uint8_t u8;
 
 extern int curve25519_donna(u8 *mypublic, const u8 *secret, const u8 *basepoint);

@@ -39,7 +39,7 @@ void sort3_wrapper(int *conds, int *out, int *in) {
   public_in(region_of_var(in));
 
   /* Useful */
-  declassified_out(mem_region(conds, sizeof(*conds)));
+  declassified_out(mem_region(conds, 3 * sizeof(*conds)));
 
   sort3(conds,out,in);
 }
