@@ -1,0 +1,40 @@
+#include "crypto_verify_32.h"
+
+int crypto_verify_32(const unsigned char *x,const unsigned char *y)
+{
+  unsigned int differentbits = 0;
+#define Fv(i) differentbits |= x[i] ^ y[i];
+  Fv(0)
+  Fv(1)
+  Fv(2)
+  Fv(3)
+  Fv(4)
+  Fv(5)
+  Fv(6)
+  Fv(7)
+  Fv(8)
+  Fv(9)
+  Fv(10)
+  Fv(11)
+  Fv(12)
+  Fv(13)
+  Fv(14)
+  Fv(15)
+  Fv(16)
+  Fv(17)
+  Fv(18)
+  Fv(19)
+  Fv(20)
+  Fv(21)
+  Fv(22)
+  Fv(23)
+  Fv(24)
+  Fv(25)
+  Fv(26)
+  Fv(27)
+  Fv(28)
+  Fv(29)
+  Fv(30)
+  Fv(31)
+  return (1 & ((differentbits - 1) >> 8)) - 1;
+}
