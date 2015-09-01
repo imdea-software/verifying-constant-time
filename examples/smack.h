@@ -37,8 +37,5 @@ void public_in(__SMACK_region*);
 void public_out(__SMACK_region*);
 void declassified_out(__SMACK_region*);
 
-void public_return(__SMACK_region*);
-void declassified_return(__SMACK_region*);
-
 __SMACK_region* ret_region(size_t);
 __SMACK_region* region_of_ret();
