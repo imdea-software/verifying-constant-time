@@ -42,9 +42,8 @@ int sort3_wrapper(int *conds, int *out, int *in) {
   declassified_out(mem_region(conds, 3 * sizeof(*conds)));
 
   /* Useful for testing out more of the assertion generation */
-  public_in(mem_region(conds,3 * sizeof(conds)));
-
-  public_return();
+  public_in(mem_region(conds,3 * sizeof(*conds)));
+  public_out(region_of_ret());
 
   sort3(conds,out,in);
   return 3;

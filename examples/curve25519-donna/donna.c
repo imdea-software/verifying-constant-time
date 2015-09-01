@@ -22,7 +22,7 @@ int curve25519_donna_wrapper(u8 *mypublic, const u8 *secret, const u8 *basepoint
   /* Important stuff */
   public_in(mem_region(basepoint,32));
   declassified_out(mem_region(mypublic,32));
-  declassified_return();
+  declassified_out(region_of_ret());
 
   return curve25519_donna(mypublic,secret,basepoint);
 }

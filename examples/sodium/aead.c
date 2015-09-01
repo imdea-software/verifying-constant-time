@@ -46,7 +46,7 @@ int crypto_aead_chacha20poly1305_encrypt_wrapper(unsigned char *c,
   public_in(mem_region(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
   declassified_out(mem_region(c,*clen_p));
-  declassified_return();
+  declassified_out(region_of_ret());
 
   return  crypto_aead_chacha20poly1305_encrypt(c,clen_p,
                                                m,mlen,
@@ -81,7 +81,7 @@ int crypto_aead_chacha20poly1305_decrypt_wrapper(unsigned char *m,
   public_in(mem_region(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
   declassified_out(mem_region(m,*mlen_p));
-  declassified_return();
+  declassified_out(region_of_ret());
 
   return  crypto_aead_chacha20poly1305_decrypt(m,mlen_p,
                                                nsec,

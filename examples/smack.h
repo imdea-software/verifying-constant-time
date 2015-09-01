@@ -31,11 +31,12 @@ __SMACK_region* of_var(void*);
 #define region_of_field(__s,__f)\
   mem_region(&(__s.__f)), sizeof(__s.__f))
 
+/* Define memory regions related to the function's return value */
+__SMACK_region* ret_region(size_t);
+__SMACK_region* region_of_ret();
+
 /* The abstract prototypes that form our annotation language */
 void public_in(__SMACK_region*);
 
 void public_out(__SMACK_region*);
 void declassified_out(__SMACK_region*);
-
-__SMACK_region* ret_region(size_t);
-__SMACK_region* region_of_ret();

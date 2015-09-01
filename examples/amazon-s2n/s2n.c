@@ -14,7 +14,7 @@ int s2n_verify_cbc_wrapper(struct s2n_connection *conn, struct s2n_hmac_state *h
   /* These are the only two we care about with this function as entry
      point, but more will be needed if we want to us e this result
      modularly to prove things about TLS as a whole */
-  declassified_return();
+  declassified_out(region_of_ret());
   declassified_out(mem_region(decrypted->data,decrypted->size));
 
   return s2n_verify_cbc_wrapper(conn,hmac,decrypted);
