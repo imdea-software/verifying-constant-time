@@ -10,3 +10,6 @@
 [submodule "tools/z3"]
 	path = tools/z3
 	url = https://github.com/Z3Prover/z3.git
+[submodule "examples/polarssl/mbedtls"]
+	path = examples/polarssl/mbedtls
+	url = https://github.com/ARMmbed/mbedtls.git
