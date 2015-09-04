@@ -13,3 +13,11 @@
 [submodule "examples/polarssl/mbedtls"]
 	path = examples/polarssl/mbedtls
 	url = https://github.com/ARMmbed/mbedtls.git
+[submodule "tools/smack"]
+	path = tools/smack
+	url = https://github.com/smackers/smack
+	branch = develop
+[submodule "tools/bam-bam-boogieman"]
+	path = tools/bam-bam-boogieman
+	url = https://github.com/michael-emmi/bam-bam-boogieman
+	branch = develop
