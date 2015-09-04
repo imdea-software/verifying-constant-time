@@ -14,3 +14,5 @@ void public_in(__SMACK_region* r) { return; }
 
 void public_out(__SMACK_region* r) { return; }
 void declassified_out(__SMACK_region* r) { return; }
+
+void disjoint_regions(__SMACK_region* r1, __SMACK_region* r2) { return; }

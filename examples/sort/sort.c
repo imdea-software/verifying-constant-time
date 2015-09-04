@@ -33,6 +33,8 @@ void sort3(int *conds, int *out3, int *in3) {
 }
 
 int sort3_wrapper(int *conds, int *out, int *in) {
+  disjoint_regions(mem_region(conds,3 * sizeof(*conds)),mem_region(out,0));
+
   /* Boilerplate */
   public_in(region_of_var(conds));
   public_in(region_of_var(out));

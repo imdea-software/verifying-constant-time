@@ -40,3 +40,5 @@ void public_in(__SMACK_region*);
 
 void public_out(__SMACK_region*);
 void declassified_out(__SMACK_region*);
+
+void disjoint_regions(__SMACK_region*, __SMACK_region*);
