@@ -41,4 +41,6 @@ void public_in(__SMACK_region*);
 void public_out(__SMACK_region*);
 void declassified_out(__SMACK_region*);
 
-void disjoint_regions(__SMACK_region*, __SMACK_region*);
+#define __disjoint_regions(addr1,len1,addr2,len2) \
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+         addr2 + len2 * sizeof(*addr2) < addr1)
