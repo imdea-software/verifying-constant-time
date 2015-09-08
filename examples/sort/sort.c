@@ -43,16 +43,16 @@ int sort3_wrapper(int *conds, int *out, int *in) {
   __disjoint_regions(out,3,in,3);
 
   /* Boilerplate */
-  public_in(region_of_var(conds));
-  public_in(region_of_var(out));
-  public_in(region_of_var(in));
+  public_in_value(__SMACK_value(conds));
+  public_in_value(__SMACK_value(out));
+  public_in_value(__SMACK_value(in));
 
   /* Useful */
-  declassified_out(mem_region(conds, 3 * sizeof(*conds)));
+  declassified_out_object(__SMACK_object(conds,3));
 
   /* Useful for testing out more of the assertion generation */
-  public_in(mem_region(conds,3 * sizeof(*conds)));
-  public_out(region_of_ret());
+  public_in_object(__SMACK_object(conds,3));
+  public_out_value(__SMACK_return_value());
 
   sort3(conds,out,in);
   return 3;
