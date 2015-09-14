@@ -47,7 +47,7 @@ int sort3_wrapper(int *conds, int *out, int *in) {
 
   /* Useful for testing out more of the assertion generation */
   public_in_object(__SMACK_object(conds,3));
-  public_out_value(__SMACK_return_value());
+  //  public_out_value(__SMACK_return_value());
 
   sort3(conds,out,in);
   return 3;
