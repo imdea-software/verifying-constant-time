@@ -24,6 +24,10 @@ def command_line_options
       options.entry_points = e
     end
 
+    opts.on("-m", "--model FILE", "Output file for BVD model.") do |m|
+      options.model = "/mv:#{m}"
+    end
+
     opts.separator ""
 
   end.parse!
@@ -32,17 +36,17 @@ def command_line_options
     puts "Invalid or missing source file(s)."
     exit
   end
-  options.bpl_file = File.basename(options.source_files.first, ".*") + ".bpl"
+  options.bpl_file = File.basename(options.source_files.last, ".*") + ".bpl"
   options.instrumented = File.basename(options.bpl_file, ".*") + "-instrumented.bpl"
 
-  File.open(options.source_files.first, 'r') do |f|
+  File.open(options.source_files.last, 'r') do |f|
     options.entry_points = f.grep(/_wrapper\b/).map do |line|
       line.match(/\b\S+_wrapper\b/)[0]
     end
   end
 
   if options.entry_points.empty?
-    puts "Uknown entry points."
+    puts "Unknown entry points."
     exit
   end
 
@@ -52,7 +56,7 @@ end
 
 def frontend(args)
   puts "Using entry points: #{args.entry_points * ", "}"
-  system "smack.py -t '#{args.source_files * " "}' --entry-points #{args.entry_points * ", "} --verifier=boogie -bpl '#{args.bpl_file}'"
+  system "smack.py --entry-points #{args.entry_points * ", "} --verifier=boogie -bpl '#{args.bpl_file}' -t #{args.source_files * " "}"
   unless File.exists?(args.bpl_file)
     puts "Failed to generate Boogie code."
     exit
@@ -69,7 +73,7 @@ end
 
 def verification(args)
   puts "Using unroll bound: #{args.unroll}"
-  system "boogie #{args.instrumented} /loopUnroll:#{args.unroll}"
+  system "boogie #{args.instrumented} /loopUnroll:#{args.unroll} #{args.model}"
 end
 
 begin
