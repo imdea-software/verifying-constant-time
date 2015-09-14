@@ -14,15 +14,18 @@ typedef uint8_t u8;
 extern int curve25519_donna(u8 *mypublic, const u8 *secret, const u8 *basepoint);
 
 int curve25519_donna_wrapper(u8 *mypublic, const u8 *secret, const u8 *basepoint) {
+  __disjoint_regions(mypublic,32,secret,32);
+  __disjoint_regions(basepoint,32,secret,32);
+
   /* Boilerplate (until modularity) */
-  public_in(region_of_var(mypublic));
-  public_in(region_of_var(secret));
-  public_in(region_of_var(basepoint));
+  public_in_value(mypublic);
+  public_in_value(secret);
+  public_in_value(basepoint);
 
   /* Important stuff */
-  public_in(mem_region(basepoint,32));
-  declassified_out(mem_region(mypublic,32));
-  declassified_out(region_of_ret());
+  public_in_object(__SMACK_object(basepoint,32));
+  declassified_out_object(__SMACK_object(mypublic,32));
+  declassified_out_object(__SMACK_return_object());
 
   return curve25519_donna(mypublic,secret,basepoint);
 }

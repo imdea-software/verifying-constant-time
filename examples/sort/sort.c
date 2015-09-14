@@ -32,12 +32,7 @@ void sort3(int *conds, int *out3, int *in3) {
   conds[2] = sort2(out3,in3);
 }
 
-#define __disjoint_regions(addr1,len1,addr2,len2) \
-  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
-         addr2 + len2 * sizeof(*addr2) < addr1)
-
 int sort3_wrapper(int *conds, int *out, int *in) {
-
   __disjoint_regions(conds,3,out,3);
   __disjoint_regions(conds,3,in,3);
   __disjoint_regions(out,3,in,3);

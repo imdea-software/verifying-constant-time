@@ -18,7 +18,6 @@ void sort3(int *out3, int *in3) {
 }
 
 int sort3_wrapper(int *out, int *in) {
-
   __disjoint_regions(out,3,in,3);
 
   /* Boilerplate */
