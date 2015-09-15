@@ -1,4 +1,4 @@
-#include "../smack.h"
+#include "../ct-verif.h"
 
 #include <stdint.h>
 

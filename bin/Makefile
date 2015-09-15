@@ -3,11 +3,14 @@ BOOGIEPATH ?= ../tools/boogie
 SMACKPATH  ?= ../tools/smack
 BAMPATH    ?= ../tools/bam-bam-boogieman
 
+LOCALCPATH ?= $(SMACKPATH)/share/smack/include
+
 EXAMPLE    ?= ../examples/sort/sort.c
 
 verify:
 	PATH=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build\
            BOOGIE=$(BOOGIEPATH)/Binaries/Boogie.exe\
+           CPATH=$(CPATH):$(LOCALCPATH)\
            ./verify.rb $(EXAMPLE)
 
 local-update:
@@ -28,7 +31,7 @@ clean-local-boogie:
 
 local-smack:
 	mkdir $(SMACKPATH)/build
-	cd $(SMACKPATH)/build && cmake -CMAKE_BUILD_TYPE=Debug ..
+	cd $(SMACKPATH)/build && cmake -DCMAKE_BUILD_TYPE=Debug ..
 	make -C $(SMACKPATH)/build
 
 clean-local-smack:

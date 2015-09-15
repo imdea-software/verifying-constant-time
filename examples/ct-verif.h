@@ -1,4 +1,8 @@
-#include <stdlib.h>
+#ifndef CT_VERIF_H
+#define CT_VERIF_H
+
+#ifndef COMPILE
+#include <smack.h>
 
 /*
 Security levels are the following.
@@ -30,3 +34,24 @@ void declassified_out_object(smack_object_t);
 #define __disjoint_regions(addr1,len1,addr2,len2) \
   assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
          addr2 + len2 * sizeof(*addr2) < addr1)
+
+#else /* COMPILE */
+
+#undef __SMACK_value
+
+#define __VERIFIER_assume(__a)
+#define __SMACK_value(__a)
+#define __SMACK_object(__a,__b)
+
+#define public_in_value(__a)
+#define public_out_value(__a)
+#define declassified_out_value(__a)
+
+#define public_in_object(__a)
+#define public_out_object(__a)
+#define declassified_out_object(__a)
+
+#define __disjoint_regions(addr1,len1,addr2,len2)
+
+#endif /* COMPILE */
+#endif /* CT_VERIF_H */

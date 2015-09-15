@@ -1,4 +1,4 @@
-#include "../smack.h"
+#include "../ct-verif.h"
 
 void sort2(int *out2, int *in2) {
   signed char c;

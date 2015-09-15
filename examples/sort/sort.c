@@ -7,7 +7,9 @@ security level when operating as inputs and possibly as
 outputs.
 
 */
-#include "../smack.h"
+#include <smack.h>
+
+#include "../ct-verif.h"
 
 int sort2(int *out2, int *in2) {
   int a, b;
