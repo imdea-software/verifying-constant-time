@@ -32,7 +32,7 @@ void sort3(int *conds, int *out3, int *in3) {
   conds[2] = sort2(out3,in3);
 }
 
-int sort3_wrapper(int *conds, int *out, int *in) {
+int* sort3_wrapper(int *conds, int *out, int *in) {
   __disjoint_regions(conds,3,out,3);
   __disjoint_regions(conds,3,in,3);
   __disjoint_regions(out,3,in,3);
@@ -47,8 +47,15 @@ int sort3_wrapper(int *conds, int *out, int *in) {
 
   /* Useful for testing out more of the assertion generation */
   public_in_object(__SMACK_object(conds,3));
-  //  public_out_value(__SMACK_return_value());
+  public_out_object(__SMACK_object(conds,3));
+  public_out_value(__SMACK_return_value());
+
+  /* Which one of these means "the object of length 12 at address
+     'return value' is public"? Right now, both of them make the
+     frontend choke at various levels... */
+  // public_out_object(__SMACK_object(__SMACK_return_value,3)); // This one makes BAM choke
+  // public_out_object(__SMACK_return_object(3)); // This one makes SMACK choke
 
   sort3(conds,out,in);
-  return 3;
+  return conds;
 }
