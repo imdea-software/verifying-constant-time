@@ -45,3 +45,7 @@ clean-local-bam:
 local-tools: local-z3 local-boogie local-smack local-bam
 
 clean-local-tools: clean-local-bam clean-local-smack clean-local-boogie clean-local-z3
+
+remake-bam:
+	make clean-local-bam
+	make local-bam
