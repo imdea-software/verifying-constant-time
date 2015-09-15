@@ -39,7 +39,7 @@ local-bam:
 	sudo gem install $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
 
 clean-local-bam:
-	sudo gem uninstall $(BAMPATH)/bam-bam-boogieman
+	sudo gem uninstall bam-bam-boogieman
 	rm $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
 
 local-tools: local-z3 local-boogie local-smack local-bam
