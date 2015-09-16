@@ -47,16 +47,14 @@ int* sort3_wrapper(int *conds, int *out, int *in) {
   /* Useful */
   declassified_out_object(__SMACK_object(conds,3));
 
-  /* Useful for testing out more of the assertion generation */
+  /* Testing out more of the assertion generation */
   public_in_object(__SMACK_object(conds,3));
   public_out_object(__SMACK_object(conds,3));
   public_out_value(__SMACK_return_value());
 
-  /* Which one of these means "the object of length 12 at address
-     'return value' is public"? Right now, both of them make the
-     frontend choke at various levels... */
-  // public_out_object(__SMACK_object(__SMACK_return_value,3)); // This one makes BAM choke
-  // public_out_object(__SMACK_return_object(3)); // This one makes SMACK choke
+  // This is broken for now, but we should ignore it until we see an
+  // example that works like this...
+  // declassified_out_object(__SMACK_object(__SMACK_return_value,3));
 
   sort3(conds,out,in);
   return conds;

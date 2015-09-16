@@ -1,17 +1,18 @@
+# By default, for testing, we run the sort example
+EXAMPLE    ?= ../examples/sort/sort.c
+ENTRYPOINT ?= sort3_wrapper
+UNROLL     ?= 3
+
+# By default, use local tools
 Z3PATH     ?= ../tools/z3
 BOOGIEPATH ?= ../tools/boogie
 SMACKPATH  ?= ../tools/smack
 BAMPATH    ?= ../tools/bam-bam-boogieman
 
-LOCALCPATH ?= $(SMACKPATH)/share/smack/include
-
-EXAMPLE    ?= ../examples/sort/sort.c
-
 verify:
 	PATH=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build\
            BOOGIE=$(BOOGIEPATH)/Binaries/Boogie.exe\
-           CPATH=$(CPATH):$(LOCALCPATH)\
-           ./verify.rb $(EXAMPLE)
+           ./verify.rb -e $(ENTRYPOINT) -u $(UNROLL) $(EXAMPLE)
 
 local-update:
 	git submodule update
@@ -31,7 +32,7 @@ clean-local-boogie:
 
 local-smack:
 	mkdir $(SMACKPATH)/build
-	cd $(SMACKPATH)/build && cmake -DCMAKE_BUILD_TYPE=Debug ..
+	cd $(SMACKPATH)/build && cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug ..
 	make -C $(SMACKPATH)/build
 
 clean-local-smack:
@@ -39,16 +40,22 @@ clean-local-smack:
 
 local-bam:
 	cd $(BAMPATH) && gem build bam-bam-boogieman.gemspec
-	sudo gem install $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
 
 clean-local-bam:
-	sudo gem uninstall bam-bam-boogieman
 	rm $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
+
+install-bam:
+	sudo gem install $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
+
+uninstall-bam:
+	sudo gem uninstall bam-bam-boogieman
 
 local-tools: local-z3 local-boogie local-smack local-bam
 
 clean-local-tools: clean-local-bam clean-local-smack clean-local-boogie clean-local-z3
 
 remake-bam:
+	make uninstall-bam
 	make clean-local-bam
 	make local-bam
+	make install-bam
