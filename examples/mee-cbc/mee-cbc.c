@@ -7,30 +7,30 @@
            ../smack.c mee-cbc.c
 */
 
-#include "../smack.h"
+#include "../ct-verif.h"
 #include "crypto_block.h"
 
 extern int decrypt_then_verify(unsigned char *out,unsigned long *out_len, const unsigned char *in,unsigned long in_len,
 			       const unsigned char *iv,const unsigned char *enc_sk,const unsigned char *mac_sk);
 
-int dv(unsigned char *out,unsigned long *out_len, const unsigned char *in,unsigned long in_len,
-       const unsigned char *iv,const unsigned char *enc_sk,const unsigned char *mac_sk)
+int dv_wrapper(unsigned char *out,unsigned long *out_len, const unsigned char *in,unsigned long in_len,
+               const unsigned char *iv,const unsigned char *enc_sk,const unsigned char *mac_sk)
 {
   /* Boilerplate */
-  public_in(region_of_var(out));
-  public_in(region_of_var(out_len));
-  public_in(region_of_var(in));
-  public_in(region_of_var(iv));
-  public_in(region_of_var(enc_sk));
-  public_in(region_of_var(mac_sk));
+  public_in_value(__SMACK_value(out));
+  public_in_value(__SMACK_value(out_len));
+  public_in_value(__SMACK_value(in));
+  public_in_value(__SMACK_value(iv));
+  public_in_value(__SMACK_value(enc_sk));
+  public_in_value(__SMACK_value(mac_sk));
 
   /* Useful */
-  public_in(mem_region(in,in_len));
-  public_in(mem_region(iv,INPUTBYTES));
+  public_in_object(__SMACK_object(in,32));
+  public_in_object(__SMACK_object(iv,INPUTBYTES));
 
-  declassified_out(mem_region(out,*out_len));
-  declassified_out(mem_region(out_len, sizeof(*out_len)));
-  declassified_out(region_of_ret());
+  declassified_out_object(__SMACK_object(out,32));
+  declassified_out_object(__SMACK_object(out_len, sizeof(*out_len)));
+  //declassified_out_object(__SMACK_return_object(1));
 
   return decrypt_then_verify(out,out_len,in,in_len,iv,enc_sk,mac_sk);
 }
