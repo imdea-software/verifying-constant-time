@@ -1,3 +1,4 @@
+#include "../ct-verif.h"
 #include "CAO_COMPCERT_new.h"
 
 #define nLen 512
@@ -208,81 +209,96 @@ void c_Enc(CAO_int _r0,CAO_int c_e,CAO_msgOctets c_msg,CAO_hOctets c_lHash,CAO_h
 
 void c_Dec(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_hOctets c_lHash, CAO_int c_n)
 {
-    CAO_vector_decl(c_DB, dbLen);
-    CAO_vector_decl(c_dbMask, dbLen);
-    CAO_vector_decl(c_maskedDB, dbLen);
-    CAO_vector_decl(c_seedMask, hLen);
-    CAO_vector_decl(c_maskedSeed, hLen);
-    CAO_vector_decl(c_lHash2, hLen);
-    CAO_vector_decl(c_seed, hLen);
-    CAO_vector_decl(c_payload, nLen);
-    CAO_vector_decl(c_msg, msgLen);
-    CAO_bool c_result;
-    CAO_bool c_result1;
-    CAO_bool c_result2;
-    CAO_bool c_result3;
-    CAO_vector_decl(c_err_msg, msgLen);
-    CAO_bool t3253;
-    CAO_ubits8 t3255;
-    CAO_ubits8 t3256;
-    CAO_ubits8 t3257;
-    CAO_ubits8 t3258;
-    CAO_bool t3259;
-    CAO_vector_decl(t4427, dbLen);
-    CAO_vector_decl(t4428, hLen);
-    CAO_vector_decl(t4429, hLen);
-    CAO_vector_decl(t4430, hLen);
-    CAO_vector_decl(t4431, dbLen);
-    CAO_vector_decl(t4432, dbLen);
-    CAO_int_decl(c_m);
-    CAO_int_decl(t4424);
-    CAO_int_decl(t4425);
-    CAO_int_decl(t4423);
-    CAO_int_decl(t4426);
-    CAO_int_ge(t3253, c_c, c_n);
-    if (t3253)
-    {
-        CAO_bool_init(c_result, 0);
-    }
-    else
-    {
-        CAO_int_assign(t4424, c_d);
-        CAO_int_assign(t4425, c_c);
-        CAO_int_assign(t4423, c_n);
-        c_RSAInv(c_m, t4424, t4425,t4423);
-        CAO_int_assign(t4426, c_m);
-        c_I2OSP(c_payload, t4426);
-        CAO_vector_range_select(c_maskedSeed, c_payload, 1, hLen);
-        CAO_vector_range_select(c_maskedDB, c_payload, hLen+1, hLen+dbLen);
-        CAO_vector_assign(t4427, c_maskedDB, dbLen);
-        c_H(c_seedMask, t4427);
-        CAO_vector_assign(t4428, c_maskedSeed, hLen);
-        CAO_vector_assign(t4429, c_seedMask, hLen);
-        CAO_vector_zipWith_BitXorOp(c_seed, t4428, t4429,hLen);
-        CAO_vector_assign(t4430, c_seed, hLen);
-        c_G(c_dbMask, t4430);
-        CAO_vector_assign(t4431, c_maskedDB, dbLen);
-        CAO_vector_assign(t4432, c_dbMask, dbLen);
-        CAO_vector_zipWith_BitXorOp(c_DB, t4431, t4432,dbLen);
-        CAO_vector_range_select(c_lHash2, c_DB, 0, hLen-1);
-        CAO_vector_select(t3255, c_payload, 0);
-        CAO_ubits8_init(t3256, 0);
-        CAO_ubits8_equal(c_result1, t3255, t3256);
-        CAO_vector_equal(c_result2, c_lHash, c_lHash2,hLen);
-        CAO_vector_select(t3257, c_DB, hLen);
-        CAO_ubits8_init(t3258, 1);
-        CAO_ubits8_equal(c_result3, t3257, t3258);
-        CAO_bool_and(t3259, c_result1, c_result2);
-        CAO_bool_and(c_result, t3259, c_result3);
-    }
-    if (c_result)
-    {
-        CAO_vector_range_select(c_msg, c_DB, hLen+1, hLen+msgLen);
-    }
-    else
-    {
-        CAO_vector_range_select(c_msg, c_err_msg, 0, msgLen-1);
-    }
-    CAO_vector_assign(_r0, c_msg, msgLen);
-	CAO_bool_assign(*_r1,c_result);
+  CAO_vector_decl(c_DB, dbLen);
+  CAO_vector_decl(c_dbMask, dbLen);
+  CAO_vector_decl(c_maskedDB, dbLen);
+  CAO_vector_decl(c_seedMask, hLen);
+  CAO_vector_decl(c_maskedSeed, hLen);
+  CAO_vector_decl(c_lHash2, hLen);
+  CAO_vector_decl(c_seed, hLen);
+  CAO_vector_decl(c_payload, nLen);
+  CAO_vector_decl(c_msg, msgLen);
+  CAO_bool c_result;
+  CAO_bool c_result1;
+  CAO_bool c_result2;
+  CAO_bool c_result3;
+  CAO_vector_decl(c_err_msg, msgLen);
+  CAO_bool t3253;
+  CAO_ubits8 t3255;
+  CAO_ubits8 t3256;
+  CAO_ubits8 t3257;
+  CAO_ubits8 t3258;
+  CAO_bool t3259;
+  CAO_vector_decl(t4427, dbLen);
+  CAO_vector_decl(t4428, hLen);
+  CAO_vector_decl(t4429, hLen);
+  CAO_vector_decl(t4430, hLen);
+  CAO_vector_decl(t4431, dbLen);
+  CAO_vector_decl(t4432, dbLen);
+  CAO_int_decl(c_m);
+  CAO_int_decl(t4424);
+  CAO_int_decl(t4425);
+  CAO_int_decl(t4423);
+  CAO_int_decl(t4426);
+  CAO_int_ge(t3253, c_c, c_n);
+  if (t3253) {
+    CAO_bool_init(c_result, 0);
+  } else {
+    CAO_int_assign(t4424, c_d);
+    CAO_int_assign(t4425, c_c);
+    CAO_int_assign(t4423, c_n);
+    c_RSAInv(c_m, t4424, t4425,t4423);
+    CAO_int_assign(t4426, c_m);
+    c_I2OSP(c_payload, t4426);
+    CAO_vector_range_select(c_maskedSeed, c_payload, 1, hLen);
+    CAO_vector_range_select(c_maskedDB, c_payload, hLen+1, hLen+dbLen);
+    CAO_vector_assign(t4427, c_maskedDB, dbLen);
+    c_H(c_seedMask, t4427);
+    CAO_vector_assign(t4428, c_maskedSeed, hLen);
+    CAO_vector_assign(t4429, c_seedMask, hLen);
+    CAO_vector_zipWith_BitXorOp(c_seed, t4428, t4429,hLen);
+    CAO_vector_assign(t4430, c_seed, hLen);
+    c_G(c_dbMask, t4430);
+    CAO_vector_assign(t4431, c_maskedDB, dbLen);
+    CAO_vector_assign(t4432, c_dbMask, dbLen);
+    CAO_vector_zipWith_BitXorOp(c_DB, t4431, t4432,dbLen);
+    CAO_vector_range_select(c_lHash2, c_DB, 0, hLen-1);
+    CAO_vector_select(t3255, c_payload, 0);
+    CAO_ubits8_init(t3256, 0);
+    CAO_ubits8_equal(c_result1, t3255, t3256);
+    CAO_vector_equal(c_result2, c_lHash, c_lHash2,hLen);
+    CAO_vector_select(t3257, c_DB, hLen);
+    CAO_ubits8_init(t3258, 1);
+    CAO_ubits8_equal(c_result3, t3257, t3258);
+    CAO_bool_and(t3259, c_result1, c_result2);
+    CAO_bool_and(c_result, t3259, c_result3);
+  }
+  if (c_result) {
+    CAO_vector_range_select(c_msg, c_DB, hLen+1, hLen+msgLen);
+  } else {
+    CAO_vector_range_select(c_msg, c_err_msg, 0, msgLen-1);
+  }
+  CAO_vector_assign(_r0, c_msg, msgLen);
+  CAO_bool_assign(*_r1,c_result);
+  return;
+}
+
+void c_Dec_wrapper(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_hOctets c_lHash, CAO_int c_n) {
+  /* Boilerplate */
+  public_in_value(__SMACK_value(_r1));
+  public_in_value(__SMACK_value(_r0));     /* safe: CAO_msgOctets hides a star behind a typedef */
+  public_in_value(__SMACK_value(c_lHash)); /* safe: CAO_hOctets hides a star behind a typedef */
+  public_in_value(__SMACK_value(c_d));     /* safe: CAO_int hides a star behind a typedef */
+  public_in_value(__SMACK_value(c_c));
+  public_in_value(__SMACK_value(c_n));
+
+  /* Important */
+  public_in_object(__SMACK_object(c_c,MAX_CAOINT_LEN)); /* ciphertext */
+  public_in_object(__SMACK_object(c_n,MAX_CAOINT_LEN)); /* modulus    */
+  public_in_object(__SMACK_object(c_lHash,hLen));       /* hash label -- public in any case on decryption */
+
+  declassified_out_object(__SMACK_object(_r0,msgLen));
+  declassified_out_object(__SMACK_object(_r1,1));
+
+  c_Dec(_r0,_r1,c_d,c_c,c_lHash,c_n);
 }
