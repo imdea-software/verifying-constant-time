@@ -41,7 +41,9 @@ void declassified_out_object(smack_object_t);
 
 #define __VERIFIER_assume(__a)
 #define __SMACK_value(__a)
+#define __SMACK_return_value(__a)
 #define __SMACK_object(__a,__b)
+#define __SMACK_return_object(__a)
 
 #define public_in_value(__a)
 #define public_out_value(__a)
