@@ -4,7 +4,7 @@
            mac-then-encrypt/sha256blocks.c mac-then-encrypt/hmac.c mac-then-encrypt/verify_32.c \
            mac-then-encrypt/pad128.c mac-then-encrypt/pad_cbc_aes128.c \
            mac-then-encrypt/mac_then_encrypt.c \
-           ../smack.c mee-cbc.c
+           mee-cbc.c
 */
 
 #include "../ct-verif.h"
