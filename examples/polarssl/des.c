@@ -23,7 +23,7 @@ int mbedtls_des3_ENcrypt_cbc_wrapper(mbedtls_des3_context *ctx,
   declassified_out_object(__SMACK_object(output,16/*length*/));
   public_out_value(__SMACK_return_value());
 
-  return mbedtls_des3_crypt_cbc(ctx,MBEDTLS_DES_ENCRYPT,length,iv,input,output);
+  return mbedtls_des3_crypt_cbc(ctx,MBEDTLS_DES_ENCRYPT,16/*length*/,iv,input,output);
 }
 
 int mbedtls_des3_DEcrypt_cbc_wrap(mbedtls_des3_context *ctx,
@@ -45,5 +45,5 @@ int mbedtls_des3_DEcrypt_cbc_wrap(mbedtls_des3_context *ctx,
   declassified_out_object(__SMACK_object(output,16/*length*/));
   public_out_value(__SMACK_return_value());
 
-  return mbedtls_des3_crypt_cbc(ctx,MBEDTLS_DES_DECRYPT,length,iv,input,output);
+  return mbedtls_des3_crypt_cbc(ctx,MBEDTLS_DES_DECRYPT,16/*length*/,iv,input,output);
 }

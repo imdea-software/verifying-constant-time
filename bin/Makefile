@@ -2,6 +2,7 @@
 EXAMPLE    ?= ../examples/sort/sort.c
 ENTRYPOINT ?= sort3_wrapper
 UNROLL     ?= 3
+MODEL      ?= model.model
 
 # By default, use local tools
 Z3PATH     ?= ../tools/z3
@@ -12,7 +13,7 @@ BAMPATH    ?= ../tools/bam-bam-boogieman
 verify:
 	PATH=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build\
            BOOGIE=$(BOOGIEPATH)/Binaries/Boogie.exe\
-           ./verify.rb -e $(ENTRYPOINT) -u $(UNROLL) $(EXAMPLE)
+           ./verify.rb $(EXAMPLE) -e $(ENTRYPOINT) -u $(UNROLL) -m $(MODEL)
 
 local-update:
 	git submodule update
