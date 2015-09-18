@@ -10,8 +10,6 @@
 void mbedtls_sha256_wrapper( const unsigned char *input, size_t ilen,
            unsigned char output[32], int is224 )
 {
-  mbedtls_sha256_context ctx;
-
   __disjoint_regions(input,ilen,output,32);
 
   /* Boilerplate */
@@ -23,9 +21,9 @@ void mbedtls_sha256_wrapper( const unsigned char *input, size_t ilen,
   public_in_value(__SMACK_value(is224));
   declassified_out_object(__SMACK_object(output,32));
 
-  mbedtls_sha256_init(&ctx);
-  mbedtls_sha256_starts(&ctx,is224);
-  mbedtls_sha256_update(&ctx,input,ilen);
+  //  mbedtls_sha256_init(&ctx);
+  //  mbedtls_sha256_starts(&ctx,is224);
+  //  mbedtls_sha256_update(&ctx,input,ilen);
 
-  //  return mbedtls_sha256(input,ilen,output,is224);
+  mbedtls_sha256(input,ilen,output,is224);
 }
