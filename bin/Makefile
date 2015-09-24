@@ -45,11 +45,11 @@ SMACKOPTS   ?=
 all: verify
 
 ## Generate a .bpl model from a (multi-file) C program through SMACK
-$(BAMIN):
+$(SMACKOUT):
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
 
 ## Generate the product .bpl program using BAM
-$(BAMOUT): $(BAMIN)
+$(BAMOUT): $(SMACKOUT)
 	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
 
 ## Verify the product .bpl program using corral through SMACK
