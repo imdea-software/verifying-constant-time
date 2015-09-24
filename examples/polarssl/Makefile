@@ -1,13 +1,25 @@
-export CPATH=${PWD}/mbedtls/include
-
-verify-des-encrypt:
-	ENTRYPOINT=mbedtls_des3_ENcrypt_cbc_wrapper EXAMPLE='${PWD}/mbedtls/library/des.c ${PWD}/des.c' make -C ../../bin verify
-
-verify-des-decrypt:
-	ENTRYPOINT=mbedtls_des3_DEcrypt_cbc_wrapper EXAMPLE='${PWD}/mbedtls/library/des.c ${PWD}/des.c' make -C ../../bin verify
+export WD        = ${PWD}
+export CPATH     = ${PWD}/mbedtls/include
+export UNROLL    = 3
+export LOOPLIMIT = 64
 
 verify-sha256:
-	ENTRYPOINT=mbedtls_sha256_wrapper EXAMPLE='${PWD}/mbedtls/library/sha256.c ${PWD}/sha256.c' make -C ../../bin verify
+	ENTRYPOINTS="mbedtls_sha256_wrapper"\
+         LIBS="mbedtls/library/sha256.c" EXAMPLE="sha256.c"\
+         make -C ../../bin verify
+
+verify-des-encrypt:
+	ENTRYPOINTS=mbedtls_des3_ENcrypt_cbc_wrapper\
+         LIBS="mbedtls/library/des.c" EXAMPLE="des.c"\
+         make -C ../../bin verify
+
+verify-des-decrypt:
+	ENTRYPOINTS=mbedtls_des3_DEcrypt_cbc_wrapper\
+         LIBS="mbedtls/library/des.c" EXAMPLE="des.c"\
+         make -C ../../bin verify
 
 build-des:
-	clang -DCOMPILE ${PWD}/mbedtls/library/des.c ${PWD}/des.c -o des
+	clang -DCOMPILE mbedtls/library/des.c des.c -o des
+
+build-sha256:
+	clang -DCOMPILE mbedtls/library/sha256.c sha256.c -o sha256

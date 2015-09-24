@@ -1,20 +1,57 @@
 # By default, for testing, we run the sort example
-EXAMPLE    ?= ../examples/sort/sort.c
-ENTRYPOINT ?= sort3_wrapper
-UNROLL     ?= 3
-MODEL      ?= model.model
+WD          ?=../examples/sort
+LIBS        ?=
+EXAMPLE     ?=sort.c
+ENTRYPOINTS ?=sort3_wrapper
+UNROLL      ?=1
+LOOPLIMIT   ?=1
+MODELFILE   ?=$(EXAMPLE:.c:.model)
 
 # By default, use local tools
-Z3PATH     ?= ../tools/z3
-BOOGIEPATH ?= ../tools/boogie
-SMACKPATH  ?= ../tools/smack
-BAMPATH    ?= ../tools/bam-bam-boogieman
+Z3PATH      ?=../tools/z3
+SMACKPATH   ?=../tools/smack
+BAMPATH     ?=../tools/bam-bam-boogieman
+BOOGIEPATH  ?=../tools/boogie
+CORRALPATH  ?=../tools/corral
 
+# Finalizing env. var. init.
+## Binaries and Path
+PATH        :=$(SMACKPATH)/bin:$(SMACKPATH)/build:$(CORRALPATH)/bin:$(PATH)
+export PATH
+
+export BOOGIE      ?=$(BOOGIEPATH)/Binaries/Boogie.exe
+export CORRAL      ?=$(CORRALPATH)/bin/Debug/corral.exe
+
+## Files
+LIBSIN      ?=$(patsubst %,$(WD)/%,$(LIBS))
+SMACKIN     ?=$(WD)/$(EXAMPLE)
+SMACKOUT    ?=$(WD)/$(EXAMPLE:.c=.bpl)
+BAMOUT      ?=$(WD)/$(EXAMPLE:.c=-instrumented.bpl)
+
+## SMACK flags
+SMACKFLAGS  ?=--verifier=corral
+
+### Flags for frontend use (C -> BPL)
+FRONTFLAGS  ?=--entry-points $(ENTRYPOINTS)
+
+### Flags for backend use (BPL -> verification)
+BACKFLAGS   ?=$(FRONTFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
+
+# Main verification target for examples
 verify:
-	PATH=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build\
-           BOOGIE=$(BOOGIEPATH)/Binaries/Boogie.exe\
-           ./verify.rb $(EXAMPLE) -e $(ENTRYPOINT) -u $(UNROLL) -m $(MODEL)
+        ## Generate a .bpl model from a (multi-file) C program through SMACK
+	smack.py $(SMACKFLAGS) $(FRONTFLAGS) -bpl $(SMACKOUT) -t $(LIBSIN) $(SMACKIN)
+        ## Generate the product .bpl program using BAM
+	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
+        ## Verify the product .bpl program using corral through SMACK
+	smack.py $(SMACKFLAGS) $(BACKFLAGS) $(BAMOUT)
 
+# Set up env. vars.
+setup:
+	@echo "export BOOGIE=~/repositories/ct-verif/tools/boogie/Binaries/Boogie.exe"
+	@echo "export CORRAL=~/repositories/ct-verif/tools/corral/bin/Debug/corral.exe"
+
+# Targets for updating, making, installing tools from local submodules
 local-update:
 	git submodule update
 
