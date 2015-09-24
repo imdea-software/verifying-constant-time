@@ -29,7 +29,8 @@ SMACKOUT    ?=$(WD)/$(EXAMPLE:.c=.bpl)
 BAMOUT      ?=$(WD)/$(EXAMPLE:.c=-instrumented.bpl)
 
 ## SMACK flags
-SMACKFLAGS  ?=--verifier=corral --entry-points $(ENTRYPOINTS)
+### Common flags
+SMACKFLAGS  ?=$(SMACKOPTS) --verifier=corral --entry-points $(ENTRYPOINTS)
 
 ### Flags for frontend use (C -> BPL)
 FRONTFLAGS  ?=-t $(SMACKFLAGS)
@@ -37,14 +38,24 @@ FRONTFLAGS  ?=-t $(SMACKFLAGS)
 ### Flags for backend use (BPL -> verification)
 BACKFLAGS   ?=$(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
 
+## Additional flags
+SMACKOPTS   ?=
+
 # Main verification target for examples
-verify:
-        ## Generate a .bpl model from a (multi-file) C program through SMACK
-	smack.py -t $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
-        ## Generate the product .bpl program using BAM
+all: verify
+
+## Generate a .bpl model from a (multi-file) C program through SMACK
+$(BAMIN):
+	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
+
+## Generate the product .bpl program using BAM
+$(BAMOUT): $(BAMIN)
 	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
-        ## Verify the product .bpl program using corral through SMACK
+
+## Verify the product .bpl program using corral through SMACK
+verify: $(BAMOUT)
 	smack.py $(BACKFLAGS) $(BAMOUT)
+
 
 # Set up env. vars. (source the result)
 setup:
