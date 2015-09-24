@@ -9,3 +9,6 @@ verify-negative:
 
 verify-multiplex:
 	EXAMPLE=sort_multiplex.c make -C ../../bin verify
+
+clean:
+	rm *.bpl

@@ -29,24 +29,24 @@ SMACKOUT    ?=$(WD)/$(EXAMPLE:.c=.bpl)
 BAMOUT      ?=$(WD)/$(EXAMPLE:.c=-instrumented.bpl)
 
 ## SMACK flags
-SMACKFLAGS  ?=--verifier=corral
+SMACKFLAGS  ?=--verifier=corral --entry-points $(ENTRYPOINTS)
 
 ### Flags for frontend use (C -> BPL)
-FRONTFLAGS  ?=--entry-points $(ENTRYPOINTS)
+FRONTFLAGS  ?=-t $(SMACKFLAGS)
 
 ### Flags for backend use (BPL -> verification)
-BACKFLAGS   ?=$(FRONTFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
+BACKFLAGS   ?=$(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
 
 # Main verification target for examples
 verify:
         ## Generate a .bpl model from a (multi-file) C program through SMACK
-	smack.py $(SMACKFLAGS) $(FRONTFLAGS) -bpl $(SMACKOUT) -t $(LIBSIN) $(SMACKIN)
+	smack.py -t $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
         ## Generate the product .bpl program using BAM
 	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
         ## Verify the product .bpl program using corral through SMACK
-	smack.py $(SMACKFLAGS) $(BACKFLAGS) $(BAMOUT)
+	smack.py $(BACKFLAGS) $(BAMOUT)
 
-# Set up env. vars.
+# Set up env. vars. (source the result)
 setup:
 	@echo "export BOOGIE=~/repositories/ct-verif/tools/boogie/Binaries/Boogie.exe"
 	@echo "export CORRAL=~/repositories/ct-verif/tools/corral/bin/Debug/corral.exe"
