@@ -46,14 +46,17 @@ all: verify
 
 ## Generate a .bpl model from a (multi-file) C program through SMACK
 $(SMACKOUT):
+	@echo "Generating BPL model"
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
 
 ## Generate the product .bpl program using BAM
 $(BAMOUT): $(SMACKOUT)
+	@echo "Generating product program"
 	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
 
 ## Verify the product .bpl program using corral through SMACK
 verify: $(BAMOUT)
+	@echo "Verifying product program for constant-time violations"
 	smack.py $(BACKFLAGS) $(BAMOUT)
 
 

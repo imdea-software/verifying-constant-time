@@ -1,12 +1,15 @@
-export WD        = ${PWD}
-export CPATH     = ${PWD}/mbedtls/include
-export UNROLL    = 3
-export LOOPLIMIT = 64
+export WD        ?= ${PWD}
+export CPATH     ?= ${PWD}/mbedtls/include
+export UNROLL    ?= 3
+export LOOPLIMIT ?= 64
 
-verify-sha256:
+sha256:
+	@make sha256-all
+
+sha256-%:
 	ENTRYPOINTS="mbedtls_sha256_wrapper"\
          LIBS="mbedtls/library/sha256.c" EXAMPLE="sha256.c"\
-         make -C ../../bin verify
+         make -C ../../bin $<
 
 verify-des-encrypt:
 	ENTRYPOINTS=mbedtls_des3_ENcrypt_cbc_wrapper\
