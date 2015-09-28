@@ -14,6 +14,8 @@ BAMPATH     ?=../tools/bam-bam-boogieman
 BOOGIEPATH  ?=../tools/boogie
 CORRALPATH  ?=../tools/corral
 
+VERIFIER    ?= corral
+
 # Finalizing env. var. init.
 ## Binaries and Path
 PATH        :=$(SMACKPATH)/bin:$(SMACKPATH)/build:$(CORRALPATH)/bin:$(PATH)
@@ -30,7 +32,7 @@ BAMOUT      ?=$(WD)/$(EXAMPLE:.c=-instrumented.bpl)
 
 ## SMACK flags
 ### Common flags
-SMACKFLAGS  ?=$(SMACKOPTS) --verifier=corral --entry-points $(ENTRYPOINTS)
+SMACKFLAGS  ?=$(SMACKOPTS) --verifier=$(VERIFIER) --entry-points $(ENTRYPOINTS)
 
 ### Flags for frontend use (C -> BPL)
 FRONTFLAGS  ?=-t $(SMACKFLAGS)
@@ -45,18 +47,18 @@ SMACKOPTS   ?=
 all: verify
 
 ## Generate a .bpl model from a (multi-file) C program through SMACK
-$(SMACKOUT):
-	@echo "Generating BPL model"
+$(SMACKOUT): $(SMACKIN)
+	@/bin/echo -en "\e[1;91mGenerating BPL model\e[0m\n"
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
 
 ## Generate the product .bpl program using BAM
 $(BAMOUT): $(SMACKOUT)
-	@echo "Generating product program"
-	bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
+	@/bin/echo -en "\e[1;91mGenerating product program\e[0m\n"
+	ruby -I$(BAMPATH)/lib $(BAMPATH)/bin/bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
 
 ## Verify the product .bpl program using corral through SMACK
 verify: $(BAMOUT)
-	@echo "Verifying product program for constant-time violations"
+	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations\e[0m\n"
 	smack.py $(BACKFLAGS) $(BAMOUT)
 
 
@@ -65,7 +67,7 @@ setup:
 	@echo "export BOOGIE=~/repositories/ct-verif/tools/boogie/Binaries/Boogie.exe"
 	@echo "export CORRAL=~/repositories/ct-verif/tools/corral/bin/Debug/corral.exe"
 
-# Targets for updating, making, installing tools from local submodules
+# Targets for updating and making local tools in local submodules
 local-update:
 	git submodule update
 
@@ -90,24 +92,6 @@ local-smack:
 clean-local-smack:
 	rm -rf $(SMACKPATH)/build
 
-local-bam:
-	cd $(BAMPATH) && gem build bam-bam-boogieman.gemspec
+local-tools: local-z3 local-boogie local-smack
 
-clean-local-bam:
-	rm $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
-
-install-bam:
-	sudo gem install $(BAMPATH)/bam-bam-boogieman-1.0.pre.*
-
-uninstall-bam:
-	sudo gem uninstall bam-bam-boogieman
-
-local-tools: local-z3 local-boogie local-smack local-bam
-
-clean-local-tools: clean-local-bam clean-local-smack clean-local-boogie clean-local-z3
-
-remake-bam:
-	make uninstall-bam
-	make clean-local-bam
-	make local-bam
-	make install-bam
+clean-local-tools: clean-local-smack clean-local-boogie clean-local-z3
