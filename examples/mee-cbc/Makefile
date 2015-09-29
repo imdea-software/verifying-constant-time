@@ -9,5 +9,8 @@ export ENTRYPOINTS ?= dv_wrapper
 export UNROLL      ?= 20
 export CPATH       += ${PWD}/mac-then-encrypt
 
-verify:
+mee-cbc:
 	make -C ../../bin verify
+
+mee-cbc-%:
+	make -C ../../bin $*

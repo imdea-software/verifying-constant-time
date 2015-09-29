@@ -1,4 +1,4 @@
-#include "../smack.h"
+#include "../ct-verif.h"
 
 #include "sodium.h"
 
@@ -21,15 +21,15 @@ int crypto_auth_pub(unsigned char *out, const unsigned char *in,
                     unsigned long long inlen, const unsigned char *k)
 {
   /* Argument addresses are public for now */
-  public_in(region_of_var(out));
-  public_in(region_of_var(in));
-  public_in(region_of_var(k));
+  public_in_value(__SMACK_value(out));
+  public_in_value(__SMACK_value(in));
+  public_in_value(__SMACK_value(k));
 
   /* Annotations */
-  public_in(region_of_var(inlen));
-  public_in(mem_region(in,inlen));
+  public_in_value(__SMACK_value(inlen));
+  public_in_object(__SMACK_object(in,inlen));
 
-  declassified_out(mem_region(out,crypto_auth_BYTES));
+  declassified_out_object(__SMACK_object(out,crypto_auth_BYTES));
 
   return crypto_auth(out,in,inlen,k);
 }
@@ -38,10 +38,10 @@ int crypto_auth_sec(unsigned char *out, const unsigned char *in,
                     unsigned long long inlen, const unsigned char *k)
 {
   /* Argument addresses are public for now */
-  public_in(region_of_var(out));
-  public_in(region_of_var(in));
-  public_in(region_of_var(inlen));
-  public_in(region_of_var(k));
+  public_in_value(__SMACK_value(out));
+  public_in_value(__SMACK_value(in));
+  public_in_value(__SMACK_value(inlen));
+  public_in_value(__SMACK_value(k));
 
   /* Annotations: everything is private */
   /* Ideally, we would be able to provide a single set of annotations

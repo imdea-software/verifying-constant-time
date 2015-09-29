@@ -1,4 +1,4 @@
-#include "../smack.h"
+#include "../ct-verif.h"
 
 #include "sodium.h"
 
@@ -31,22 +31,22 @@ int crypto_aead_chacha20poly1305_encrypt_wrapper(unsigned char *c,
                                          const unsigned char *k)
 {
   /* Boilerplate */
-  public_in(region_of_var(c));
-  public_in(region_of_var(clen_p));
-  public_in(region_of_var(m));
-  public_in(region_of_var(ad));
-  public_in(region_of_var(nsec));
-  public_in(region_of_var(npub));
-  public_in(region_of_var(k));
+  public_in_value(__SMACK_value(c));
+  public_in_value(__SMACK_value(clen_p));
+  public_in_value(__SMACK_value(m));
+  public_in_value(__SMACK_value(ad));
+  public_in_value(__SMACK_value(nsec));
+  public_in_value(__SMACK_value(npub));
+  public_in_value(__SMACK_value(k));
 
   /* Real annotations */
-  public_in(region_of_var(mlen));
-  public_in(region_of_var(adlen));
-  public_in(mem_region(ad,adlen));
-  public_in(mem_region(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
+  public_in_value(__SMACK_value(mlen));
+  public_in_value(__SMACK_value(adlen));
+  public_in_object(__SMACK_object(ad,adlen));
+  public_in_object(__SMACK_object(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
-  declassified_out(mem_region(c,*clen_p));
-  declassified_out(region_of_ret());
+  declassified_out_object(__SMACK_object(c,*clen_p));
+  declassified_out_value(__SMACK_return_value());
 
   return  crypto_aead_chacha20poly1305_encrypt(c,clen_p,
                                                m,mlen,
@@ -65,23 +65,23 @@ int crypto_aead_chacha20poly1305_decrypt_wrapper(unsigned char *m,
                                          const unsigned char *k)
 {
   /* Addresses of arguments are public for now */
-  public_in(region_of_var(m));
-  public_in(region_of_var(mlen_p));
-  public_in(region_of_var(nsec));
-  public_in(region_of_var(c));
-  public_in(region_of_var(clen));
-  public_in(region_of_var(ad));
-  public_in(region_of_var(adlen));
-  public_in(region_of_var(npub));
-  public_in(region_of_var(k));
+  public_in_value(__SMACK_value(m));
+  public_in_value(__SMACK_value(mlen_p));
+  public_in_value(__SMACK_value(nsec));
+  public_in_value(__SMACK_value(c));
+  public_in_value(__SMACK_value(clen));
+  public_in_value(__SMACK_value(ad));
+  public_in_value(__SMACK_value(adlen));
+  public_in_value(__SMACK_value(npub));
+  public_in_value(__SMACK_value(k));
 
   /* More useful annotations */
-  public_in(mem_region(c,clen));
-  public_in(mem_region(ad,adlen));
-  public_in(mem_region(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
+  public_in_object(__SMACK_object(c,clen));
+  public_in_object(__SMACK_object(ad,adlen));
+  public_in_object(__SMACK_object(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
-  declassified_out(mem_region(m,*mlen_p));
-  declassified_out(region_of_ret());
+  declassified_out_object(__SMACK_object(m,*mlen_p));
+  declassified_out_value(__SMACK_return_value());
 
   return  crypto_aead_chacha20poly1305_decrypt(m,mlen_p,
                                                nsec,

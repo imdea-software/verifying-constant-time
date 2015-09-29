@@ -47,20 +47,29 @@ SMACKOPTS   ?=
 all: verify
 
 ## Generate a .bpl model from a (multi-file) C program through SMACK
-$(SMACKOUT): $(SMACKIN)
+$(SMACKOUT): $(LIBSIN) $(SMACKIN)
 	@/bin/echo -en "\e[1;91mGenerating BPL model\e[0m\n"
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
+
+smackout: $(SMACKOUT)
 
 ## Generate the product .bpl program using BAM
 $(BAMOUT): $(SMACKOUT)
 	@/bin/echo -en "\e[1;91mGenerating product program\e[0m\n"
-	ruby -I$(BAMPATH)/lib $(BAMPATH)/bin/bam --shadowing --modifies-correction $(SMACKOUT) -o $(BAMOUT)
+	ruby -I$(BAMPATH)/lib $(BAMPATH)/bin/bam --shadowing $(SMACKOUT) -o $(BAMOUT)
+
+bamout: $(BAMOUT)
 
 ## Verify the product .bpl program using corral through SMACK
 verify: $(BAMOUT)
 	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations\e[0m\n"
 	smack.py $(BACKFLAGS) $(BAMOUT)
 
+## Verify the product .bpl program using BAM and without unrolling loops
+verify-no-unroll: $(BAMOUT)
+	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations (no unrolling)\e[0m\n"
+	@/bin/echo "This is likely to only work on .bpl files generated with VERIFIER=boogie."
+	$(BOOGIE) /nologo /errorLimit:5 /doModSetAnalysis $(BAMOUT)
 
 # Set up env. vars. (source the result)
 setup:
