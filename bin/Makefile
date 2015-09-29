@@ -6,6 +6,7 @@ ENTRYPOINTS ?=sort3_wrapper
 UNROLL      ?=1
 LOOPLIMIT   ?=1
 MODELFILE   ?=$(EXAMPLE:.c:.model)
+SUFFIX      ?=''
 
 # By default, use local tools
 Z3PATH      ?=../tools/z3
@@ -27,8 +28,8 @@ export CORRAL      ?=$(CORRALPATH)/bin/Debug/corral.exe
 ## Files
 LIBSIN      ?=$(patsubst %,$(WD)/%,$(LIBS))
 SMACKIN     ?=$(WD)/$(EXAMPLE)
-SMACKOUT    ?=$(WD)/$(EXAMPLE:.c=.bpl)
-BAMOUT      ?=$(WD)/$(EXAMPLE:.c=-instrumented.bpl)
+SMACKOUT    ?=$(WD)/$(EXAMPLE:.c=$(SUFFIX).bpl)
+BAMOUT      ?=$(WD)/$(EXAMPLE:.c=$(SUFFIX)-instrumented.bpl)
 
 ## SMACK flags
 ### Common flags

@@ -15,7 +15,8 @@ des-encrypt:
 	@make des-encrypt-verify
 
 des-encrypt-%:
-	ENTRYPOINTS=mbedtls_des3_ENcrypt_cbc_wrapper\
+	SUFFIX=_encrypt\
+         ENTRYPOINTS=mbedtls_des3_ENcrypt_cbc_wrapper\
          LIBS="mbedtls/library/des.c" EXAMPLE="des.c"\
          make -C ../../bin $*
 
@@ -23,7 +24,8 @@ des-decrypt:
 	@make des-decrypt-verify
 
 des-decrypt-%:
-	ENTRYPOINTS=mbedtls_des3_DEcrypt_cbc_wrapper\
+	SUFFIX=_decrypt\
+         ENTRYPOINTS=mbedtls_des3_DEcrypt_cbc_wrapper\
          LIBS="mbedtls/library/des.c" EXAMPLE="des.c"\
          make -C ../../bin $*
 
