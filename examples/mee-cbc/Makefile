@@ -7,6 +7,7 @@ export LIBS      ?= mac-then-encrypt/aes128.c mac-then-encrypt/aes128cbc.c \
 export EXAMPLE     ?= mee-cbc.c
 export ENTRYPOINTS ?= dv_wrapper
 export UNROLL      ?= 20
+export LOOPLIMIT   ?= 20
 export CPATH       += ${PWD}/mac-then-encrypt
 
 mee-cbc:

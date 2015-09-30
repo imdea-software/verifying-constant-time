@@ -1,11 +1,13 @@
-export EXAMPLE    = ${PWD}/tea.c
-export UNROLL     = 32
+export WD         = ${PWD}
+export EXAMPLE    = tea.c
+export UNROLL     = 33
+export LOOPLIMIT  = 33
 
 verify-encrypt:
-	ENTRYPOINT=encrypt_wrapper make -C ../../bin verify
+	ENTRYPOINTS=encrypt_wrapper make -C ../../bin verify
 
 verify-decrypt-cpa:
-	ENTRYPOINT=decrypt_cpa_wrapper make -C ../../bin verify
+	ENTRYPOINTS=decrypt_cpa_wrapper make -C ../../bin verify
 
 verify-decrypt-cca:
-	ENTRYPOINT=decrypt_cca_wrapper make -C ../../bin verify
+	ENTRYPOINTS=decrypt_cca_wrapper make -C ../../bin verify
