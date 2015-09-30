@@ -6,7 +6,7 @@ ENTRYPOINTS ?=sort3_wrapper
 UNROLL      ?=1
 LOOPLIMIT   ?=1
 MODELFILE   ?=$(EXAMPLE:.c:.model)
-SUFFIX      ?=''
+SUFFIX      ?=
 
 # By default, use local tools
 Z3PATH      ?=../tools/z3
