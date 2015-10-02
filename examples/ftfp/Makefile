@@ -1,7 +1,7 @@
 export WD          ?= ${PWD}
 LIBDIR              = libfixedtimefixedpoint
 export CPATH       ?= $(WD)/$(LIBDIR)
-export LIBS        ?= $(patsubst %,$(LIBDIR)/%,autogen.c cordic.c debug.c internal.c)
+export LIBS        ?= $(patsubst %,$(LIBDIR)/%,autogen.c cordic.c debug.c internal.c power.c)
 export EXAMPLE     ?= $(LIBDIR)/ftfp.c
 export UNROLL      ?= 64
 export LOOPLIMIT   ?= 64
