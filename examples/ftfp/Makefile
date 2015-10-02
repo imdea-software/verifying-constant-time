@@ -11,11 +11,10 @@ fix_is_neg fix_is_nan fix_is_inf_pos fix_is_inf_neg\
 fix_eq fix_eq_nan fix_ne fix_cmp fix_le fix_ge fix_lt fix_gt\
 fix_neg fix_abs fix_add fix_sub fix_mul fix_div fix_floor fix_ceil\
 fix_exp fix_ln fix_log2 fix_log10 fix_sqrt fix_pow\
-fix_sin fix_cos fix_tan\
 fix_convert_from_double fix_convert_to_double fix_convert_from_int64\
 fix_convert_to_int64 fix_round_up_int64 fix_ceil64 fix_floor64\
-fix_sprint fix_sprint_nospecial\
-fix_print fix_println
+# fix_sprint fix_sprint_nospecial fix_print fix_println\ # useful?
+#fix_sin fix_cos fix_tan\ # timing out -- cordic may need to be modularized
 
 doall  =\
 SUCCESS=;FAILURE=;\
