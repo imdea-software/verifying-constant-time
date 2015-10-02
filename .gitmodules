@@ -21,3 +21,9 @@
 	path = tools/bam-bam-boogieman
 	url = https://github.com/michael-emmi/bam-bam-boogieman
 	branch = develop
+[submodule "examples/ftfp/libfixedtimefixedpoint"]
+	path = examples/ftfp/libfixedtimefixedpoint
+	url = https://github.com/kmowery/libfixedtimefixedpoint.git
+[submodule "examples/rlwe/rlwekex"]
+	path = examples/rlwe/rlwekex
+	url = https://github.com/dstebila/rlwekex.git
