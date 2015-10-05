@@ -1192,7 +1192,12 @@ $bb0:
   $exn := false;
   return;
 }
-procedure {:inline 2} cordic(Zext: ref, Zext.shadow: ref, Cext: ref, Cext.shadow: ref, Sext: ref, Sext.shadow: ref)
+procedure cordic(Zext: ref, Zext.shadow: ref, Cext: ref, Cext.shadow: ref, Sext: ref, Sext.shadow: ref)
+requires {:manual} ($shadow_ok);
+requires {:manual} (Zext == Zext.shadow);
+requires {:manual} (Cext == Cext.shadow);
+requires {:manual} (Sext == Sext.shadow);
+ensures  {:manual} ($shadow_ok);
 {
   var $i10: i64;
   var $i10.shadow: i64;
@@ -1855,6 +1860,8 @@ $bb0:
   $i9.shadow, $i10.shadow, $i11.shadow, $i12.shadow, $i13.shadow, $i14.shadow := $i4.shadow, $i3.shadow, $i2.shadow, $i8.shadow, 0, 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i14 == $i14.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/cordic.h", 34, 7} true;
   $i15 := $slt.i32($i14,32);
   $i15.shadow := $slt.i32($i14.shadow,32);
@@ -4144,6 +4151,8 @@ $bb0:
   $i52.shadow, $i53.shadow, $i54.shadow, $i55.shadow := $i51.shadow, $sub.i64(0,3958705157555305931), 0, 63;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i55 == $i55.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/internal.h", 516, 7} true;
   $i56 := $sge.i32($i55,0);
   $i56.shadow := $sge.i32($i55.shadow,0);
@@ -5788,6 +5797,8 @@ $bb0:
   $i83.shadow, $i84.shadow, $i85.shadow, $i86.shadow := $i82.shadow, $i64.shadow, 0, 63;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i86 == $i86.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/internal.h", 576, 7} true;
   $i87 := $sge.i32($i86,0);
   $i87.shadow := $sge.i32($i86.shadow,0);
