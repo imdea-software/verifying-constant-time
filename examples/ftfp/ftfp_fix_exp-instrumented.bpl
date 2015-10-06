@@ -10057,6 +10057,8 @@ $bb0:
   $i108.shadow, $i109.shadow, $i110.shadow, $i111.shadow := 1152921504606846976, 1152921504606846976, 0, 1;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i111 == $i111.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/power.c", 97, 7} true;
   $i112 := $slt.i32($i111,26);
   $i112.shadow := $slt.i32($i111.shadow,26);
@@ -11025,6 +11027,8 @@ $bb3:
   $i406.shadow, $i407.shadow, $i408.shadow, $i409.shadow := $i107.shadow, $i403.shadow, $i405.shadow, 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i409 == $i409.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/power.c", 207, 7} true;
   $i410 := $slt.i32($i409,5);
   $i410.shadow := $slt.i32($i409.shadow,5);

@@ -6854,6 +6854,8 @@ $bb0:
   $i83.shadow, $i84.shadow, $i85.shadow, $i86.shadow := $i82.shadow, $i64.shadow, 0, 63;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i86 == $i86.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/internal.h", 576, 7} true;
   $i87 := $sge.i32($i86,0);
   $i87.shadow := $sge.i32($i86.shadow,0);
@@ -45794,6 +45796,8 @@ $bb0:
   $i40.shadow, $i41.shadow := $i39.shadow, 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i41 == $i41.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/ftfp/libfixedtimefixedpoint/power.c", 527, 7} true;
   $i42 := $slt.i32($i41,22);
   $i42.shadow := $slt.i32($i41.shadow,22);
