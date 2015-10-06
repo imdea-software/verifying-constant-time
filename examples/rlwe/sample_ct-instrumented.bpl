@@ -947,6 +947,8 @@ $bb0:
   $i0.shadow, $i1.shadow, $i2.shadow := 0, 0, 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i2 == $i2.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/rlwe/rlwekex/rlwe.c", 115, 8} true;
   $i3 := $slt.i32($i2,3);
   $i3.shadow := $slt.i32($i2.shadow,3);
@@ -4567,6 +4569,8 @@ $bb0:
   $i1.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i1 == $i1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/rlwe/rlwekex/rlwe.c", 147, 8} true;
   $i2 := $slt.i32($i1,16);
   $i2.shadow := $slt.i32($i1.shadow,16);
@@ -4591,6 +4595,8 @@ $bb3:
   $exn.shadow := false;
   return;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i4 == $i4.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/rlwe/rlwekex/rlwe.c", 149, 10} true;
   $i6 := $slt.i32($i4,64);
   $i6.shadow := $slt.i32($i4.shadow,64);
@@ -4937,6 +4943,8 @@ $bb0:
   $i0.shadow, $i1.shadow := 0, 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i1 == $i1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/rlwe/rlwekex/rlwe.c", 139, 8} true;
   $i2 := $ult.i32($i1,52);
   $i2.shadow := $ult.i32($i1.shadow,52);
