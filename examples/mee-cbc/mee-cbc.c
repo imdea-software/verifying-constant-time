@@ -25,11 +25,12 @@ int dv_wrapper(unsigned char *out,unsigned long *out_len, const unsigned char *i
   public_in_value(__SMACK_value(mac_sk));
 
   /* Useful */
+  public_in_value(__SMACK_value(in_len));
   public_in_object(__SMACK_object(in,32));
   public_in_object(__SMACK_object(iv,INPUTBYTES));
 
-  declassified_out_object(__SMACK_object(out,32));
-  declassified_out_object(__SMACK_object(out_len, sizeof(*out_len)));
+  //declassified_out_object(__SMACK_object(out,32));
+  //declassified_out_object(__SMACK_object(out_len, sizeof(*out_len)));
   //declassified_out_object(__SMACK_return_object(1));
 
   return decrypt_then_verify(out,out_len,in,in_len,iv,enc_sk,mac_sk);
