@@ -860,6 +860,8 @@ $bb0:
   $i3.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i3 == $i3.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 62, 8} true;
   $i4 := $slt.i32($i3,8);
   $i4.shadow := $slt.i32($i3.shadow,8);
@@ -1493,6 +1495,8 @@ $bb3:
   $i183.shadow, $i184.shadow := 0, 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i183 == $i183.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 72, 8} true;
   $i185 := $slt.i32($i183,8);
   $i185.shadow := $slt.i32($i183.shadow,8);
@@ -2561,7 +2565,13 @@ $bb36:
   $exn.shadow := false;
   return;
 }
-procedure {:inline 2} crypto_auth_ct(out: ref, out.shadow: ref, in: ref, in.shadow: ref, publen: i32, publen.shadow: i32, inlen: i32, inlen.shadow: i32, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure crypto_auth_ct(out: ref, out.shadow: ref, in: ref, in.shadow: ref, publen: i32, publen.shadow: i32, inlen: i32, inlen.shadow: i32, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+requires {:manual} ($shadow_ok);
+requires {:manual} (out == out.shadow);
+requires {:manual} (in == in.shadow);
+requires {:manual} (k == k.shadow);
+requires {:manual} {:inferred} (publen == publen.shadow);
+ensures  {:manual} ($shadow_ok);
 {
   var $i10: i32;
   var $i10.shadow: i32;
@@ -3190,6 +3200,8 @@ $bb0:
   $i20.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i20 == $i20.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 98, 8} true;
   $i21 := $slt.i32($i20,32);
   $i21.shadow := $slt.i32($i20.shadow,32);
@@ -3229,6 +3241,8 @@ $bb3:
   $i26.shadow := 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i26 == $i26.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 103, 8} true;
   $i27 := $slt.i32($i26,32);
   $i27.shadow := $slt.i32($i26.shadow,32);
@@ -3276,6 +3290,8 @@ $bb6:
   assume !($i27 == 1);
   goto $bb7;
 $bb7:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i28 == $i28.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 106, 3} true;
   $i36 := $slt.i32($i28,64);
   $i36.shadow := $slt.i32($i28.shadow,64);
@@ -3331,6 +3347,8 @@ $bb9:
   $i47.shadow := 0;
   goto $bb10;
 $bb10:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i47 == $i47.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 119, 8} true;
   $i48 := $slt.i32($i47,32);
   $i48.shadow := $slt.i32($i47.shadow,32);
@@ -3376,6 +3394,9 @@ $bb12:
   $i55.shadow, $p56.shadow := $i5.shadow, $p46.shadow;
   goto $bb13;
 $bb13:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i55 == $i55.shadow);
+  assert {:manual} {:inferred} ($p56 == $p56.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 123, 8} true;
   $i57 := $add.i32($i5,2);
   $i57.shadow := $add.i32($i5.shadow,2);
@@ -3451,6 +3472,8 @@ $bb15:
   $i239.shadow := 0;
   goto $bb46;
 $bb16:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i75 == $i75.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 128, 10} true;
   $i76 := $slt.i32($i75,64);
   $i76.shadow := $slt.i32($i75.shadow,64);
@@ -4049,6 +4072,8 @@ $bb42:
   $i75.shadow := $i220.shadow;
   goto $bb16;
 $bb43:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i225 == $i225.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 168, 10} true;
   $i226 := $slt.i32($i225,32);
   $i226.shadow := $slt.i32($i225.shadow,32);
@@ -4113,6 +4138,8 @@ $bb45:
   $i55.shadow, $p56.shadow := $i238.shadow, $p221.shadow;
   goto $bb13;
 $bb46:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i239 == $i239.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 175, 8} true;
   $i240 := $slt.i32($i239,32);
   $i240.shadow := $slt.i32($i239.shadow,32);
@@ -4160,6 +4187,8 @@ $bb48:
   assume !($i240 == 1);
   goto $bb49;
 $bb49:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i241 == $i241.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 178, 3} true;
   $i249 := $slt.i32($i241,64);
   $i249.shadow := $slt.i32($i241.shadow,64);
@@ -4192,6 +4221,8 @@ $bb51:
   $i252.shadow := 0;
   goto $bb52;
 $bb52:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i252 == $i252.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 181, 8} true;
   $i253 := $slt.i32($i252,32);
   $i253.shadow := $slt.i32($i252.shadow,32);
@@ -4236,6 +4267,8 @@ $bb54:
   $i260.shadow := 0;
   goto $bb55;
 $bb55:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i260 == $i260.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 185, 8} true;
   $i261 := $slt.i32($i260,32);
   $i261.shadow := $slt.i32($i260.shadow,32);
@@ -4274,6 +4307,8 @@ $bb57:
   assume !($i261 == 1);
   goto $bb58;
 $bb58:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i262 == $i262.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 188, 3} true;
   $i267 := $slt.i32($i262,64);
   $i267.shadow := $slt.i32($i262.shadow,64);
@@ -4327,6 +4362,11 @@ $bb60:
   return;
 }
 procedure {:inline 2} crypto_auth_verify(in: ref, in.shadow: ref, publen: i32, publen.shadow: i32, inlen: i32, inlen.shadow: i32, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+requires {:debug} ($shadow_ok);
+requires {:debug} (in == in.shadow);
+requires {:debug} (k == k.shadow);
+requires {:debug} {:inferred} (publen == publen.shadow);
+ensures  {:debug} ($shadow_ok);
 {
   var $i10: i1;
   var $i10.shadow: i1;
@@ -4589,6 +4629,8 @@ $bb3:
   $i9.shadow := 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i9 == $i9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 221, 8} true;
   $i10 := $slt.i32($i9,32);
   $i10.shadow := $slt.i32($i9.shadow,32);
@@ -4621,6 +4663,8 @@ $bb6:
   $i13.shadow := $i4.shadow;
   goto $bb7;
 $bb7:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i13 == $i13.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 226, 8} true;
   $i14 := $ult.i32($i13,publen);
   $i14.shadow := $ult.i32($i13.shadow,publen.shadow);
@@ -4643,6 +4687,8 @@ $bb9:
   $i60.shadow := 0;
   goto $bb16;
 $bb10:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i15 == $i15.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 227, 10} true;
   $i16 := $slt.i32($i15,32);
   $i16.shadow := $slt.i32($i15.shadow,32);
@@ -4818,6 +4864,8 @@ $bb15:
   $i15.shadow := $i58.shadow;
   goto $bb10;
 $bb16:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i60 == $i60.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 239, 8} true;
   $i61 := $slt.i32($i60,32);
   $i61.shadow := $slt.i32($i60.shadow,32);
@@ -4850,6 +4898,8 @@ $bb18:
   $i64.shadow := 0;
   goto $bb19;
 $bb19:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i64 == $i64.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 242, 8} true;
   $i65 := $slt.i32($i64,32);
   $i65.shadow := $slt.i32($i64.shadow,32);
@@ -4905,6 +4955,8 @@ $bb21:
   $exn.shadow := false;
   return;
 $bb22:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i71 == $i71.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 244, 10} true;
   $i72 := $slt.i32($i71,32);
   $i72.shadow := $slt.i32($i71.shadow,32);
@@ -4999,7 +5051,12 @@ $bb24:
   $i64.shadow := $i94.shadow;
   goto $bb19;
 }
-procedure {:inline 2} crypto_block_decrypt(out: ref, out.shadow: ref, in: ref, in.shadow: ref, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure crypto_block_decrypt(out: ref, out.shadow: ref, in: ref, in.shadow: ref, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+requires {:manual} ($shadow_ok);
+requires {:manual} (out == out.shadow);
+requires {:manual} (in == in.shadow);
+requires {:manual} (k == k.shadow);
+ensures  {:manual} ($shadow_ok);
 {
   var $i102: i8;
   var $i102.shadow: i8;
@@ -5506,6 +5563,8 @@ $bb0:
   $i4.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i4 == $i4.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 182, 8} true;
   $i5 := $slt.i32($i4,4);
   $i5.shadow := $slt.i32($i4.shadow,4);
@@ -5529,6 +5588,8 @@ $bb3:
   $i16.shadow, $i17.shadow := 1, 4;
   goto $bb7;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i6 == $i6.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 183, 10} true;
   $i7 := $slt.i32($i6,4);
   $i7.shadow := $slt.i32($i6.shadow,4);
@@ -5579,6 +5640,8 @@ $bb6:
   $i4.shadow := $i15.shadow;
   goto $bb1;
 $bb7:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i17 == $i17.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 187, 8} true;
   $i18 := $slt.i32($i17,44);
   $i18.shadow := $slt.i32($i17.shadow,44);
@@ -5614,6 +5677,8 @@ $bb10:
   assume ($i20 == 1);
   goto $bb11;
 $bb11:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i21 == $i21.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 190, 12} true;
   $i23 := $slt.i32($i21,4);
   $i23.shadow := $slt.i32($i21.shadow,4);
@@ -5628,6 +5693,8 @@ $bb12:
   assume !($i20 == 1);
   goto $bb13;
 $bb13:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i22 == $i22.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 192, 12} true;
   $i31 := $slt.i32($i22,4);
   $i31.shadow := $slt.i32($i22.shadow,4);
@@ -5743,6 +5810,8 @@ $bb18:
   $i24.shadow := $i47.shadow;
   goto $bb16;
 $bb19:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i48 == $i48.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 196, 10} true;
   $i49 := $slt.i32($i48,4);
   $i49.shadow := $slt.i32($i48.shadow,4);
@@ -5811,6 +5880,8 @@ $bb21:
   $i16.shadow, $i17.shadow := $i24.shadow, $i63.shadow;
   goto $bb7;
 $bb22:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i64 == $i64.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 200, 8} true;
   $i65 := $slt.i32($i64,4);
   $i65.shadow := $slt.i32($i64.shadow,4);
@@ -5833,6 +5904,8 @@ $bb24:
   $i76.shadow := 9;
   goto $bb28;
 $bb25:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i66 == $i66.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 201, 10} true;
   $i67 := $slt.i32($i66,4);
   $i67.shadow := $slt.i32($i66.shadow,4);
@@ -5883,6 +5956,8 @@ $bb27:
   $i64.shadow := $i75.shadow;
   goto $bb22;
 $bb28:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i76 == $i76.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 204, 8} true;
   $i77 := $sge.i32($i76,0);
   $i77.shadow := $sge.i32($i76.shadow,0);
@@ -5905,6 +5980,8 @@ $bb30:
   $i212.shadow := 0;
   goto $bb55;
 $bb31:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i78 == $i78.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 205, 10} true;
   $i79 := $slt.i32($i78,4);
   $i79.shadow := $slt.i32($i78.shadow,4);
@@ -5929,6 +6006,8 @@ $bb33:
   $shadow_ok := ($shadow_ok && ($i97 == $i97.shadow));
   goto $bb37, $bb38;
 $bb34:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i80 == $i80.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 206, 12} true;
   $i81 := $slt.i32($i80,4);
   $i81.shadow := $slt.i32($i80.shadow,4);
@@ -6017,6 +6096,8 @@ $bb39:
   $i185.shadow := 0;
   goto $bb43;
 $bb40:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i98 == $i98.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 209, 12} true;
   $i99 := $slt.i32($i98,4);
   $i99.shadow := $slt.i32($i98.shadow,4);
@@ -6291,6 +6372,8 @@ $bb42:
   assume !($i99 == 1);
   goto $bb39;
 $bb43:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i185 == $i185.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 219, 10} true;
   $i186 := $slt.i32($i185,4);
   $i186.shadow := $slt.i32($i185.shadow,4);
@@ -6313,6 +6396,8 @@ $bb45:
   $i199.shadow := 0;
   goto $bb49;
 $bb46:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i187 == $i187.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 220, 12} true;
   $i188 := $slt.i32($i187,4);
   $i188.shadow := $slt.i32($i187.shadow,4);
@@ -6368,6 +6453,8 @@ $bb48:
   $i185.shadow := $i198.shadow;
   goto $bb43;
 $bb49:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i199 == $i199.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 222, 10} true;
   $i200 := $slt.i32($i199,4);
   $i200.shadow := $slt.i32($i199.shadow,4);
@@ -6393,6 +6480,8 @@ $bb51:
   $i76.shadow := $i211.shadow;
   goto $bb28;
 $bb52:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i201 == $i201.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 223, 12} true;
   $i202 := $slt.i32($i201,4);
   $i202.shadow := $slt.i32($i201.shadow,4);
@@ -6441,6 +6530,8 @@ $bb54:
   $i199.shadow := $i210.shadow;
   goto $bb49;
 $bb55:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i212 == $i212.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 227, 8} true;
   $i213 := $slt.i32($i212,4);
   $i213.shadow := $slt.i32($i212.shadow,4);
@@ -6463,6 +6554,8 @@ $bb57:
   $i228.shadow := 0;
   goto $bb61;
 $bb58:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i214 == $i214.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 228, 10} true;
   $i215 := $slt.i32($i214,4);
   $i215.shadow := $slt.i32($i214.shadow,4);
@@ -6525,6 +6618,8 @@ $bb60:
   $i212.shadow := $i227.shadow;
   goto $bb55;
 $bb61:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i228 == $i228.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 231, 8} true;
   $i229 := $slt.i32($i228,4);
   $i229.shadow := $slt.i32($i228.shadow,4);
@@ -6548,6 +6643,8 @@ $bb63:
   $exn.shadow := false;
   return;
 $bb64:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i230 == $i230.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 232, 10} true;
   $i231 := $slt.i32($i230,4);
   $i231.shadow := $slt.i32($i230.shadow,4);
@@ -8063,7 +8160,12 @@ $bb60:
   $i206.shadow := $i217.shadow;
   goto $bb55;
 }
-procedure {:inline 2} crypto_hashblocks(statebytes: ref, statebytes.shadow: ref, in: ref, in.shadow: ref, inlen: i32, inlen.shadow: i32) returns ($r: i32, $r.shadow: i32)
+procedure crypto_hashblocks(statebytes: ref, statebytes.shadow: ref, in: ref, in.shadow: ref, inlen: i32, inlen.shadow: i32) returns ($r: i32, $r.shadow: i32)
+requires {:manual} ($shadow_ok);
+requires {:manual} (statebytes == statebytes.shadow);
+requires {:manual} (in == in.shadow);
+requires {:manual} {:inferred} (inlen == inlen.shadow);
+ensures  {:manual} ($shadow_ok);
 {
   var $i100: i32;
   var $i100.shadow: i32;
@@ -15314,6 +15416,9 @@ $bb0:
   $i25.shadow, $i26.shadow, $i27.shadow, $i28.shadow, $i29.shadow, $i30.shadow, $i31.shadow, $i32.shadow, $p33.shadow, $i34.shadow := $i20.shadow, $i17.shadow, $i14.shadow, $i11.shadow, $i8.shadow, $i5.shadow, $i2.shadow, inlen.shadow, in.shadow, $i23.shadow;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i32 == $i32.shadow);
+  assert {:manual} {:inferred} ($p33 == $p33.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/sha256blocks.c", 86, 3} true;
   $i35 := $uge.i32($i32,64);
   $i35.shadow := $uge.i32($i32.shadow,64);
@@ -26959,6 +27064,8 @@ $bb3:
   $exn.shadow := false;
   return;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i24 == $i24.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/pad128.c", 24, 8} true;
   $i25 := $ult.i32($i24,16);
   $i25.shadow := $ult.i32($i24.shadow,16);
@@ -27225,6 +27332,8 @@ $bb3:
   $exn.shadow := false;
   return;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i5 == $i5.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128cbc.c", 59, 8} true;
   $i6 := $slt.i32($i5,16);
   $i6.shadow := $slt.i32($i5.shadow,16);
@@ -27264,6 +27373,8 @@ $bb6:
   $i11.shadow := 0;
   goto $bb7;
 $bb7:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i11 == $i11.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128cbc.c", 62, 8} true;
   $i12 := $slt.i32($i11,$i4);
   $i12.shadow := $slt.i32($i11.shadow,$i4.shadow);
@@ -27299,6 +27410,8 @@ $bb9:
   $i3.shadow := 1;
   goto $bb3;
 $bb10:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i18 == $i18.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128cbc.c", 66, 10} true;
   $i19 := $slt.i32($i18,16);
   $i19.shadow := $slt.i32($i18.shadow,16);
@@ -27360,6 +27473,8 @@ $bb12:
   $i31.shadow := 0;
   goto $bb13;
 $bb13:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i31 == $i31.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128cbc.c", 69, 10} true;
   $i32 := $slt.i32($i31,16);
   $i32.shadow := $slt.i32($i31.shadow,16);
@@ -29699,6 +29814,8 @@ $bb0:
   $i2.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i2 == $i2.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 83, 8} true;
   $i3 := $slt.i32($i2,8);
   $i3.shadow := $slt.i32($i2.shadow,8);
@@ -30192,6 +30309,8 @@ $bb3:
   $i134.shadow, $i135.shadow := 0, 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i134 == $i134.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 97, 8} true;
   $i136 := $slt.i32($i134,8);
   $i136.shadow := $slt.i32($i134.shadow,8);
@@ -30682,6 +30801,8 @@ $bb0:
   $i3.shadow := 0;
   goto $bb1;
 $bb1:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i3 == $i3.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 14, 8} true;
   $i4 := $slt.i32($i3,8);
   $i4.shadow := $slt.i32($i3.shadow,8);
@@ -30723,6 +30844,8 @@ $bb3:
   $i10.shadow := 0;
   goto $bb4;
 $bb4:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i10 == $i10.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 15, 8} true;
   $i11 := $slt.i32($i10,8);
   $i11.shadow := $slt.i32($i10.shadow,8);
@@ -30764,6 +30887,8 @@ $bb6:
   $i17.shadow := 0;
   goto $bb7;
 $bb7:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i17 == $i17.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 16, 8} true;
   $i18 := $slt.i32($i17,15);
   $i18.shadow := $slt.i32($i17.shadow,15);
@@ -30796,6 +30921,8 @@ $bb9:
   $i21.shadow := 0;
   goto $bb10;
 $bb10:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i21 == $i21.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 17, 8} true;
   $i22 := $slt.i32($i21,8);
   $i22.shadow := $slt.i32($i21.shadow,8);
@@ -30818,6 +30945,8 @@ $bb12:
   $i40.shadow := 6;
   goto $bb16;
 $bb13:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i23 == $i23.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 18, 10} true;
   $i24 := $slt.i32($i23,8);
   $i24.shadow := $slt.i32($i23.shadow,8);
@@ -30892,6 +31021,8 @@ $bb15:
   $i21.shadow := $i39.shadow;
   goto $bb10;
 $bb16:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i40 == $i40.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 20, 8} true;
   $i41 := $sge.i32($i40,0);
   $i41.shadow := $sge.i32($i40.shadow,0);
@@ -31098,6 +31229,8 @@ $bb18:
   $i93.shadow, $i94.shadow := 0, 0;
   goto $bb19;
 $bb19:
+  assert {:manual} ($shadow_ok);
+  assert {:manual} ($i94 == $i94.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 29, 8} true;
   $i95 := $slt.i32($i94,8);
   $i95.shadow := $slt.i32($i94.shadow,8);
