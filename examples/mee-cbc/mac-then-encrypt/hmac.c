@@ -9,8 +9,6 @@
 #include "crypto_auth.h"
 #include "crypto_verify_32.h"
 
-#define blocks crypto_hashblocks
-
 typedef unsigned int uint32;
 
 static const char hmac_iv[32] = {
@@ -36,8 +34,8 @@ int crypto_auth(unsigned char *out,const unsigned char *in,unsigned long inlen,c
   for (i = 0;i < 32;++i) padded[i] = k[i] ^ 0x36;
   for (i = 32;i < 64;++i) padded[i] = 0x36;
 
-  blocks(h_mac,padded,64);
-  blocks(h_mac,in,inlen);
+  crypto_hashblocks(h_mac,padded,64);
+  crypto_hashblocks(h_mac,in,inlen);
   in += inlen;
   inlen &= 63;
   in -= inlen;
@@ -55,7 +53,7 @@ int crypto_auth(unsigned char *out,const unsigned char *in,unsigned long inlen,c
     padded[61] = bits >> 16;
     padded[62] = bits >> 8;
     padded[63] = bits;
-    blocks(h_mac,padded,64);
+    crypto_hashblocks(h_mac,padded,64);
   } else {
     for (i = inlen + 1;i < 120;++i) padded[i] = 0;
     padded[120] = bits >> 56;
@@ -66,7 +64,7 @@ int crypto_auth(unsigned char *out,const unsigned char *in,unsigned long inlen,c
     padded[125] = bits >> 16;
     padded[126] = bits >> 8;
     padded[127] = bits;
-    blocks(h_mac,padded,128);
+    crypto_hashblocks(h_mac,padded,128);
   }
 
   for (i = 0;i < 32;++i) padded[i] = k[i] ^ 0x5c;
@@ -79,7 +77,7 @@ int crypto_auth(unsigned char *out,const unsigned char *in,unsigned long inlen,c
   padded[64 + 32] = 0x80;
   padded[64 + 62] = 3;
 
-  blocks(out,padded,128);
+  crypto_hashblocks(out,padded,128);
 
   return 1;
 }
