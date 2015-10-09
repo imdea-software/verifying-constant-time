@@ -16,8 +16,7 @@ struct SHA1Context {
 
 static int arch_big_endian;
 
-static void SHA1_copy_and_swap(void * src, void * dst, int numwords)
-{
+static void SHA1_copy_and_swap(void * src, void * dst, int numwords) {
   if (arch_big_endian) {
     memcpy(dst, src, numwords * sizeof(u32));
   } else {
@@ -43,8 +42,7 @@ static void SHA1_copy_and_swap(void * src, void * dst, int numwords)
 #define Y3 0x8F1BBCDCU
 #define Y4 0xCA62C1D6U
 
-static void SHA1_transform(struct SHA1Context * ctx)
-{
+static void SHA1_transform(struct SHA1Context * ctx) {
   int i;
   register u32 a, b, c, d, e, t;
   u32 data[80];
@@ -68,19 +66,35 @@ static void SHA1_transform(struct SHA1Context * ctx)
   /* Perform rounds */
   for (i = 0; i < 20; i++) {
     t = F(b, c, d) + Y1 + rol5(a) + e + data[i];
-    e = d; d = c; c = rol30(b); b = a; a = t;
+    e = d;
+    d = c;
+    c = rol30(b);
+    b = a;
+    a = t;
   }
   for (/*nothing*/; i < 40; i++) {
     t = H(b, c, d) + Y2 + rol5(a) + e + data[i];
-    e = d; d = c; c = rol30(b); b = a; a = t;
+    e = d;
+    d = c;
+    c = rol30(b);
+    b = a;
+    a = t;
   }
   for (/*nothing*/; i < 60; i++) {
     t = G(b, c, d) + Y3 + rol5(a) + e + data[i];
-    e = d; d = c; c = rol30(b); b = a; a = t;
+    e = d;
+    d = c;
+    c = rol30(b);
+    b = a;
+    a = t;
   }
   for (/*nothing*/; i < 80; i++) {
     t = H(b, c, d) + Y4 + rol5(a) + e + data[i];
-    e = d; d = c; c = rol30(b); b = a; a = t;
+    e = d;
+    d = c;
+    c = rol30(b);
+    b = a;
+    a = t;
   }
 
   /* Update chaining values */
@@ -91,8 +105,7 @@ static void SHA1_transform(struct SHA1Context * ctx)
   ctx->state[4] += e;
 }
 
-void SHA1_init(struct SHA1Context * ctx)
-{
+void SHA1_init(struct SHA1Context * ctx) {
   ctx->state[0] = 0x67452301U;
   ctx->state[1] = 0xEFCDAB89U;
   ctx->state[2] = 0x98BADCFEU;
@@ -104,8 +117,7 @@ void SHA1_init(struct SHA1Context * ctx)
 }
 
 void SHA1_add_data(struct SHA1Context * ctx, unsigned char * data,
-                   unsigned long len)
-{
+                   unsigned long len) {
   u32 t;
 
   /* Update length */
@@ -139,8 +151,7 @@ void SHA1_add_data(struct SHA1Context * ctx, unsigned char * data,
   ctx->numbytes = len;
 }
 
-void SHA1_finish(struct SHA1Context * ctx, unsigned char output[20])
-{
+void SHA1_finish(struct SHA1Context * ctx, unsigned char output[20]) {
   int i = ctx->numbytes;
 
   /* Set first char of padding to 0x80. There is always room. */
@@ -163,8 +174,8 @@ void SHA1_finish(struct SHA1Context * ctx, unsigned char output[20])
 }
 
 void c_hash(unsigned char *_r0, unsigned char *c_input, int len) {
-	struct SHA1Context ctx;
-	SHA1_init(&ctx);
-    SHA1_add_data(&ctx,c_input,len);
-	SHA1_finish(&ctx,_r0);
+  struct SHA1Context ctx;
+  SHA1_init(&ctx);
+  SHA1_add_data(&ctx,c_input,len);
+  SHA1_finish(&ctx,_r0);
 }

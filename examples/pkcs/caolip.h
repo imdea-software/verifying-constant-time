@@ -1,15 +1,15 @@
 /****************************************************************\
  CAOLIP: A Stripped Down Version of Lenstra's LIP
- 
+
  Restrictions:
  - Only unsigned arithmetic (no subtraction)
- - Static memory allocation (no-resizing) means max size 
- of integers must be determined at compile-time 
+ - Static memory allocation (no-resizing) means max size
+ of integers must be determined at compile-time
  - Multiplication and division by small values (<RADIX)
  - Full-blown modular reduction and exponentiation
  - All computations except mod fix size of integers as input
  - All computations run in constant time
- 
+
  \***************************************************************/
 
 // This macro comes from static analysis of the CAO/EC program
