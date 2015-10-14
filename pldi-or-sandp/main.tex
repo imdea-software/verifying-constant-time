@@ -44,6 +44,8 @@ Constant-time-specific motivation:
 \subsection{Contributions}
 \begin{compactitem}
 \item Attack (Downplay for PLDI? Keep central for S\&P?)
+\item Definitional: formalization of constant-time (as a non-interference 
+property and for procedure calls)
 \item Theoretical result: complete and sound product program
   construction.
 \item Theoretical result: leads for declassification.
@@ -51,20 +53,25 @@ Constant-time-specific motivation:
   examples, some (important?) bugs found;
 \item Practical result: flexibility w.r.t. leakage model: any
   \emph{compositional} leakage model stronger than or equal to Program
-  Counter.
+  Counter. (why compositional?)
 \end{compactitem}
 
-\section{Definitions}
+\section{Definitions and discussion}
 
 \begin{compactitem}
-\item Define constant-time on LLVM-like language.
+\item Define constant-time on LLVM-like language
+\item Discuss source vs assembly
+\item Instructions that depend on operand size and other limitations
+\item Quantitative analysis might be deceiptive (weak model)
+\item Constant-time provides guarantees in strond adversary model
 \end{compactitem}
 
 \section{Product Programs for Constant-Time Verification}
 
 \begin{compactitem}
 \item Describe construction;
-\item Prove soundess + completeness.
+\item Prove soundess + completeness
+\item Variants: size-dependent execution time (DIV) on a small example
 \end{compactitem}
 
 \section{Constant-Time with Declassified Outputs}
@@ -113,6 +120,8 @@ Constant-time-specific motivation:
 \item curve25519-donna: done (cut at call graph choke points)
 \item libsodium: ??
 \item TEA: done
+\item ideally: Salsa, ChaCha (maybe already in libsodium)
+\item some negative examples
 \end{compactitem}
 
 \section{Related work}
