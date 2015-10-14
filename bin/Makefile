@@ -17,7 +17,7 @@ BAMPATH       ?=../tools/bam-bam-boogieman
 BOOGIEPATH    ?=../tools/boogie
 CORRALPATH    ?=../tools/corral
 
-VERIFIER      ?= corral
+VERIFIER      ?=boogie
 
 # Finalizing env. var. init.
 ## Binaries and Path
@@ -26,6 +26,13 @@ export PATH
 
 export BOOGIE ?=$(BOOGIEPATH)/Binaries/Boogie.exe
 export CORRAL ?=$(CORRALPATH)/bin/Debug/corral.exe
+
+ifeq (boogie,$(VERIFIER))
+	BACKEND?=$(BOOGIE)
+	BACKENDOPTS?=/doModSetAnalysis
+else
+	BACKEND?=$(CORRAL)
+endif
 
 ## Files
 LIBSIN        ?=$(patsubst %,$(WD)/%,$(LIBS))
@@ -68,7 +75,8 @@ bamout: $(BAMOUT)
 ## Verify the product .bpl program using corral through SMACK
 verify: $(BAMOUT)
 	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations\e[0m\n"
-	smack.py $(BACKFLAGS) $(BAMOUT)
+#	smack.py $(BACKFLAGS) $(BAMOUT)
+	$(BACKEND) $(BACKENDOPTS) $(BAMOUT)
 
 ## Verify the product .bpl program using BAM and without unrolling loops
 verify-no-unroll: $(BAMOUT)
