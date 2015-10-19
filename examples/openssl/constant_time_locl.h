@@ -47,7 +47,7 @@
 #ifndef HEADER_CONSTANT_TIME_LOCL_H
 # define HEADER_CONSTANT_TIME_LOCL_H
 
-# include "e_os.h"              /* For 'inline' */
+//# include "e_os.h"              /* For 'inline' */
 
 #ifdef __cplusplus
 extern "C" {
