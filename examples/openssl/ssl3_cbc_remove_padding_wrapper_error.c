@@ -15,7 +15,7 @@ int ssl3_cbc_remove_padding_wrapper(const SSL *s,
 
   // the entire rec structure is public, although the
   // data pointed to by the data field might not be
-  public_in_object(__SMACK_object(rec,sizeof(*rec))); // this does not work
+  public_in_object(__SMACK_object(rec,sizeof(SSL3_RECORD))); // this does not work
   public_in_value(__SMACK_value(block_size));
   public_in_value(__SMACK_value(mac_size));
 
