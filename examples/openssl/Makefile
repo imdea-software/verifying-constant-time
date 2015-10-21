@@ -12,5 +12,8 @@ verify2:
 verify3:
 	ENTRYPOINTS=ssl3_cbc_copy_mac_wrapper EXAMPLE=ssl3_cbc_copy_mac_wrapper.c make -C ../../bin verify
 
+verify4:
+	ENTRYPOINTS=ssl3_cbc_digest_record_wrapper EXAMPLE=ssl3_cbc_digest_record_wrapper.c make -C ../../bin verify
+
 clean:
 	rm *.bpl
