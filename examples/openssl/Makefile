@@ -9,5 +9,8 @@ verify_bug:
 verify2:
 	ENTRYPOINTS=tls1_cbc_remove_padding_wrapper EXAMPLE=tls1_cbc_remove_padding_wrapper.c make -C ../../bin verify
 
+verify3:
+	ENTRYPOINTS=ssl3_cbc_copy_mac_wrapper EXAMPLE=ssl3_cbc_copy_mac_wrapper.c make -C ../../bin verify
+
 clean:
 	rm *.bpl

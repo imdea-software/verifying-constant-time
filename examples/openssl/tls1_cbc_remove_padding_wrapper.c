@@ -43,3 +43,5 @@ int tls1_cbc_remove_padding_wrapper(unsigned long options,
   return tls1_cbc_remove_padding(s,rec,block_size,mac_size);
 }
 
+// TO VERIFY LOOP ADD IN LINE 1196  assert ($i88 == $i88.shadow);
+
