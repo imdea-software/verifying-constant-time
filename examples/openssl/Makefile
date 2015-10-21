@@ -16,4 +16,4 @@ verify4:
 	ENTRYPOINTS=ssl3_cbc_digest_record_wrapper EXAMPLE=ssl3_cbc_digest_record_wrapper.c make -C ../../bin verify
 
 clean:
-	rm *.bpl
+	rm -f ssl3_cbc_remove_padding_wrapper.bpl ssl3_cbc_remove_padding_wrapper_error.bpl tls1_cbc_remove_padding_wrapper.bpl ssl3_cbc_digest_record_wrapper.bpl
