@@ -122,6 +122,7 @@ int tls1_cbc_remove_padding(const SSL *s,
         to_check = rec->length - 1;
 
     for (i = 0; i < to_check; i++) {
+        public_invariant_value(i);
         unsigned char mask = constant_time_ge_8(padding_length, i);
         unsigned char b = rec->data[rec->length - 1 - i];
         /*

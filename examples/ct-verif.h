@@ -26,6 +26,7 @@ We omit annotations for private since nothing needs to be generated
 void public_in_value(smack_value_t);
 void public_out_value(smack_value_t);
 void declassified_out_value(smack_value_t);
+void public_invariant_value(smack_value_t);
 
 void public_in_object(smack_object_t);
 void public_out_object(smack_object_t);
@@ -48,6 +49,7 @@ void declassified_out_object(smack_object_t);
 #define public_in_value(__a)
 #define public_out_value(__a)
 #define declassified_out_value(__a)
+#define public_invariant_value(__a)
 
 #define public_in_object(__a)
 #define public_out_object(__a)

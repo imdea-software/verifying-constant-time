@@ -258,6 +258,8 @@ static void HASH_BLOCK_DATA_ORDER(SHA_CTX *c, const void *p, size_t num)
     E = c->h4;
 
     for (;;) {
+        public_invariant_value(num);
+        public_invariant_value(data);
         const union {
             long one;
             char little;
@@ -732,8 +734,10 @@ void ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         memset(hmac_pad, 0, md_block_size);
         OPENSSL_assert(mac_secret_length <= sizeof(hmac_pad));
         memcpy(hmac_pad, mac_secret, mac_secret_length);
-        for (i = 0; i < md_block_size; i++)
+        for (i = 0; i < md_block_size; i++) {
+            public_invariant_value(i);
             hmac_pad[i] ^= 0x36;
+        }
 
         md_transform(md_state.c, hmac_pad);
     }
@@ -774,15 +778,19 @@ void ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
             memcpy(first_block, header + md_block_size, overhang);
             memcpy(first_block + overhang, data, md_block_size - overhang);
             md_transform(md_state.c, first_block);
-            for (i = 1; i < k / md_block_size - 1; i++)
+            for (i = 1; i < k / md_block_size - 1; i++) {
+                public_invariant_value(i);
                 md_transform(md_state.c, data + md_block_size * i - overhang);
+            }
         } else {
             /* k is a multiple of md_block_size. */
             memcpy(first_block, header, 13);
             memcpy(first_block + 13, data, md_block_size - 13);
             md_transform(md_state.c, first_block);
-            for (i = 1; i < k / md_block_size; i++)
+            for (i = 1; i < k / md_block_size; i++) {
+                public_invariant_value(i);
                 md_transform(md_state.c, data + md_block_size * i - 13);
+            }
         }
     }
 
@@ -796,10 +804,14 @@ void ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
      */
     for (i = num_starting_blocks; i <= num_starting_blocks + variance_blocks;
          i++) {
+        public_invariant_value(i);
+        public_invariant_value(k);
         unsigned char block[MAX_HASH_BLOCK_SIZE];
         unsigned char is_block_a = constant_time_eq_8(i, index_a);
         unsigned char is_block_b = constant_time_eq_8(i, index_b);
         for (j = 0; j < md_block_size; j++) {
+            public_invariant_value(j);
+            public_invariant_value(k);
             unsigned char b = 0, is_past_c, is_past_cp1;
             if (k < header_length)
                 b = header[k];
@@ -843,8 +855,10 @@ void ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         md_transform(md_state.c, block);
         md_final_raw(md_state.c, block);
         /* If this is index_b, copy the hash value to |mac_out|. */
-        for (j = 0; j < md_size; j++)
+        for (j = 0; j < md_size; j++) {
+            public_invariant_value(j);
             mac_out[j] |= block[j] & is_block_b;
+        }
     }
 
     EVP_MD_CTX_init(&md_ctx);
@@ -858,8 +872,10 @@ void ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         EVP_DigestUpdate(&md_ctx, mac_out, md_size);
     } else {
         /* Complete the HMAC in the standard manner. */
-        for (i = 0; i < md_block_size; i++)
+        for (i = 0; i < md_block_size; i++) {
+            public_invariant_value(i);
             hmac_pad[i] ^= 0x6a;
+        }
 
         EVP_DigestUpdate(&md_ctx, hmac_pad, md_block_size);
         EVP_DigestUpdate(&md_ctx, mac_out, md_size);
