@@ -21,11 +21,18 @@ VERIFIER      ?=boogie
 
 # Finalizing env. var. init.
 ## Binaries and Path
-PATH          :=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build:$(CORRALPATH)/bin
+PATH          :=$(PATH):$(BAMPATH)/bin:$(SMACKPATH)/bin
+PATH          :=$(PATH):$(SMACKPATH)/build:$(CORRALPATH)/bin
 export PATH
 
+## Local/Specified verifiers
 export BOOGIE ?=$(BOOGIEPATH)/Binaries/Boogie.exe
 export CORRAL ?=$(CORRALPATH)/bin/Debug/corral.exe
+
+## Selecting the BAM folder based on presence in $PATH
+# TODO: do a similar thing for other tools if this works across
+# platforms?
+export BAMPATH =`which bam | sed s/.......$$//`
 
 ifeq (boogie,$(VERIFIER))
 	BACKEND?=boogie
@@ -61,7 +68,6 @@ all: verify
 ## Generate a .bpl model from a (multi-file) C program through SMACK
 $(SMACKOUT): $(LIBSIN) $(SMACKIN)
 	@/bin/echo -en "\e[1;91mGenerating BPL model\e[0m\n"
-	@/bin/echo `which smack.py`
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
 
 smackout: $(SMACKOUT)
