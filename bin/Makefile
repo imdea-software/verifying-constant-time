@@ -21,17 +21,17 @@ VERIFIER      ?=boogie
 
 # Finalizing env. var. init.
 ## Binaries and Path
-PATH          :=$(SMACKPATH)/bin:$(SMACKPATH)/build:$(CORRALPATH)/bin:$(PATH)
+PATH          :=$(PATH):$(SMACKPATH)/bin:$(SMACKPATH)/build:$(CORRALPATH)/bin
 export PATH
 
 export BOOGIE ?=$(BOOGIEPATH)/Binaries/Boogie.exe
 export CORRAL ?=$(CORRALPATH)/bin/Debug/corral.exe
 
 ifeq (boogie,$(VERIFIER))
-	BACKEND?=$(BOOGIE)
+	BACKEND?=boogie
 	BACKENDOPTS?=/doModSetAnalysis
 else
-	BACKEND?=$(CORRAL)
+	BACKEND?=corral
 endif
 
 ## Files
@@ -61,6 +61,7 @@ all: verify
 ## Generate a .bpl model from a (multi-file) C program through SMACK
 $(SMACKOUT): $(LIBSIN) $(SMACKIN)
 	@/bin/echo -en "\e[1;91mGenerating BPL model\e[0m\n"
+	@/bin/echo `which smack.py`
 	smack.py $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
 
 smackout: $(SMACKOUT)
@@ -72,22 +73,16 @@ $(BAMOUT): $(SMACKOUT)
 
 bamout: $(BAMOUT)
 
-## Verify the product .bpl program using corral through SMACK
+## Verify the product .bpl program through SMACK
 verify: $(BAMOUT)
 	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations\e[0m\n"
-#	smack.py $(BACKFLAGS) $(BAMOUT)
 	$(BACKEND) $(BACKENDOPTS) $(BAMOUT)
-
-## Verify the product .bpl program using BAM and without unrolling loops
-verify-no-unroll: $(BAMOUT)
-	@/bin/echo -en "\e[1;91mVerifying product program for constant-time violations (no unrolling)\e[0m\n"
-	@/bin/echo "This is likely to only work on .bpl files generated with VERIFIER=boogie."
-	$(BOOGIE) /nologo /errorLimit:5 /doModSetAnalysis $(BAMOUT)
 
 # Set up env. vars. (source the result)
 setup:
-	@echo "export BOOGIE=~/repositories/ct-verif/tools/boogie/Binaries/Boogie.exe"
-	@echo "export CORRAL=~/repositories/ct-verif/tools/corral/bin/Debug/corral.exe"
+	@echo "# If you can read this, you should use \"eval \`make setup\`\" instead\n"
+	@echo "BOOGIE=$(BOOGIE); export BOOGIE;"
+	@echo "CORRAL=$(CORRAL); export CORRAL;"
 
 # Targets for updating and making local tools in local submodules
 local-update:
