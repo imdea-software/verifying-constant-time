@@ -23,14 +23,10 @@ We omit annotations for private since nothing needs to be generated
 */
 
 /* The abstract prototypes that form our annotation language */
-void public_in_value(smack_value_t);
-void public_out_value(smack_value_t);
-void declassified_out_value(smack_value_t);
-void public_invariant_value(smack_value_t);
-
-void public_in_object(smack_object_t);
-void public_out_object(smack_object_t);
-void declassified_out_object(smack_object_t);
+void public_in(smack_value_t);
+void public_out(smack_value_t);
+void declassified_out(smack_value_t);
+void public_invariant(smack_value_t);
 
 #define __disjoint_regions(addr1,len1,addr2,len2) \
   assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
@@ -50,10 +46,6 @@ void declassified_out_object(smack_object_t);
 #define public_out_value(__a)
 #define declassified_out_value(__a)
 #define public_invariant_value(__a)
-
-#define public_in_object(__a)
-#define public_out_object(__a)
-#define declassified_out_object(__a)
 
 #define __disjoint_regions(addr1,len1,addr2,len2)
 
