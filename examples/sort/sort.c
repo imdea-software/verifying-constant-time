@@ -40,17 +40,17 @@ int* sort3_wrapper(int *conds, int *out, int *in) {
   __disjoint_regions(out,3,in,3);
 
   /* Boilerplate */
-  public_in_value(__SMACK_value(conds));
-  public_in_value(__SMACK_value(out));
-  public_in_value(__SMACK_value(in));
+  public_in(__SMACK_value(conds));
+  public_in(__SMACK_value(out));
+  public_in(__SMACK_value(in));
 
   /* Useful */
-  declassified_out_object(__SMACK_object(conds,3));
+  declassified_out(__SMACK_values(conds,3));
 
   /* Testing out more of the assertion generation */
-  public_in_object(__SMACK_object(conds,3));
-  public_out_object(__SMACK_object(conds,3));
-  public_out_value(__SMACK_return_value());
+  public_in(__SMACK_values(conds,3));
+  public_out(__SMACK_values(conds,3));
+  public_out(__SMACK_return_value());
 
   // This is broken for now, but we should ignore it until we see an
   // example that works like this...

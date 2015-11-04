@@ -39,13 +39,13 @@ void public_invariant(smack_value_t);
 #define __VERIFIER_assume(__a)
 #define __SMACK_value(__a)
 #define __SMACK_return_value(__a)
-#define __SMACK_object(__a,__b)
-#define __SMACK_return_object(__a)
+#define __SMACK_values(__a,__b)
+#define __SMACK_return_values(__a)
 
-#define public_in_value(__a)
-#define public_out_value(__a)
-#define declassified_out_value(__a)
-#define public_invariant_value(__a)
+#define public_in(__a)
+#define public_out(__a)
+#define declassified_out(__a)
+#define public_invariant(__a)
 
 #define __disjoint_regions(addr1,len1,addr2,len2)
 
