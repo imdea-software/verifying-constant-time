@@ -33,34 +33,34 @@ void decrypt (uint32_t* v, uint32_t* k) {
 
 void encrypt_wrapper (uint32_t* v, uint32_t* k) {
   /* Boilerplate */
-  public_in_value(__SMACK_value(v));
-  public_in_value(__SMACK_value(k));
+  public_in(__SMACK_value(v));
+  public_in(__SMACK_value(k));
 
   /* Useful */
-  declassified_out_object(__SMACK_object(v,2 * sizeof(*v)));
+  // declassified_out_object(__SMACK_object(v,2 * sizeof(*v)));
 
   encrypt(v,k);
 }
 
 void decrypt_cpa_wrapper (uint32_t* v, uint32_t* k) {
   /* Boilerplate */
-  public_in_value(__SMACK_value(v));
-  public_in_value(__SMACK_value(k));
+  public_in(__SMACK_value(v));
+  public_in(__SMACK_value(k));
 
   /* Useful */
-  public_in_object(__SMACK_object(v,2 * sizeof(*v)));
+  public_in(__SMACK_values(v,2));
 
   decrypt(v,k);
 }
 
 void decrypt_cca_wrapper (uint32_t* v, uint32_t* k) {
   /* Boilerplate */
-  public_in_value(__SMACK_value(v));
-  public_in_value(__SMACK_value(k));
+  public_in(__SMACK_value(v));
+  public_in(__SMACK_value(k));
 
   /* Useful */
-  public_in_object(__SMACK_object(v,2 * sizeof(*v)));
-  declassified_out_object(__SMACK_object(v,2 * sizeof(*v)));
+  public_in(__SMACK_values(v,2));
+  //  declassified_out_object(__SMACK_object(v,2 * sizeof(*v)));
 
   decrypt(v,k);
 }

@@ -21,8 +21,8 @@ int sort3_wrapper(int *out, int *in) {
   __disjoint_regions(out,3,in,3);
 
   /* Boilerplate */
-  public_in_value(__SMACK_value(out));
-  public_in_value(__SMACK_value(in));
+  public_in(__SMACK_value(out));
+  public_in(__SMACK_value(in));
 
   /* Useful for testing out more of the assertion generation */
   //  public_out_value(__SMACK_return_value());

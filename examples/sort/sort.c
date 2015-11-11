@@ -54,7 +54,7 @@ int* sort3_wrapper(int *conds, int *out, int *in) {
 
   // This is broken for now, but we should ignore it until we see an
   // example that works like this...
-  // declassified_out_object(__SMACK_object(__SMACK_return_value,3));
+  //declassified_out(__SMACK_return_values(__SMACK_return_value(),3));
 
   sort3(conds,out,in);
   return conds;
