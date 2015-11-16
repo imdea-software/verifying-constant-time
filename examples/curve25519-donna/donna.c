@@ -24,7 +24,7 @@ int curve25519_donna_wrapper(u8 *mypublic, const u8 *secret, const u8 *basepoint
 
   /* Important stuff */
   public_in(__SMACK_values(basepoint,32));
-  declassified_out_object(__SMACK_values(mypublic,32));
+  declassified_out(__SMACK_values(mypublic,32));
   //  declassified_out_object(__SMACK_return_object());
 
   return curve25519_donna(mypublic,secret,basepoint);
