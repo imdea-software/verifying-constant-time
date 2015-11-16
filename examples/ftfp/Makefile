@@ -14,9 +14,9 @@ fix_ln fix_log2 fix_log10\
 fix_convert_from_int64 fix_convert_to_int64 fix_round_up_int64 fix_ceil64 fix_floor64\
 fix_sin fix_cos fix_tan\
 fix_exp fix_sqrt
-#fix_exp fix_sqrt fix_pow\ # timing out
-#fix_convert_from_double fix_convert_to_double\ #floats?
-#fix_sprint fix_sprint_nospecial fix_print fix_println\ # useful?
+#fix_pow\ # timing out
+#fix_convert_from_double fix_convert_to_double\ #floats
+#fix_sprint fix_sprint_nospecial fix_print fix_println\ #printing
 
 TROUBLE            ?=\
 fix_pow
