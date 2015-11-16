@@ -18,13 +18,13 @@ int curve25519_donna_wrapper(u8 *mypublic, const u8 *secret, const u8 *basepoint
   __disjoint_regions(basepoint,32,secret,32);
 
   /* Boilerplate (until modularity) */
-  public_in_value(__SMACK_value(mypublic));
-  public_in_value(__SMACK_value(secret));
-  public_in_value(__SMACK_value(basepoint));
+  public_in(__SMACK_value(mypublic));
+  public_in(__SMACK_value(secret));
+  public_in(__SMACK_value(basepoint));
 
   /* Important stuff */
-  public_in_object(__SMACK_object(basepoint,32));
-  declassified_out_object(__SMACK_object(mypublic,32));
+  public_in(__SMACK_values(basepoint,32));
+  declassified_out_object(__SMACK_values(mypublic,32));
   //  declassified_out_object(__SMACK_return_object());
 
   return curve25519_donna(mypublic,secret,basepoint);
