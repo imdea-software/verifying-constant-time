@@ -108,7 +108,7 @@ const cmult: ref;
 const crecip: ref;
 const curve25519_donna: ref;
 const curve25519_donna_wrapper: ref;
-const declassified_out_object: ref;
+const declassified_out: ref;
 const div_by_2_25: ref;
 const div_by_2_26: ref;
 const fcontract: ref;
@@ -194,15 +194,9 @@ procedure {:inline 1} __VERIFIER_nondet_unsigned_char() returns ($r: i8);
 procedure {:inline 1} __VERIFIER_nondet_unsigned_int() returns ($r: i32);
 procedure {:inline 1} __VERIFIER_nondet_unsigned_long() returns ($r: i64);
 procedure {:inline 1} __VERIFIER_nondet_unsigned_short() returns ($r: i16);
-procedure cmult(resultx: ref, resultx.shadow: ref, resultz: ref, resultz.shadow: ref, n: ref, n.shadow: ref, q: ref, q.shadow: ref)
+procedure {:inline 2} cmult(resultx: ref, resultx.shadow: ref, resultz: ref, resultz.shadow: ref, n: ref, n.shadow: ref, q: ref, q.shadow: ref)
 modifies $M.2, $exn;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (resultx == resultx.shadow);
-requires {:shadow_debug} (resultz == resultz.shadow);
-requires {:shadow_debug} (n == n.shadow);
-requires {:shadow_debug} (q == q.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i42: i32;
   var $i42.shadow: i32;
@@ -528,14 +522,14 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p34 == $p34.shadow);
+  assert {:shadow_invariant} ($p39 == $p39.shadow);
+  assert {:shadow_invariant} ($p35 == $p35.shadow);
+  assert {:shadow_invariant} ($p40 == $p40.shadow);
   assert {:shadow_invariant} ($p41 == $p41.shadow);
   assert {:shadow_invariant} ($p37 == $p37.shadow);
   assert {:shadow_invariant} ($p36 == $p36.shadow);
   assert {:shadow_invariant} ($p38 == $p38.shadow);
-  assert {:shadow_missing}   ($p34 == $p34.shadow);
-  assert {:shadow_missing}   ($p35 == $p35.shadow);
-  assert {:shadow_missing}   ($p39 == $p39.shadow);
-  assert {:shadow_missing}   ($p40 == $p40.shadow);
   assert {:shadow_invariant} ($i42 == $i42.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 737, 8} true;
   $i43 := $ult.i32($i42,32);
@@ -611,11 +605,12 @@ $bb3:
   return;
 $bb4:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p48 == $p48.shadow);
+  assert {:shadow_invariant} ($p53 == $p53.shadow);
+//  assert {:shadow_toomuch} ($i57 == $i57.shadow);
+  assert {:shadow_invariant} ($p49 == $p49.shadow);
+  assert {:shadow_invariant} ($p54 == $p54.shadow);
   assert {:shadow_invariant} ($i56 == $i56.shadow);
-  assert {:shadow_missing}   ($p53 == $p53.shadow);
-  assert {:shadow_missing}   ($p54 == $p54.shadow);
-  assert {:shadow_missing}   ($p48 == $p48.shadow);
-  assert {:shadow_missing}   ($p49 == $p49.shadow);
   assert {:shadow_invariant} ($p55 == $p55.shadow);
   assert {:shadow_invariant} ($p51 == $p51.shadow);
   assert {:shadow_invariant} ($p50 == $p50.shadow);
@@ -725,14 +720,10 @@ $bb6:
   $i42.shadow := $i66.shadow;
   goto $bb1;
 }
-procedure crecip(out: ref, out.shadow: ref, z: ref, z.shadow: ref)
+procedure {:inline 2} crecip(out: ref, out.shadow: ref, z: ref, z.shadow: ref)
 modifies $exn;
 modifies $M.2;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (out == out.shadow);
-requires {:shadow_debug} (z == z.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i102: i32;
   var $i102.shadow: i32;
@@ -1156,7 +1147,14 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p7 == $p7.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
+  assert {:shadow_invariant} ($p5 == $p5.shadow);
   assert {:shadow_invariant} ($i42 == $i42.shadow);
+  assert {:shadow_invariant} ($p4 == $p4.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 807, 26} true;
   $i43 := $slt.i32($i42,10);
   $i43.shadow := $slt.i32($i42.shadow,10);
@@ -1226,7 +1224,14 @@ $bb3:
   goto $bb4;
 $bb4:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p7 == $p7.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
   assert {:shadow_invariant} ($i56 == $i56.shadow);
+  assert {:shadow_invariant} ($p5 == $p5.shadow);
+  assert {:shadow_invariant} ($p4 == $p4.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 812, 26} true;
   $i57 := $slt.i32($i56,20);
   $i57.shadow := $slt.i32($i56.shadow,20);
@@ -1290,7 +1295,13 @@ $bb6:
   goto $bb7;
 $bb7:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p7 == $p7.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
   assert {:shadow_invariant} ($i68 == $i68.shadow);
+  assert {:shadow_invariant} ($p4 == $p4.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 817, 26} true;
   $i69 := $slt.i32($i68,10);
   $i69.shadow := $slt.i32($i68.shadow,10);
@@ -1360,7 +1371,12 @@ $bb9:
   goto $bb10;
 $bb10:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p7 == $p7.shadow);
   assert {:shadow_invariant} ($i82 == $i82.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 822, 27} true;
   $i83 := $slt.i32($i82,50);
   $i83.shadow := $slt.i32($i82.shadow,50);
@@ -1431,6 +1447,11 @@ $bb12:
 $bb13:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($i96 == $i96.shadow);
+  assert {:shadow_invariant} ($p7 == $p7.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 827, 28} true;
   $i97 := $slt.i32($i96,100);
   $i97.shadow := $slt.i32($i96.shadow,100);
@@ -1495,6 +1516,10 @@ $bb15:
 $bb16:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($i108 == $i108.shadow);
+  assert {:shadow_invariant} ($p6 == $p6.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p8 == $p8.shadow);
+  assert {:shadow_invariant} ($p9 == $p9.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 832, 27} true;
   $i109 := $slt.i32($i108,50);
   $i109.shadow := $slt.i32($i108.shadow,50);
@@ -1698,6 +1723,10 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
+  assert {:shadow_invariant} ($p3 == $p3.shadow);
+  assert {:shadow_invariant} ($p2 == $p2.shadow);
+  assert {:shadow_invariant} ($p1 == $p1.shadow);
+  assert {:shadow_invariant} ($p0 == $p0.shadow);
   assert {:shadow_invariant} ($p4 == $p4.shadow);
   assert {:shadow_invariant} ($i5 == $i5.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna/curve25519-donna.c", 849, 8} true;
@@ -1854,7 +1883,7 @@ requires {:public_in mypublic} true;
 requires {:public_in secret} true;
 requires {:public_in basepoint} true;
 requires {:public_in $load.i8, $M.0, basepoint, 1, 32} true;
-requires {:declassified_out_object.ref $load.i8, $M.0, mypublic, 1, 32} true;
+requires {:declassified_out $load.i8, $M.0, mypublic, 1, 32} true;
 modifies $exn;
 modifies $M.1, $M.2;
 modifies $CurrAddr;
@@ -1903,8 +1932,6 @@ requires ($load.i8($M.0,(basepoint + 31)) == $load.i8($M.0.shadow,(basepoint.sha
   var $i11.shadow: i32;
   var $i17: i32;
   var $i17.shadow: i32;
-  var $i18: i32;
-  var $i18.shadow: i32;
   var $i2: i1;
   var $i2.shadow: i1;
   var $i4: i1;
@@ -2015,18 +2042,50 @@ $bb5:
   assume $isExternal($p15);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 26, 3} true;
   call public_in($p15, $p15.shadow);
-  assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 27, 27} true;
+  assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 27, 20} true;
   call {:name mypublic} {:array "$load.i8", $M.0, mypublic, 1, 32} $p16, $p16.shadow := __SMACK_values(mypublic, mypublic.shadow, 32, 32);
   assume $isExternal($p16);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 27, 3} true;
-  call $i17, $i17.shadow := declassified_out_object.ref($p16, $p16.shadow);
+  call declassified_out($p16, $p16.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 30, 10} true;
-  call $i18, $i18.shadow := curve25519_donna(mypublic, mypublic.shadow, secret, secret.shadow, basepoint, basepoint.shadow);
+  call $i17, $i17.shadow := curve25519_donna(mypublic, mypublic.shadow, secret, secret.shadow, basepoint, basepoint.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/curve25519-donna/donna.c", 30, 10} true;
-  $r := $i18;
-  $r.shadow := $i18.shadow;
+  $r := $i17;
+  $r.shadow := $i17.shadow;
   $exn := false;
   $exn.shadow := false;
+  assume ($load.i8($M.0,(mypublic + 0)) == $load.i8($M.0.shadow,(mypublic.shadow + 0)));
+  assume ($load.i8($M.0,(mypublic + 1)) == $load.i8($M.0.shadow,(mypublic.shadow + 1)));
+  assume ($load.i8($M.0,(mypublic + 2)) == $load.i8($M.0.shadow,(mypublic.shadow + 2)));
+  assume ($load.i8($M.0,(mypublic + 3)) == $load.i8($M.0.shadow,(mypublic.shadow + 3)));
+  assume ($load.i8($M.0,(mypublic + 4)) == $load.i8($M.0.shadow,(mypublic.shadow + 4)));
+  assume ($load.i8($M.0,(mypublic + 5)) == $load.i8($M.0.shadow,(mypublic.shadow + 5)));
+  assume ($load.i8($M.0,(mypublic + 6)) == $load.i8($M.0.shadow,(mypublic.shadow + 6)));
+  assume ($load.i8($M.0,(mypublic + 7)) == $load.i8($M.0.shadow,(mypublic.shadow + 7)));
+  assume ($load.i8($M.0,(mypublic + 8)) == $load.i8($M.0.shadow,(mypublic.shadow + 8)));
+  assume ($load.i8($M.0,(mypublic + 9)) == $load.i8($M.0.shadow,(mypublic.shadow + 9)));
+  assume ($load.i8($M.0,(mypublic + 10)) == $load.i8($M.0.shadow,(mypublic.shadow + 10)));
+  assume ($load.i8($M.0,(mypublic + 11)) == $load.i8($M.0.shadow,(mypublic.shadow + 11)));
+  assume ($load.i8($M.0,(mypublic + 12)) == $load.i8($M.0.shadow,(mypublic.shadow + 12)));
+  assume ($load.i8($M.0,(mypublic + 13)) == $load.i8($M.0.shadow,(mypublic.shadow + 13)));
+  assume ($load.i8($M.0,(mypublic + 14)) == $load.i8($M.0.shadow,(mypublic.shadow + 14)));
+  assume ($load.i8($M.0,(mypublic + 15)) == $load.i8($M.0.shadow,(mypublic.shadow + 15)));
+  assume ($load.i8($M.0,(mypublic + 16)) == $load.i8($M.0.shadow,(mypublic.shadow + 16)));
+  assume ($load.i8($M.0,(mypublic + 17)) == $load.i8($M.0.shadow,(mypublic.shadow + 17)));
+  assume ($load.i8($M.0,(mypublic + 18)) == $load.i8($M.0.shadow,(mypublic.shadow + 18)));
+  assume ($load.i8($M.0,(mypublic + 19)) == $load.i8($M.0.shadow,(mypublic.shadow + 19)));
+  assume ($load.i8($M.0,(mypublic + 20)) == $load.i8($M.0.shadow,(mypublic.shadow + 20)));
+  assume ($load.i8($M.0,(mypublic + 21)) == $load.i8($M.0.shadow,(mypublic.shadow + 21)));
+  assume ($load.i8($M.0,(mypublic + 22)) == $load.i8($M.0.shadow,(mypublic.shadow + 22)));
+  assume ($load.i8($M.0,(mypublic + 23)) == $load.i8($M.0.shadow,(mypublic.shadow + 23)));
+  assume ($load.i8($M.0,(mypublic + 24)) == $load.i8($M.0.shadow,(mypublic.shadow + 24)));
+  assume ($load.i8($M.0,(mypublic + 25)) == $load.i8($M.0.shadow,(mypublic.shadow + 25)));
+  assume ($load.i8($M.0,(mypublic + 26)) == $load.i8($M.0.shadow,(mypublic.shadow + 26)));
+  assume ($load.i8($M.0,(mypublic + 27)) == $load.i8($M.0.shadow,(mypublic.shadow + 27)));
+  assume ($load.i8($M.0,(mypublic + 28)) == $load.i8($M.0.shadow,(mypublic.shadow + 28)));
+  assume ($load.i8($M.0,(mypublic + 29)) == $load.i8($M.0.shadow,(mypublic.shadow + 29)));
+  assume ($load.i8($M.0,(mypublic + 30)) == $load.i8($M.0.shadow,(mypublic.shadow + 30)));
+  assume ($load.i8($M.0,(mypublic + 31)) == $load.i8($M.0.shadow,(mypublic.shadow + 31)));
   assert $shadow_ok;
   return;
 $bb6:
@@ -2042,7 +2101,7 @@ $bb6:
   $i8.shadow := $i10.shadow;
   goto $bb5;
 }
-procedure {:inline 2} declassified_out_object.ref(p.0: ref, p.0.shadow: ref) returns ($r: i32, $r.shadow: i32);
+procedure {:inline 2} declassified_out($p0: ref, $p0.shadow: ref);
 procedure {:inline 2} div_by_2_25(v: i64, v.shadow: i64) returns ($r: i64, $r.shadow: i64)
 modifies $exn;
 {
@@ -2143,13 +2202,9 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fcontract(output: ref, output.shadow: ref, input_limbs: ref, input_limbs.shadow: ref)
+procedure {:inline 2} fcontract(output: ref, output.shadow: ref, input_limbs: ref, input_limbs.shadow: ref)
 modifies $M.3, $M.0, $exn;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (input_limbs == input_limbs.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i32;
   var $i1.shadow: i32;
@@ -5024,12 +5079,8 @@ $bb33:
   $i161.shadow := $i175.shadow;
   goto $bb28;
 }
-procedure fdifference(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
+procedure {:inline 2} fdifference(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in == in.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i32;
   var $i0.shadow: i32;
@@ -5123,12 +5174,8 @@ $bb3:
   $exn.shadow := false;
   return;
 }
-procedure fexpand(output: ref, output.shadow: ref, input: ref, input.shadow: ref)
+procedure {:inline 2} fexpand(output: ref, output.shadow: ref, input: ref, input.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (input == input.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i8;
   var $i1.shadow: i8;
@@ -6268,20 +6315,9 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fmonty(x2: ref, x2.shadow: ref, z2: ref, z2.shadow: ref, x3: ref, x3.shadow: ref, z3: ref, z3.shadow: ref, x: ref, x.shadow: ref, z: ref, z.shadow: ref, xprime: ref, xprime.shadow: ref, zprime: ref, zprime.shadow: ref, qmqp: ref, qmqp.shadow: ref)
+procedure {:inline 2} fmonty(x2: ref, x2.shadow: ref, z2: ref, z2.shadow: ref, x3: ref, x3.shadow: ref, z3: ref, z3.shadow: ref, x: ref, x.shadow: ref, z: ref, z.shadow: ref, xprime: ref, xprime.shadow: ref, zprime: ref, zprime.shadow: ref, qmqp: ref, qmqp.shadow: ref)
 modifies $M.2, $exn;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (x2 == x2.shadow);
-requires {:shadow_debug} (z2 == z2.shadow);
-requires {:shadow_debug} (x3 == x3.shadow);
-requires {:shadow_debug} (z3 == z3.shadow);
-requires {:shadow_debug} (x == x.shadow);
-requires {:shadow_debug} (z == z.shadow);
-requires {:shadow_debug} (xprime == xprime.shadow);
-requires {:shadow_debug} (zprime == zprime.shadow);
-requires {:shadow_debug} (qmqp == qmqp.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $p0: ref;
   var $p0.shadow: ref;
@@ -6653,14 +6689,9 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fmul(output: ref, output.shadow: ref, in: ref, in.shadow: ref, in2: ref, in2.shadow: ref)
+procedure {:inline 2} fmul(output: ref, output.shadow: ref, in: ref, in.shadow: ref, in2: ref, in2.shadow: ref)
 modifies $M.2, $exn;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (in2 == in2.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $p0: ref;
   var $p0.shadow: ref;
@@ -6711,13 +6742,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fproduct(output: ref, output.shadow: ref, in2: ref, in2.shadow: ref, in: ref, in.shadow: ref)
+procedure {:inline 2} fproduct(output: ref, output.shadow: ref, in2: ref, in2.shadow: ref, in: ref, in.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in2 == in2.shadow);
-requires {:shadow_debug} (in == in.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i64;
   var $i1.shadow: i64;
@@ -12049,11 +12075,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure freduce_coefficients(output: ref, output.shadow: ref)
+procedure {:inline 2} freduce_coefficients(output: ref, output.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i32;
   var $i1.shadow: i32;
@@ -12449,11 +12472,8 @@ $bb3:
   $exn.shadow := false;
   return;
 }
-procedure freduce_degree(output: ref, output.shadow: ref)
+procedure {:inline 2} freduce_degree(output: ref, output.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i64;
   var $i1.shadow: i64;
@@ -13389,13 +13409,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fscalar_product(output: ref, output.shadow: ref, in: ref, in.shadow: ref, scalar: i64, scalar.shadow: i64)
+procedure {:inline 2} fscalar_product(output: ref, output.shadow: ref, in: ref, in.shadow: ref, scalar: i64, scalar.shadow: i64)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (scalar == scalar.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i32;
   var $i0.shadow: i32;
@@ -13474,13 +13489,9 @@ $bb3:
   $exn.shadow := false;
   return;
 }
-procedure fsquare(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
+procedure {:inline 2} fsquare(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
 modifies $M.2, $exn;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in == in.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $p0: ref;
   var $p0.shadow: ref;
@@ -16597,12 +16608,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure fsum(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
+procedure {:inline 2} fsum(output: ref, output.shadow: ref, in: ref, in.shadow: ref)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (output == output.shadow);
-requires {:shadow_debug} (in == in.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i32;
   var $i0.shadow: i32;
@@ -16895,12 +16902,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure swap_conditional(a: ref, a.shadow: ref, b: ref, b.shadow: ref, iswap: i64, iswap.shadow: i64)
+procedure {:inline 2} swap_conditional(a: ref, a.shadow: ref, b: ref, b.shadow: ref, iswap: i64, iswap.shadow: i64)
 modifies $M.2, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (a == a.shadow);
-requires {:shadow_debug} (b == b.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i64;
   var $i0.shadow: i64;
@@ -17139,7 +17142,7 @@ axiom (curve25519_donna_wrapper == $sub.ref(0,324));
 axiom (public_in == $sub.ref(0,332));
 axiom (__SMACK_value == $sub.ref(0,340));
 axiom (__SMACK_values == $sub.ref(0,348));
-axiom (declassified_out_object == $sub.ref(0,356));
+axiom (declassified_out == $sub.ref(0,356));
 axiom (llvm.dbg.value == $sub.ref(0,364));
 axiom (__SMACK_static_init == $sub.ref(0,372));
 procedure {:inline 1} $memcpy.i8(M.dst: [ref] i8, M.dst.shadow: [ref] i8, M.src: [ref] i8, M.src.shadow: [ref] i8, dst: ref, dst.shadow: ref, src: ref, src.shadow: ref, len: ref, len.shadow: ref, align: ref, align.shadow: ref, isvolatile: bool, isvolatile.shadow: bool) returns (M.ret: [ref] i8, M.ret.shadow: [ref] i8)

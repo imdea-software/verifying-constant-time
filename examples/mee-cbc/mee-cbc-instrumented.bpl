@@ -818,7 +818,7 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
-  assert {:shadow_missing}   ($p1 == $p1.shadow);
+  assert {:shadow_invariant} ($p1 == $p1.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
   assert {:shadow_invariant} ($i3 == $i3.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 62, 8} true;
@@ -2672,16 +2672,10 @@ $bb36:
   $exn.shadow := false;
   return;
 }
-procedure crypto_auth_ct(out: ref, out.shadow: ref, in: ref, in.shadow: ref, publen: i64, publen.shadow: i64, inlen: i64, inlen.shadow: i64, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} crypto_auth_ct(out: ref, out.shadow: ref, in: ref, in.shadow: ref, publen: i64, publen.shadow: i64, inlen: i64, inlen.shadow: i64, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
 modifies $M.11, $M.26, $exn;
 modifies $M.23;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (out == out.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (publen == publen.shadow);
-requires {:shadow_debug} (k == k.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i10: i64;
   var $i10.shadow: i64;
@@ -3361,8 +3355,8 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assert {:shadow_invariant} ($i23 == $i23.shadow);
@@ -3412,8 +3406,8 @@ $bb3:
   goto $bb4;
 $bb4:
   assert {:shadow_invariant} $shadow_ok;
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($i31 == $i31.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
@@ -3471,8 +3465,8 @@ $bb6:
   goto $bb7;
 $bb7:
   assert {:shadow_invariant} $shadow_ok;
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($i33 == $i33.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
@@ -3542,9 +3536,9 @@ $bb9:
 $bb10:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p56 == $p56.shadow);
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
   assert {:shadow_invariant} ($i57 == $i57.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 119, 8} true;
@@ -3596,9 +3590,9 @@ $bb12:
 $bb13:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p66 == $p66.shadow);
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($i65 == $i65.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 123, 8} true;
@@ -3679,9 +3673,9 @@ $bb16:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p66 == $p66.shadow);
   assert {:shadow_invariant} ($i85 == $i85.shadow);
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($i65 == $i65.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 128, 10} true;
@@ -4291,9 +4285,9 @@ $bb43:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($i237 == $i237.shadow);
   assert {:shadow_invariant} ($p233 == $p233.shadow);
-  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($i65 == $i65.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
+  assert {:shadow_invariant} ($i6 == $i6.shadow);
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/hmac.c", 168, 10} true;
@@ -4624,16 +4618,11 @@ $bb60:
   $exn.shadow := false;
   return;
 }
-procedure crypto_auth_verify(in: ref, in.shadow: ref, publen: i64, publen.shadow: i64, inlen: i64, inlen.shadow: i64, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} crypto_auth_verify(in: ref, in.shadow: ref, publen: i64, publen.shadow: i64, inlen: i64, inlen.shadow: i64, k: ref, k.shadow: ref) returns ($r: i32, $r.shadow: i32)
 modifies $M.11, $M.27, $exn;
 modifies $M.26;
 modifies $CurrAddr, $Alloc;
 modifies $M.23;
-requires {:shadow_debug} ($shadow_ok);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (publen == publen.shadow);
-requires {:shadow_debug} (k == k.shadow);
-ensures  {:shadow_debug} ($shadow_ok);
 {
   var $i10: i8;
   var $i10.shadow: i8;
@@ -6077,6 +6066,7 @@ $bb7:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+//  assert {:shadow_toomuch} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
@@ -6120,6 +6110,7 @@ $bb11:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+//  assert {:shadow_toomuch} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i24 == $i24.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
@@ -6141,6 +6132,7 @@ $bb13:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+//  assert {:shadow_toomuch} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i25 == $i25.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
@@ -6282,6 +6274,7 @@ $bb19:
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assert {:shadow_invariant} ($i57 == $i57.shadow);
+//  assert {:shadow_toomuch} ($i27 == $i27.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
@@ -7971,6 +7964,7 @@ $bb7:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+  assert {:shadow_invariant} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
@@ -8014,6 +8008,7 @@ $bb11:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+  assert {:shadow_invariant} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i24 == $i24.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
@@ -8035,6 +8030,7 @@ $bb13:
   assert {:shadow_invariant} $shadow_ok;
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
+  assert {:shadow_invariant} ($i19 == $i19.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i25 == $i25.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
@@ -8176,6 +8172,7 @@ $bb19:
   assert {:shadow_invariant} ($p2 == $p2.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assert {:shadow_invariant} ($i57 == $i57.shadow);
+  assert {:shadow_invariant} ($i27 == $i27.shadow);
   assert {:shadow_invariant} ($p3 == $p3.shadow);
   assert {:shadow_invariant} ($i20 == $i20.shadow);
   assert {:shadow_invariant} ($p0 == $p0.shadow);
@@ -9113,15 +9110,10 @@ $bb60:
   $i245.shadow := $i259.shadow;
   goto $bb55;
 }
-procedure crypto_hashblocks(statebytes: ref, statebytes.shadow: ref, in: ref, in.shadow: ref, inlen: i64, inlen.shadow: i64) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} crypto_hashblocks(statebytes: ref, statebytes.shadow: ref, in: ref, in.shadow: ref, inlen: i64, inlen.shadow: i64) returns ($r: i32, $r.shadow: i32)
 modifies $M.23, $exn;
 modifies $M.11;
 modifies $CurrAddr, $Alloc;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (statebytes == statebytes.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (inlen == inlen.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i100: i32;
   var $i100.shadow: i32;
@@ -16390,8 +16382,9 @@ $bb0:
   goto $bb1;
 $bb1:
   assert {:shadow_invariant} $shadow_ok;
-  assert {:shadow_invariant} ($i32 == $i32.shadow);
   assert {:shadow_invariant} ($p33 == $p33.shadow);
+  assert {:shadow_invariant} ($i32 == $i32.shadow);
+  assert {:shadow_invariant} ($p0 == $p0.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/sha256blocks.c", 86, 3} true;
   $i35 := $uge.i64($i32,64);
   $i35.shadow := $uge.i64($i32.shadow,64);
@@ -27849,13 +27842,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure crypto_pad_remove(out_len: ref, out_len.shadow: ref, in: ref, in.shadow: ref, l: i64, l.shadow: i64) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} crypto_pad_remove(out_len: ref, out_len.shadow: ref, in: ref, in.shadow: ref, l: i64, l.shadow: i64) returns ($r: i32, $r.shadow: i32)
 modifies $exn, $M.6;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (out_len == out_len.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (l == l.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i1;
   var $i0.shadow: i1;
@@ -28240,13 +28228,6 @@ modifies $exn, $M.22, $M.11;
 modifies $M.7, $M.8, $M.9, $M.10, $M.12, $M.13;
 modifies $CurrAddr, $Alloc;
 modifies $M.17, $M.18, $M.14, $M.15, $M.16;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (out == out.shadow);
-requires {:shadow_debug} (cipher == cipher.shadow);
-requires {:shadow_debug} (inlen == inlen.shadow);
-requires {:shadow_debug} (k == k.shadow);
-ensures  {:shadow_debug} $shadow_ok;
-ensures  {:shadow_debug} ($r == $r.shadow);
 {
   var $i1: i64;
   var $i1.shadow: i64;
@@ -30384,19 +30365,11 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure decrypt(out: ref, out.shadow: ref, out_len: ref, out_len.shadow: ref, in: ref, in.shadow: ref, in_len: i64, in_len.shadow: i64, iv: ref, iv.shadow: ref, sk: ref, sk.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} decrypt(out: ref, out.shadow: ref, out_len: ref, out_len.shadow: ref, in: ref, in.shadow: ref, in_len: i64, in_len.shadow: i64, iv: ref, iv.shadow: ref, sk: ref, sk.shadow: ref) returns ($r: i32, $r.shadow: i32)
 modifies $exn;
 modifies $M.6;
 modifies $M.22, $M.11, $M.7, $M.8, $M.9, $M.10, $M.12, $M.13;
 modifies $CurrAddr, $Alloc, $M.17, $M.18, $M.14, $M.15, $M.16;
-requires {:shadow_debug} ($shadow_ok);
-requires {:shadow_debug} (out == out.shadow);
-requires {:shadow_debug} (out_len == out_len.shadow);
-requires {:shadow_debug} (in == in.shadow);
-requires {:shadow_debug} (in_len == in_len.shadow);
-requires {:shadow_debug} (iv == iv.shadow);
-requires {:shadow_debug} (sk == sk.shadow);
-ensures  {:shadow_debug} ($shadow_ok);
 {
   var $i0: i32;
   var $i0.shadow: i32;
@@ -31524,6 +31497,7 @@ $bb3:
   goto $bb4;
 $bb4:
   assert {:shadow_invariant} $shadow_ok;
+//  assert {:shadow_toomuch} ($i136 == $i136.shadow);
   assert {:shadow_invariant} ($i135 == $i135.shadow);
   assert {:shadow_invariant} ($p1 == $p1.shadow);
   assume {:sourceloc "/home/francois/repositories/ct-verif/examples/mee-cbc/mac-then-encrypt/aes128.c", 97, 8} true;
@@ -31688,11 +31662,8 @@ $bb0:
 procedure {:inline 2} llvm.dbg.declare($p0: ref, $p0.shadow: ref, $p1: ref, $p1.shadow: ref);
 procedure {:inline 2} llvm.dbg.value($p0: ref, $p0.shadow: ref, $i1: i64, $i1.shadow: i64, $p2: ref, $p2.shadow: ref);
 procedure {:inline 2} llvm.memset.p0i8.i64($p0: ref, $p0.shadow: ref, $i1: i8, $i1.shadow: i8, $i2: i64, $i2.shadow: i64, $i3: i32, $i3.shadow: i32, $i4: i1, $i4.shadow: i1);
-procedure load_bigendian(x: ref, x.shadow: ref) returns ($r: i32, $r.shadow: i32)
+procedure {:inline 2} load_bigendian(x: ref, x.shadow: ref) returns ($r: i32, $r.shadow: i32)
 modifies $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (x == x.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i1: i8;
   var $i1.shadow: i8;
@@ -32642,11 +32613,8 @@ $bb0:
   $exn.shadow := false;
   return;
 }
-procedure store_bigendian(x: ref, x.shadow: ref, u: i32, u.shadow: i32)
+procedure {:inline 2} store_bigendian(x: ref, x.shadow: ref, u: i32, u.shadow: i32)
 modifies $M.11, $exn;
-requires {:shadow_debug} $shadow_ok;
-requires {:shadow_debug} (x == x.shadow);
-ensures  {:shadow_debug} $shadow_ok;
 {
   var $i0: i8;
   var $i0.shadow: i8;
