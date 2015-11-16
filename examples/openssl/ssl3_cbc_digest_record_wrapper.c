@@ -23,20 +23,20 @@ void ssl3_cbc_digest_record_wrapper(int type,
 {
 
   // pointer _values_ are public, maybe not the contents
-  public_in_value(__SMACK_value(md_data));
-  public_in_value(__SMACK_value(md_out));
-  public_in_value(__SMACK_value(md_out_size));
-  public_in_value(__SMACK_value(header));
-  public_in_value(__SMACK_value(data));
-  public_in_value(__SMACK_value(mac_secret));
+  public_in(__SMACK_value(md_data));
+  public_in(__SMACK_value(md_out));
+  public_in(__SMACK_value(md_out_size));
+  public_in(__SMACK_value(header));
+  public_in(__SMACK_value(data));
+  public_in(__SMACK_value(mac_secret));
 
   // these values are all public
-  public_in_value(__SMACK_value(type));
-  public_in_value(__SMACK_value(flags));
+  public_in(__SMACK_value(type));
+  public_in(__SMACK_value(flags));
   //public_in_object(__SMACK_object(header,13));
-  public_in_value(__SMACK_value(data_plus_mac_plus_padding_size));
-  public_in_value(__SMACK_value(mac_secret_length));
-  public_in_value(__SMACK_value(is_sslv3));
+  public_in(__SMACK_value(data_plus_mac_plus_padding_size));
+  public_in(__SMACK_value(mac_secret_length));
+  public_in(__SMACK_value(is_sslv3));
   
   struct env_md_st evp_md_obj = { type };
   ENGINE eng_obj= { 0 };

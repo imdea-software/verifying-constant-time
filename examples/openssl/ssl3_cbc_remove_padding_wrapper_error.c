@@ -19,9 +19,9 @@ int ssl3_cbc_remove_padding_wrapper(const SSL *s,
 
   // NOTE for now, must list struct fields individually.
   // NOTE for now, only static array length declarations supported.
-	public_in(__SMACK_value(rec->length));
+  public_in(__SMACK_value(rec->length));
   public_in(__SMACK_values(rec->data,2));
-	public_in(__SMACK_value(rec->type));
+  public_in(__SMACK_value(rec->type));
   public_in(__SMACK_values(rec->input,2));
 
   public_in(__SMACK_value(block_size));

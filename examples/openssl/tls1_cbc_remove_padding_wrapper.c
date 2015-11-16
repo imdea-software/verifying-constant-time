@@ -15,17 +15,17 @@ int tls1_cbc_remove_padding_wrapper(unsigned long options,
                                     unsigned int mac_size){
 
   // pointer _values_ are public, maybe not the contents
-  public_in_value(__SMACK_value(s3_read_sequence));
-  public_in_value(__SMACK_value(data));
+  public_in(__SMACK_value(s3_read_sequence));
+  public_in(__SMACK_value(data));
 
   // these lengths are all public
-  public_in_value(__SMACK_value(options));
-  public_in_value(__SMACK_value(s3_flags));
-  public_in_value(__SMACK_value(flags));
-  public_in_value(__SMACK_value(slicing_cheat)); // stay away from struct hell
-  public_in_value(__SMACK_value(length));
-  public_in_value(__SMACK_value(block_size));
-  public_in_value(__SMACK_value(mac_size));
+  public_in(__SMACK_value(options));
+  public_in(__SMACK_value(s3_flags));
+  public_in(__SMACK_value(flags));
+  public_in(__SMACK_value(slicing_cheat)); // stay away from struct hell
+  public_in(__SMACK_value(length));
+  public_in(__SMACK_value(block_size));
+  public_in(__SMACK_value(mac_size));
 
   SSL3_STATE s3_obj = { s3_flags };
   //for (int i = 0; i<8;i++) s3_obj.read_sequence[i]=s3_read_sequence[i];

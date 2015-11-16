@@ -10,12 +10,12 @@ int ssl3_cbc_remove_padding_wrapper(unsigned char *data,
                                     unsigned int mac_size){
 
   // pointer _values_ are public, maybe not the contents
-  public_in_value(__SMACK_value(data));
+  public_in(__SMACK_value(data));
 
   // these lengths are all public
-  public_in_value(__SMACK_value(length));
-  public_in_value(__SMACK_value(block_size));
-  public_in_value(__SMACK_value(mac_size));
+  public_in(__SMACK_value(length));
+  public_in(__SMACK_value(block_size));
+  public_in(__SMACK_value(mac_size));
 
   // s is actually not used in the function
   SSL s_obj = { NULL, 0, NULL, NULL, 0};
