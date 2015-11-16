@@ -355,8 +355,8 @@ int HASH_UPDATE(HASH_CTX *c, const void *data_, size_t len)
 
 void HASH_TRANSFORM(HASH_CTX *c, const unsigned char *data)
 {
-    public_in_value(__SMACK_value(c));
-    public_in_value(__SMACK_value(data));
+  //    public_in(__SMACK_value(c));
+  //    public_in(__SMACK_value(data));
     HASH_BLOCK_DATA_ORDER(c, data, 1);
 }
 
