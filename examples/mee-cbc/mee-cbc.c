@@ -17,17 +17,17 @@ int dv_wrapper(unsigned char *out,unsigned long *out_len, const unsigned char *i
                const unsigned char *iv,const unsigned char *enc_sk,const unsigned char *mac_sk)
 {
   /* Boilerplate */
-  public_in_value(__SMACK_value(out));
-  public_in_value(__SMACK_value(out_len));
-  public_in_value(__SMACK_value(in));
-  public_in_value(__SMACK_value(iv));
-  public_in_value(__SMACK_value(enc_sk));
-  public_in_value(__SMACK_value(mac_sk));
+  public_in(__SMACK_value(out));
+  public_in(__SMACK_value(out_len));
+  public_in(__SMACK_value(in));
+  public_in(__SMACK_value(iv));
+  public_in(__SMACK_value(enc_sk));
+  public_in(__SMACK_value(mac_sk));
 
   /* Useful */
-  public_in_value(__SMACK_value(in_len));
-  public_in_object(__SMACK_object(in,32));
-  public_in_object(__SMACK_object(iv,INPUTBYTES));
+  public_in(__SMACK_value(in_len));
+  public_in(__SMACK_values(in,32));
+  public_in(__SMACK_values(iv,INPUTBYTES));
 
   //declassified_out_object(__SMACK_object(out,32));
   //declassified_out_object(__SMACK_object(out_len, sizeof(*out_len)));
