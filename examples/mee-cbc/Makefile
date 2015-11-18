@@ -7,9 +7,11 @@ export LIBS        ?= mac-then-encrypt/aes128.c mac-then-encrypt/aes128cbc.c \
 export ENTRYPOINTS ?= dv_wrapper
 export CPATH       += ${PWD}/mac-then-encrypt
 
-mee-cbc: mee-cbc-verify
+mee-cbc:
+	@make mee-cbc-verify
 
-declassify-mee-cbc: declassify-mee-cbc-verify
+declassify-mee-cbc:
+	@make declassify-mee-cbc-verify
 
 mee-cbc-%:
 	EXAMPLE=mee-cbc.c\
