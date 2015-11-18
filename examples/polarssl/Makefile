@@ -7,7 +7,7 @@ sha256:
 	@make sha256-verify
 
 sha256-%:
-	ENTRYPOINTS="mbedtls_sha256_wrapper"\
+	ENTRYPOINTS=mbedtls_sha256_wrapper\
          LIBS="mbedtls/library/sha256.c" EXAMPLE="sha256.c"\
          make -C ../../bin $*
 
