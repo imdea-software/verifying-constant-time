@@ -21,34 +21,27 @@ int crypto_auth_pub(unsigned char *out, const unsigned char *in,
                     unsigned long long inlen, const unsigned char *k)
 {
   /* Argument addresses are public for now */
-  public_in_value(__SMACK_value(out));
-  public_in_value(__SMACK_value(in));
-  public_in_value(__SMACK_value(k));
+  public_in(__SMACK_value(out));
+  public_in(__SMACK_value(in));
+  public_in(__SMACK_value(k));
 
   /* Annotations */
-  public_in_value(__SMACK_value(inlen));
-  public_in_object(__SMACK_object(in,inlen));
-
-  declassified_out_object(__SMACK_object(out,crypto_auth_BYTES));
-
-  return crypto_auth(out,in,inlen,k);
+  public_in(__SMACK_value(inlen));
+  
+  return crypto_auth_hmacsha256(out,in,inlen,k);
 }
 
 int crypto_auth_sec(unsigned char *out, const unsigned char *in,
                     unsigned long long inlen, const unsigned char *k)
 {
   /* Argument addresses are public for now */
-  public_in_value(__SMACK_value(out));
-  public_in_value(__SMACK_value(in));
-  public_in_value(__SMACK_value(inlen));
-  public_in_value(__SMACK_value(k));
+  public_in(__SMACK_value(out));
+  public_in(__SMACK_value(in));
+  public_in(__SMACK_value(k));
 
-  /* Annotations: everything is private */
-  /* Ideally, we would be able to provide a single set of annotations
-     that captures that the output is declassified w.r.t. the key, but
-     not the input. This is not useful for whole program analysis. */
+  /* Annotations: everything is private (this should fail) */
 
-  return crypto_auth(out,in,inlen,k);
+  return crypto_auth_hmacsha256(out,in,inlen,k);
 }
 
 #ifdef TEST

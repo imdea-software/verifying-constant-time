@@ -25,7 +25,6 @@ int crypto_aead_chacha20poly1305_encrypt_wrapper(unsigned char *c,
                                          const unsigned char *m,
                                          unsigned long long mlen,
                                          const unsigned char *ad,
-                                         unsigned long long adlen,
                                          const unsigned char *nsec,
                                          const unsigned char *npub,
                                          const unsigned char *k)
@@ -41,8 +40,7 @@ int crypto_aead_chacha20poly1305_encrypt_wrapper(unsigned char *c,
 
   /* Real annotations */
   public_in(__SMACK_value(mlen));
-  public_in(__SMACK_value(adlen));
-  public_in(__SMACK_values(ad,adlen));
+  public_in(__SMACK_values(ad,32));
   public_in(__SMACK_values(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
   //  declassified_out(__SMACK_values(c,*clen_p));
@@ -50,7 +48,7 @@ int crypto_aead_chacha20poly1305_encrypt_wrapper(unsigned char *c,
 
   return  crypto_aead_chacha20poly1305_encrypt(c,clen_p,
                                                m,mlen,
-                                               ad,adlen,
+                                               ad,32,
                                                nsec,npub,k);
 }
 
@@ -58,9 +56,7 @@ int crypto_aead_chacha20poly1305_decrypt_wrapper(unsigned char *m,
                                          unsigned long long *mlen_p,
                                          unsigned char *nsec,
                                          const unsigned char *c,
-                                         unsigned long long clen,
                                          const unsigned char *ad,
-                                         unsigned long long adlen,
                                          const unsigned char *npub,
                                          const unsigned char *k)
 {
@@ -69,15 +65,13 @@ int crypto_aead_chacha20poly1305_decrypt_wrapper(unsigned char *m,
   public_in(__SMACK_value(mlen_p));
   public_in(__SMACK_value(nsec));
   public_in(__SMACK_value(c));
-  public_in(__SMACK_value(clen));
   public_in(__SMACK_value(ad));
-  public_in(__SMACK_value(adlen));
   public_in(__SMACK_value(npub));
   public_in(__SMACK_value(k));
 
   /* More useful annotations */
-  public_in(__SMACK_values(c,clen));
-  public_in(__SMACK_values(ad,adlen));
+  public_in(__SMACK_values(c,32));
+  public_in(__SMACK_values(ad,32));
   public_in(__SMACK_values(npub,crypto_aead_chacha20poly1305_NPUBBYTES));
 
   //  declassified_out_object(__SMACK_object(m,*mlen_p));
@@ -85,8 +79,8 @@ int crypto_aead_chacha20poly1305_decrypt_wrapper(unsigned char *m,
 
   return  crypto_aead_chacha20poly1305_decrypt(m,mlen_p,
                                                nsec,
-                                               c,clen,
-                                               ad,adlen,
+                                               c,32,
+                                               ad,32,
                                                npub,k);
 }
 
