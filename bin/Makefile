@@ -54,7 +54,7 @@ SMACKFLAGS    +=--verifier=$(VERIFIER)
 SMACKFLAGS    +=--entry-points $(ENTRYPOINTS)
 
 ### Flags for frontend use (C -> BPL)
-FRONTFLAGS    ?=-t $(SMACKFLAGS)
+FRONTFLAGS    ?=-t $(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
 
 ### Flags for backend use (BPL -> verification)
 BACKFLAGS     ?=$(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
