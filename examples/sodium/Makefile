@@ -1,7 +1,7 @@
 export WD          ?= ${PWD}
 export CPATH       += ${PWD}/libsodium/src/libsodium/include:${PWD}/libsodium/src/libsodium/include/sodium
 
-LIBDIR             = libsodium/src/libsodium/
+LIBDIR             = libsodium/src/libsodium
 
 # SALSA20
 SALSA20_LIBS      = sodium/utils.c \
@@ -33,6 +33,22 @@ chacha20-%:
          LIBS="$(patsubst %,$(LIBDIR)/%,$(CHACHA20_LIBS))"\
 	 make -C ../../bin $*
 
+
+# SHA512
+SHA256_LIBS      = sodium/utils.c \
+                   randombytes/sysrandom/randombytes_sysrandom.c randombytes/randombytes.c \
+                   crypto_hash/sha256/cp/hash_sha256.c
+
+sha256:
+	@make sha256-verify
+
+sha256-%:
+	EXAMPLE=sha256.c\
+         ENTRYPOINTS=crypto_hash_sha256_wrapper\
+         LIBS="$(patsubst %,$(LIBDIR)/%,$(SHA256_LIBS))"\
+	 make -C ../../bin $*
+
+
 # SHA512
 SHA512_LIBS      = sodium/utils.c \
                    randombytes/sysrandom/randombytes_sysrandom.c randombytes/randombytes.c \
@@ -49,12 +65,8 @@ sha512-%:
 
 # AUTH
 AUTH_LIBS      = sodium/utils.c \
-                 randombytes/sysrandom/randombytes_sysrandom.c randombytes/randombytes.c \
-                 crypto_hash/sha512/cp/hash_sha512.c crypto_auth/hmacsha512/cp/hmac_hmacsha512.c \
-                 crypto_verify/32/ref/verify_32.c \
-                 crypto_auth/hmacsha512256/cp/hmac_hmacsha512256.c \
-                 crypto_auth/hmacsha512256/cp/verify_hmacsha512256.c \
-                 crypto_auth/crypto_auth.c
+                 randombytes/randombytes.c randombytes/sysrandom/randombytes_sysrandom.c \
+                 crypto_hash/sha256/cp/hash_sha256.c crypto_auth/hmacsha256/cp/hmac_hmacsha256.c
 
 auth_pub:
 	@make auth_pub-verify
