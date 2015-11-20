@@ -33,11 +33,20 @@ chacha20-%:
          LIBS="$(patsubst %,$(LIBDIR)/%,$(CHACHA20_LIBS))"\
 	 make -C ../../bin $*
 
-
-# SHA512
+# SHA256
 SHA256_LIBS      = sodium/utils.c \
                    randombytes/sysrandom/randombytes_sysrandom.c randombytes/randombytes.c \
                    crypto_hash/sha256/cp/hash_sha256.c
+
+sha256_transform:
+	@make sha256_transform-verify
+
+sha256_transform-%:
+	EXAMPLE=sha256.c\
+         ENTRYPOINTS=SHA256_Transform_wrapper\
+         LIBS="$(patsubst %,$(LIBDIR)/%,$(SHA256_LIBS))"\
+	 make -C ../../bin $*
+
 
 sha256:
 	@make sha256-verify
