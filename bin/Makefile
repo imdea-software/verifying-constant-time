@@ -10,12 +10,12 @@ SUFFIX        ?=
 BASE           =$(notdir $(EXAMPLE))
 MODELFILE     ?=$(WD)/$(BASE:.c:.model)
 
-# By default, use local tools
-Z3PATH        ?=../tools/z3
-SMACKPATH     ?=../tools/smack
-BAMPATH       ?=../tools/bam-bam-boogieman
-BOOGIEPATH    ?=../tools/boogie
-CORRALPATH    ?=../tools/corral
+
+Z3PATH        ?=${PWD}/../tools/z3
+SMACKPATH     ?=${PWD}/../tools/smack
+BAMPATH       ?=${PWD}/../tools/bam-bam-boogieman
+BOOGIEPATH    ?=${PWD}/../tools/boogie
+CORRALPATH    ?=${PWD}/../tools/corral
 
 VERIFIER      ?=boogie
 
@@ -95,6 +95,8 @@ local-update:
 	git submodule update
 
 local-z3:
+	mkdir $(Z3PATH)/build -p
+	cd $(Z3PATH) && ./configure
 	cd $(Z3PATH)/build && make
 
 clean-local-z3:
@@ -102,13 +104,13 @@ clean-local-z3:
 
 local-boogie:
 	cd $(BOOGIEPATH) && xbuild Source/Boogie.sln
-	ln -s $(Z3PATH)/build/z3 $(BOOGIEPATH)/Binaries/z3.exe
+	ln -f -s $(Z3PATH)/build/z3 $(BOOGIEPATH)/Binaries/z3.exe
 
 clean-local-boogie:
 	rm $(BOOGIEPATH)/Binaries/z3.exe
 
 local-smack:
-	mkdir $(SMACKPATH)/build
+	mkdir -p $(SMACKPATH)/build
 	cd $(SMACKPATH)/build && cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug ..
 	make -C $(SMACKPATH)/build
 
