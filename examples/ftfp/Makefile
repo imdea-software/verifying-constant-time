@@ -26,7 +26,7 @@ for i in $(TARGETS); do\
   echo "Verifying target $$i";\
   $(MAKE) -C ../../bin $(1)\
    ENTRYPOINTS=$$i SUFFIX=_$$i\
-   CPATH=$(CPATH) LIBS='$(LIBS)' EXAMPLE=$(EXAMPLE)
+   CPATH=$(CPATH) LIBS='$(LIBS)' EXAMPLE=$(EXAMPLE);\
 done
 
 finish  =\
