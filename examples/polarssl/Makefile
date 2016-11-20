@@ -3,6 +3,8 @@ export CPATH     ?= ${PWD}/mbedtls/include
 export UNROLL    ?= 3
 export LOOPLIMIT ?= 64
 
+all: sha256 des-encrypt
+
 sha256:
 	@make sha256-verify
 

@@ -1,6 +1,8 @@
 export WD         = ${PWD}
 export EXAMPLE    = tea.c
 
+all: encrypt decrypt-cpa decrypt-cca
+
 encrypt:
 	@make encrypt-verify
 

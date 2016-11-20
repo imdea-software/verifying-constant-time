@@ -1,9 +1,9 @@
 #include "../ct-verif.h"
 
-#include "crypto_hashblocks.h"
-#include "crypto_auth.h"
-#include "crypto_block.h"
-#include "pad_cbc_aes128.h"
+#include "mac-then-encrypt/crypto_hashblocks.h"
+#include "mac-then-encrypt/crypto_auth.h"
+#include "mac-then-encrypt/crypto_block.h"
+#include "mac-then-encrypt/pad_cbc_aes128.h"
 
 int decrypt_then_verify_declassify(unsigned char *out,unsigned long *out_len,
       	                             const unsigned char *in,unsigned long in_len,
@@ -12,8 +12,8 @@ int decrypt_then_verify_declassify(unsigned char *out,unsigned long *out_len,
       	                             const unsigned char *mac_sk) {
   int res;
 
-  res = decrypt(out,out_len,in,in_len,iv,enc_sk); 
-  res &= crypto_auth_verify(out,in_len,*out_len,mac_sk); 
+  res = decrypt(out,out_len,in,in_len,iv,enc_sk);
+  res &= crypto_auth_verify(out,in_len,*out_len,mac_sk);
   if (res) {
     *out_len -= *out_len; // Is this really what we want?
   }

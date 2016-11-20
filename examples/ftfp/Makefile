@@ -23,16 +23,10 @@ TASK               ?= verify
 doall  =\
 SUCCESS=;FAILURE=;\
 for i in $(TARGETS); do\
-  /bin/echo -en "\e[34mVerifying target $$i\e[0m\n";\
+  echo "Verifying target $$i";\
   $(MAKE) -C ../../bin $(1)\
    ENTRYPOINTS=$$i SUFFIX=_$$i\
-   CPATH=$(CPATH) LIBS='$(LIBS)' EXAMPLE=$(EXAMPLE);\
-  RC=$$?;\
-  /bin/echo -en "\e[34mTarget $$i $(TASK): \e[0m";\
-  if [ $$RC -eq 0 ];\
-  then /bin/echo -en "\e[32mSuccess\e[0m\n"; SUCCESS=$$SUCCESS:$$i;\
-  else /bin/echo -en "\e[31mFailure\e[0m\n"; FAILURE=$$FAILURE:$$i;\
-  fi;\
+   CPATH=$(CPATH) LIBS='$(LIBS)' EXAMPLE=$(EXAMPLE)
 done
 
 finish  =\
@@ -40,10 +34,13 @@ for i in $(1); do\
   ../../tools/boogie/Binaries/Boogie.exe /doModSetAnalysis $$i;\
 done
 
-all: $(LIBS) $(EXAMPLE)
+all: $(LIBS) $(EXAMPLE) libfixedtimefixedpoint/base.h
 	@$(call doall,$(TASK));\
-         /bin/echo -en "\e[32mSuccess ($(TASK)): $$SUCCESS\n";\
-         /bin/echo -en "\e[31mFailure ($(TASK)): $$FAILURE\n"
+         echo "Success ($(TASK)): $$SUCCESS";\
+         echo "Failure ($(TASK)): $$FAILURE"
+
+libfixedtimefixedpoint/base.h:
+	cd libfixedtimefixedpoint && python generate_base.py --file base.h --pyfile base.py --lutfile lut.h --intbits 32
 
 trouble: $(LIBS) $(EXAMPLE)
 	@TARGETS=$(TROUBLE) TASK=bamout $(MAKE) all

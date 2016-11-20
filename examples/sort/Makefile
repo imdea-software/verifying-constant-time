@@ -1,6 +1,8 @@
 export WD =${PWD}
 export ENTRYPOINTS =sort3_wrapper
 
+all: verify verify-negative verify-multiplex
+
 verify:
 	EXAMPLE=sort.c make -C ../../bin verify
 

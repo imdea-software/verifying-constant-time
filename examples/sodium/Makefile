@@ -9,10 +9,19 @@ SALSA20_LIBS      = sodium/utils.c \
                     crypto_core/salsa20/ref/core_salsa20.c \
                     crypto_core/salsa20/core_salsa20_api.c
 
+all: salsa20 chacha20 sha256_transform sha256 sha512 auth_pub auth_prv poly1305 aead
+
+.PHONY: sodium-built
+sodium-built: libsodium/src/libsodium/include/sodium/version.h
+
+libsodium/src/libsodium/include/sodium/version.h:
+	cd libsodium && ./configure
+	# cd libsodium && make
+
 salsa20:
 	@make salsa20-verify
 
-salsa20-%:
+salsa20-%: sodium-built
 	EXAMPLE=salsa20.c\
          ENTRYPOINTS=crypto_core_salsa20_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(SALSA20_LIBS))"\
@@ -27,7 +36,7 @@ CHACHA20_LIBS      = sodium/utils.c \
 chacha20:
 	@make chacha20-verify
 
-chacha20-%:
+chacha20-%: sodium-built
 	EXAMPLE=chacha20.c\
          ENTRYPOINTS=crypto_stream_chacha20_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(CHACHA20_LIBS))"\
@@ -41,7 +50,7 @@ SHA256_LIBS      = sodium/utils.c \
 sha256_transform:
 	@make sha256_transform-verify
 
-sha256_transform-%:
+sha256_transform-%: sodium-built
 	EXAMPLE=sha256.c\
          ENTRYPOINTS=SHA256_Transform_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(SHA256_LIBS))"\
@@ -51,7 +60,7 @@ sha256_transform-%:
 sha256:
 	@make sha256-verify
 
-sha256-%:
+sha256-%: sodium-built
 	EXAMPLE=sha256.c\
          ENTRYPOINTS=crypto_hash_sha256_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(SHA256_LIBS))"\
@@ -66,7 +75,7 @@ SHA512_LIBS      = sodium/utils.c \
 sha512:
 	@make sha512-verify
 
-sha512-%:
+sha512-%: sodium-built
 	EXAMPLE=sha512.c\
          ENTRYPOINTS=crypto_hash_sha512_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(SHA512_LIBS))"\
@@ -80,7 +89,7 @@ AUTH_LIBS      = sodium/utils.c \
 auth_pub:
 	@make auth_pub-verify
 
-auth_pub-%:
+auth_pub-%: sodium-built
 	EXAMPLE=auth.c\
          ENTRYPOINTS=crypto_auth_pub\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(AUTH_LIBS))"\
@@ -90,7 +99,7 @@ auth_pub-%:
 auth_prv:
 	@make auth_prv-verify
 
-auth_prv-%:
+auth_prv-%: sodium-built
 	EXAMPLE=auth.c\
          ENTRYPOINTS=crypto_auth_sec\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(AUTH_LIBS))"\
@@ -108,7 +117,7 @@ POLY1305_LIBS      = sodium/utils.c \
 poly1305:
 	@make poly1305-verify
 
-poly1305-%:
+poly1305-%: sodium-built
 	EXAMPLE=poly1305.c\
          ENTRYPOINTS=crypto_onetimeauth_poly1305_donna_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(POLY1305_LIBS))"\
@@ -127,7 +136,7 @@ AEAD_LIBS = sodium/utils.c \
 aead:
 	@make aead-verify
 
-aead-%:
+aead-%: sodium-built
 	EXAMPLE=aead.c\
          ENTRYPOINTS=crypto_aead_chacha20poly1305_decrypt_wrapper\
          LIBS="$(patsubst %,$(LIBDIR)/%,$(AEAD_LIBS))"\

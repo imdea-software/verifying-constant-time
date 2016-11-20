@@ -8,7 +8,7 @@
 */
 
 #include "../ct-verif.h"
-#include "crypto_block.h"
+#include "mac-then-encrypt/crypto_block.h"
 
 extern int decrypt_then_verify(unsigned char *out,unsigned long *out_len, const unsigned char *in,unsigned long in_len,
 			       const unsigned char *iv,const unsigned char *enc_sk,const unsigned char *mac_sk);

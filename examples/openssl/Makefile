@@ -1,5 +1,7 @@
 export WD =${PWD}
 
+all: verify verify_bug verify2 verify3 verify4
+
 verify:
 	ENTRYPOINTS=ssl3_cbc_remove_padding_wrapper EXAMPLE=ssl3_cbc_remove_padding_wrapper.c make -C ../../bin verify
 
