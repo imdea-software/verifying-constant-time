@@ -4,23 +4,9 @@
 [submodule "examples/curve25519-donna/donna"]
 	path = examples/curve25519-donna/donna
 	url = https://github.com/agl/curve25519-donna.git
-[submodule "tools/boogie"]
-	path = tools/boogie
-	url = https://github.com/boogie-org/boogie.git
-[submodule "tools/z3"]
-	path = tools/z3
-	url = https://github.com/Z3Prover/z3.git
 [submodule "examples/polarssl/mbedtls"]
 	path = examples/polarssl/mbedtls
 	url = https://github.com/ARMmbed/mbedtls.git
-[submodule "tools/smack"]
-	path = tools/smack
-	url = https://github.com/smackers/smack
-	branch = develop
-[submodule "tools/bam-bam-boogieman"]
-	path = tools/bam-bam-boogieman
-	url = https://github.com/michael-emmi/bam-bam-boogieman
-	branch = develop
 [submodule "examples/ftfp/libfixedtimefixedpoint"]
 	path = examples/ftfp/libfixedtimefixedpoint
 	url = https://github.com/kmowery/libfixedtimefixedpoint.git
