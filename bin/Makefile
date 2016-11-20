@@ -59,7 +59,7 @@ $(BAMOUT): $(SMACKOUT)
 	@echo "Product" | figlet
 	@echo "$(EXAMPLE): $(ENTRYPOINTS)"
 	@echo
-	@bam -q --shadowing $(SMACKOUT) -o $(BAMOUT)
+	@bam -q -i $(SMACKOUT) --shadowing -o $(BAMOUT)
 
 bamout: $(BAMOUT)
 
