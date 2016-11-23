@@ -30,6 +30,7 @@ v = verified
 	@echo Compile | figlet
 	@echo $(@:.$(c)=)
 	@echo
+	@mkdir -p $(dir $@)
 	@$(ctverif) $(flags) -a $@ --no-product --no-verify -e $(call entrypoint,$(@:.$(c)=)) $(call sourcefile,$(@:.$(c)=)) $(extras)
 
 %.$(p): %.$(c)
