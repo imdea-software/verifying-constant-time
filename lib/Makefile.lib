@@ -37,11 +37,11 @@ v = verified
 	@echo Product | figlet
 	@echo $(@:.$(p)=)
 	@echo
-	@$(ctverif) $(flags) -b $@ --no-compile --no-verify -e $(call entrypoint,$<) $<
+	@$(ctverif) $(flags) -b $@ --no-compile --no-verify $<
 
 %.$(v): %.$(p)
 	@echo
 	@echo Verify | figlet
 	@echo $(@:.$(v)=)
 	@echo
-	@$(ctverif) $(flags) --no-compile --no-product -e $(call entrypoint,$<) $<
+	@$(ctverif) $(flags) --no-compile --no-product $<
