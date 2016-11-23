@@ -1,14 +1,8 @@
-export WD          ?= ${PWD}
-export LIBS        ?= donna/curve25519-donna.c
-export EXAMPLE     ?= donna.c
-export ENTRYPOINTS ?= curve25519_donna_wrapper
-export UNROLL      ?= 45
-export LOOPLIMIT   ?= 64
+extras = donna/curve25519-donna.c
+unroll = 45
+looplimit = 64
 
-.PHONY: donna
+include ../../lib/Makefile.lib
 
-donna: $(LIBS) $(EXAMPLE)
-	@make -C ../../bin verify
-
-donna-%:
-	@make -C ../../bin $*
+GOALS = curve25519_donna_wrapper@donna.c
+all: $(GOALS:%=%.$(v))

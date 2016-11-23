@@ -1,5 +1,5 @@
 #include "ct-verif.h"
-#include "rlwe.h"
+#include "rlwekex/rlwe.h"
 
 void sample_ct_wrapper(uint32_t *s, RAND_CTX *rand_ctx) {
   public_in(__SMACK_value(s));

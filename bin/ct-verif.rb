@@ -12,7 +12,8 @@ def get_parameters
     verify: true,
     time: nil,
     unroll: nil,
-    bpl_file: 'a.bpl',
+    a: 'a.bpl',
+    b: 'b.bpl',
     clang_options: ["-I#{__dir__}/../include"]
   }
 
@@ -44,8 +45,12 @@ def get_parameters
       params[:unroll] = u
     end
 
-    opts.on('-f', '--bpl-file FILE', "Intemediate BPL file.") do |f|
-      params[:bpl_file] = f
+    opts.on('-a FILE', "Intermediate file after Boogie translation.") do |f|
+      params[:a] = f
+    end
+
+    opts.on('-b FILE', "Intermediate file after product construction.") do |f|
+      params[:b] = f
     end
 
     opts.separator ""
@@ -66,11 +71,18 @@ def get_parameters
   end.parse!
   params[:sources] = ARGV
 
-  (puts "Input FILES required; see --help."; exit) if params[:sources].empty?
+  raise "Input FILES required; see --help." if params[:sources].empty?
   params[:sources].each do |f|
-    (puts "File #{f} not found."; exit) unless File.exists? f
+    raise "File #{f} not found." unless File.exists? f
   end
-  (puts "Entry-points PROCS required see --help."; exit) if params[:entries].empty?
+  if params[:compile]
+    raise "Entry-points PROCS required see --help." if params[:entries].empty?
+  else
+    raise "Too many input FILES given." if params[:sources].count > 1
+  end
+
+  params[:a] = params[:sources].first unless params[:compile]
+  params[:b] = params[:a] unless params[:product]
 
   return params
 end
@@ -83,23 +95,18 @@ begin
   temp_files = []
 
   if params[:compile]
-    flags = []
+    flags = ["-t"]
     flags << "--clang-options=\"#{params[:clang_options] * " "}\"" if params[:clang_options].any?
     flags << "--verifier boogie"
     flags << "--entry-points #{params[:entries] * ","}"
-    flags << "-bpl #{params[:bpl_file]}"
-    puts `#{echo} smack -t #{flags * " "} #{inputs * " "}`
-    raise "failed to compile #{inputs * ", "}" unless $?.success?
-    inputs = [params[:bpl_file]]
+    flags << "-bpl #{params[:a]}"
+    puts `#{echo} smack #{flags * " "} #{params[:sources] * " "}`
+    raise "failed to compile #{params[:sources] * ", "}" unless $?.success?
   end
 
   if params[:product]
-    inputs.map! do |program|
-      product = program.sub(/.bpl/, ".product.bpl")
-      puts `#{echo} bam -i #{program} --shadowing -o #{product}`
-      raise "failed to construct product program" unless $?.success?
-      product
-    end
+    puts `#{echo} bam -q -i #{params[:a]} --shadowing -o #{params[:b]}`
+    raise "failed to construct product program" unless $?.success?
   end
 
   if params[:verify]
@@ -107,10 +114,8 @@ begin
     flags << "/doModSetAnalysis"
     flags << "/loopUnroll:#{params[:unroll]}" if params[:unroll]
     flags << "/timeLimit:#{params[:time]}" if params[:time]
-    inputs.each do |program|
-      puts `#{echo} boogie #{flags * " "} #{program}`
-      raise "failed to process product program" unless $?.success?
-    end
+    puts `#{echo} boogie #{flags * " "} #{params[:b]}`
+    raise "failed to process product program" unless $?.success?
   end
 
 rescue Interrupt
@@ -118,6 +123,7 @@ rescue Interrupt
 
 rescue => e
   puts "#{e}"
+  exit(-1)
 
 ensure
 

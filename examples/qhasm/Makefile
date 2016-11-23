@@ -1,7 +1,4 @@
-export WD =${PWD}
+include ../../lib/Makefile.lib
 
-verify:
-	ENTRYPOINTS=aes_ctr_wrapper EXAMPLE=aes-ctr.c make -C ../../bin verify
-
-clean:
-	rm -f aes-ctr.bpl
+GOALS = aes_ctr_wrapper@aes-ctr.c
+all: $(GOALS:%=%.$(v))

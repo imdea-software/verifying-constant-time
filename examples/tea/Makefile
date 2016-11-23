@@ -1,22 +1,5 @@
-export WD         = ${PWD}
-export EXAMPLE    = tea.c
+include ../../lib/Makefile.lib
 
-all: encrypt decrypt-cpa decrypt-cca
-
-encrypt:
-	@make encrypt-verify
-
-encrypt-%:
-	ENTRYPOINTS=encrypt_wrapper SUFFIX=encrypt make -C ../../bin $*
-
-decrypt-cpa:
-	@make decrypt-cpa-verify
-
-decrypt-cpa-%:
-	ENTRYPOINTS=decrypt_cpa_wrapper SUFFIX=decrypt_cpa make -C ../../bin $*
-
-decrypt-cca:
-	@make decrypt-cca-verify
-
-decrypt-cca-%:
-	ENTRYPOINTS=decrypt_cca_wrapper SUFFIX=decrypt_cca make -C ../../bin $*
+ENTRYPOINTS = encrypt_wrapper decrypt_cpa_wrapper decrypt_cca_wrapper
+GOALS = $(ENTRYPOINTS:%=%@tea.c)
+all: $(GOALS:%=%.$(v))

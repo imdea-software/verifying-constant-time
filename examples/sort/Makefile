@@ -1,16 +1,4 @@
-export WD =${PWD}
-export ENTRYPOINTS =sort3_wrapper
+include ../../lib/Makefile.lib
 
-all: verify verify-negative verify-multiplex
-
-verify:
-	EXAMPLE=sort.c make -C ../../bin verify
-
-verify-negative:
-	EXAMPLE=sort_negative.c make -C ../../bin verify
-
-verify-multiplex:
-	EXAMPLE=sort_multiplex.c make -C ../../bin verify
-
-clean:
-	rm *.bpl
+GOALS = sort3_wrapper@sort.c sort3_wrapper@sort_negative.c sort3_wrapper@sort_multiplex.c
+all: $(GOALS:%=%.$(v))

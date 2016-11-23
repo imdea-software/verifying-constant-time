@@ -1,12 +1,8 @@
-export WD          ?=${PWD}
-export LIBS        ?=caolip.c sha1_COMPCERT.c
-export EXAMPLE     ?=RSA_OAEP_COMPCERT_new.c
-export ENTRYPOINTS ?= c_Dec_wrapper
-export UNROLL      ?= 4
-export LOOPLIMIT   ?= 2
+extras = caolip.c sha1_COMPCERT.c
+unroll = 4
+looplimit = 2
 
-pkcs:
-	make -C ../../bin verify
+include ../../lib/Makefile.lib
 
-pkcs-%:
-	make -C ../../bin $*
+GOALS = c_Dec_wrapper@RSA_OAEP_COMPCERT_new.c
+all: $(GOALS:%=%.$(v))
