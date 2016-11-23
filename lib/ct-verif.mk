@@ -22,6 +22,7 @@ p = product.bpl
 v = verified
 
 .PRECIOUS: %.$(c) %.$(p)
+.PHONY: %.$(v)
 
 %.$(c):
 	@echo
