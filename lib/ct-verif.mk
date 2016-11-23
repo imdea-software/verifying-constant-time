@@ -5,19 +5,17 @@ mydir = $(dir $(realpath $(word 2, $(MAKEFILE_LIST))))
 entrypoint = $(word 1, $(subst @, ,$1))
 sourcefile = $(word 2, $(subst @, ,$1))
 
-ctverif = $(mydir)../bin/ct-verif.rb
-unroll	?= 1
+ctverif := $(mydir)../bin/ct-verif.rb
+unroll	?=
 time		?= 5
 cflags  ?=
 extras  ?=
 
-flags :=
-flags += --unroll-limit $(unroll)
-flags += --time-limit $(time)
-
-ifneq ($(strip $(cflags)),)
-	flags = --clang-options="$(cflags)"
-endif
+flags = $(strip \
+	$(if $(strip $(unroll)),--unroll-limit $(unroll)) \
+	$(if $(strip $(time)),--time-limit $(time)) \
+	$(if $(strip $(cflags)),--clang-options="$(cflags)") \
+)
 
 c = compiled.bpl
 p = product.bpl

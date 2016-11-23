@@ -1,8 +1,7 @@
+include ../../lib/ct-verif.mk
+
 L = libfixedtimefixedpoint
 extras = $(patsubst %,$(L)/%,autogen.c cordic.c debug.c internal.c power.c)
-cflags = -I$(L)
-
-include ../../lib/ct-verif.mk
 
 ENTRIES :=
 ENTRIES += fix_is_neg fix_is_nan fix_is_inf_pos fix_is_inf_neg
