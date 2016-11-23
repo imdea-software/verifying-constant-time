@@ -24,7 +24,7 @@ v = verified
 .PRECIOUS: %.$(c) %.$(p)
 .PHONY: %.$(v)
 
-%.$(c):
+%.$(c): # TODO add dependency $(call entrypoint,$(@:.$(c)=))
 	@echo
 	@echo Compile | figlet
 	@echo $(@:.$(c)=)
