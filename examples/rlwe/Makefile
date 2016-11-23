@@ -4,7 +4,7 @@ endif
 
 extras = rlwekex/rlwe_rand.c rlwekex/rlwe.c
 
-include ../../lib/Makefile.lib
+include ../../lib/ct-verif.mk
 
 GOALS = sample_ct_wrapper@sample_ct.c
 all: $(GOALS:%=%.$(v))

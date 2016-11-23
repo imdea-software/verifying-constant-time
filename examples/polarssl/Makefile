@@ -3,7 +3,7 @@ looplimit = 64
 cflags = -Imbedtls/include
 extras = mbedtls/library/sha256.c mbedtls/library/des.c
 
-include ../../lib/Makefile.lib
+include ../../lib/ct-verif.mk
 
 GOALS :=
 GOALS += mbedtls_sha256_wrapper@sha256.c

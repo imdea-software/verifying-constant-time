@@ -2,7 +2,7 @@ L = libfixedtimefixedpoint
 extras = $(patsubst %,$(L)/%,autogen.c cordic.c debug.c internal.c power.c)
 cflags = -I$(L)
 
-include ../../lib/Makefile.lib
+include ../../lib/ct-verif.mk
 
 ENTRIES :=
 ENTRIES += fix_is_neg fix_is_nan fix_is_inf_pos fix_is_inf_neg
@@ -16,6 +16,6 @@ ENTRIES += fix_exp fix_sqrt fix_pow
 GOALS = $(ENTRIES:%=%@$(L)/ftfp.c)
 
 all: $(L)/base.h $(GOALS:%=%.$(v))
-	
-libfixedtimefixedpoint/base.h:
+
+$(L)/base.h:
 	cd $(L) && python generate_base.py --file base.h --pyfile base.py --lutfile lut.h --intbits 32

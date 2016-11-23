@@ -1,4 +1,4 @@
-include ../../lib/Makefile.lib
+include ../../lib/ct-verif.mk
 
 GOALS :=
 GOALS += ssl3_cbc_remove_padding_wrapper@ssl3_cbc_remove_padding_wrapper.c
