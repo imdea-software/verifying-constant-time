@@ -1,5 +1,5 @@
 /* From https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm */
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include <stdint.h>
 

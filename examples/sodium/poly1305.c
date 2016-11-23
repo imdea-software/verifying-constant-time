@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 extern int crypto_onetimeauth_poly1305_donna(unsigned char *out, const unsigned char *m,
                                          unsigned long long inlen,

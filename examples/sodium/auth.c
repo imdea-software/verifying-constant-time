@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "sodium.h"
 
@@ -27,7 +27,7 @@ int crypto_auth_pub(unsigned char *out, const unsigned char *in,
 
   /* Annotations */
   public_in(__SMACK_value(inlen));
-  
+
   return crypto_auth_hmacsha256(out,in,inlen,k);
 }
 

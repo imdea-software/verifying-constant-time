@@ -1,6 +1,6 @@
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "ssl3_cbc_copy_mac.c"
 
@@ -23,4 +23,3 @@ void ssl3_cbc_copy_mac_wrapper(unsigned char *out,
 
   return ssl3_cbc_copy_mac(out,&rec_obj,md_size,orig_len);
 }
-

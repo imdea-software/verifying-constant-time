@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 #include "CAO_COMPCERT_new.h"
 
 #define nLen 512

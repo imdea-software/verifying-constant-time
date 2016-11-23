@@ -10,35 +10,14 @@ SUFFIX        ?=
 BASE           =$(notdir $(EXAMPLE))
 MODELFILE     ?=$(WD)/$(BASE:.c:.model)
 
-VERIFIER      ?=boogie
-
-ifeq (boogie,$(VERIFIER))
-	BACKEND?=boogie
-	BACKENDOPTS?=/doModSetAnalysis /nologo /timeLimit:5
-else
-	BACKEND?=corral
-endif
+ctverif = ../bin/ct-verif.rb
+FLAGS = --clang-options="$(CLANGOPTS)" -e $(ENTRYPOINTS) --unroll-limit $(UNROLL) --time-limit 5
 
 ## Files
 LIBSIN        ?=$(patsubst %,$(WD)/%,$(LIBS))
 SMACKIN       ?=$(WD)/$(EXAMPLE)
 SMACKOUT      ?=$(WD)/$(BASE:.c=$(SUFFIX).bpl)
-BAMOUT        ?=$(WD)/$(BASE:.c=$(SUFFIX)-instrumented.bpl)
-
-## SMACK flags
-### Common flags
-SMACKFLAGS    ?=$(SMACKOPTS)
-SMACKFLAGS    +=--verifier=$(VERIFIER)
-SMACKFLAGS    +=--entry-points $(ENTRYPOINTS)
-
-### Flags for frontend use (C -> BPL)
-FRONTFLAGS    ?=-t $(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT) -q
-
-### Flags for backend use (BPL -> verification)
-BACKFLAGS     ?=$(SMACKFLAGS) --unroll $(UNROLL) --loop-limit $(LOOPLIMIT)
-
-## Additional flags
-SMACKOPTS     ?=
+BAMOUT        ?=$(WD)/$(BASE:.c=$(SUFFIX).product.bpl)
 
 # Main verification target for examples
 all: verify
@@ -49,7 +28,7 @@ $(SMACKOUT): $(LIBSIN) $(SMACKIN)
 	@echo "Compile" | figlet
 	@echo "$(EXAMPLE): $(ENTRYPOINTS)"
 	@echo
-	@smack $(FRONTFLAGS) -bpl $(SMACKOUT) $(LIBSIN) $(SMACKIN)
+	@$(ctverif) $(FLAGS) -f $(SMACKOUT) --no-product --no-verify $(LIBSIN) $(SMACKIN)
 
 smackout: $(SMACKOUT)
 
@@ -59,7 +38,7 @@ $(BAMOUT): $(SMACKOUT)
 	@echo "Product" | figlet
 	@echo "$(EXAMPLE): $(ENTRYPOINTS)"
 	@echo
-	@bam -q -i $(SMACKOUT) --shadowing -o $(BAMOUT)
+	@$(ctverif) $(FLAGS) --no-compile --no-verify $(SMACKOUT)
 
 bamout: $(BAMOUT)
 
@@ -68,7 +47,7 @@ verify: $(BAMOUT)
 	@echo
 	@echo "Verify" | figlet
 	@echo "$(EXAMPLE): $(ENTRYPOINTS)"
-	@$(BACKEND) $(BACKENDOPTS) $(BAMOUT)
+	@$(ctverif) $(FLAGS) --no-compile --no-product $(BAMOUT)
 
 local-update:
 	git submodule update

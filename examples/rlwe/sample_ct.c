@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 #include "rlwe.h"
 
 void sample_ct_wrapper(uint32_t *s, RAND_CTX *rand_ctx) {

@@ -1,8 +1,8 @@
 #include "mbedtls/des.h"
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 /* Compile with:
-     
+
  */
 
 int mbedtls_des3_ENcrypt_cbc_wrapper(mbedtls_des3_context *ctx,

@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "sodium.h"
 

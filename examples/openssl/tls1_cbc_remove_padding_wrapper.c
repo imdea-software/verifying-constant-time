@@ -1,14 +1,14 @@
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "tls1_cbc_remove_padding.c"
 
 int tls1_cbc_remove_padding_wrapper(unsigned long options,
                                     long s3_flags,
                                     unsigned char *s3_read_sequence,
-                                    unsigned long flags, 
-                                    int slicing_cheat,                                   
+                                    unsigned long flags,
+                                    int slicing_cheat,
                                     unsigned char *data,
 									                  unsigned int length,
                                     unsigned int block_size,
@@ -44,4 +44,3 @@ int tls1_cbc_remove_padding_wrapper(unsigned long options,
 }
 
 // TO VERIFY LOOP ADD IN LINE 1196  assert ($i88 == $i88.shadow);
-

@@ -1,6 +1,6 @@
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "ssl3_cbc_digest_record.c"
 
@@ -37,15 +37,14 @@ void ssl3_cbc_digest_record_wrapper(int type,
   public_in(__SMACK_value(data_plus_mac_plus_padding_size));
   public_in(__SMACK_value(mac_secret_length));
   public_in(__SMACK_value(is_sslv3));
-  
+
   struct env_md_st evp_md_obj = { type };
   ENGINE eng_obj= { 0 };
   EVP_PKEY_CTX pkey_obj = { 0 };
-  struct env_md_ctx_st ctx_obj = { &evp_md_obj, &eng_obj, flags, 
+  struct env_md_ctx_st ctx_obj = { &evp_md_obj, &eng_obj, flags,
                                    md_data, &pkey_obj, update};
 
   ssl3_cbc_digest_record(&ctx_obj,md_out,md_out_size,header,data,
                          data_plus_mac_size,data_plus_mac_plus_padding_size,
                          mac_secret,mac_secret_length, is_sslv3);
 }
-

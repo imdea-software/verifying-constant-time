@@ -9,7 +9,7 @@ outputs.
 */
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 int sort2(int *out2, int *in2) {
   int a, b;

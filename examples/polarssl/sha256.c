@@ -1,5 +1,5 @@
 #include "mbedtls/sha256.h"
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 /* Compile with:
      clang -I.. -Imbedtls/include \

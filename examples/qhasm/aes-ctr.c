@@ -1,6 +1,6 @@
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "constants.h"
 #include "macros.h"

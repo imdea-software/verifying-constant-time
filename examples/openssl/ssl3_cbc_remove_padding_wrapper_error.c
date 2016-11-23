@@ -1,6 +1,6 @@
 #include <smack.h>
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "ssl3_cbc_remove_padding.c"
 

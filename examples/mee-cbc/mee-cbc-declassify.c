@@ -1,4 +1,4 @@
-#include "../ct-verif.h"
+#include "ct-verif.h"
 
 #include "mac-then-encrypt/crypto_hashblocks.h"
 #include "mac-then-encrypt/crypto_auth.h"

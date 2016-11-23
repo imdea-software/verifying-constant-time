@@ -7,7 +7,7 @@
            mee-cbc.c
 */
 
-#include "../ct-verif.h"
+#include "ct-verif.h"
 #include "mac-then-encrypt/crypto_block.h"
 
 extern int decrypt_then_verify(unsigned char *out,unsigned long *out_len, const unsigned char *in,unsigned long in_len,

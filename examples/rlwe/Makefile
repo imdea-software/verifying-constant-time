@@ -1,8 +1,8 @@
 export WD        ?= ${PWD}
 export CPATH     ?= ${PWD}/rlwekex
 
-ifeq ($(OS),Darwin)
-	export SMACKOPTS ?= --clang-options="-I$(shell brew --prefix openssl)/include"
+ifeq ($(shell uname -s),Darwin)
+	export CLANGOPTS ?= -I$(shell brew --prefix openssl)/include
 endif
 
 sample:
