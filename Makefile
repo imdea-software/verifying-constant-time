@@ -1,5 +1,5 @@
 MAKEFILES = $(shell find examples -name Makefile -depth 2)
-EXAMPLES = $(dir $(MAKEFILES))
+EXAMPLES = $(patsubst %/,%,$(dir $(MAKEFILES)))
 
 logs = $(shell find . -name "*.log")
 attempts = $(shell grep "verifier version" $(logs) | wc -l | tr -d ' ')
@@ -15,5 +15,15 @@ all: $(EXAMPLES:%=%.target)
 	@echo $(verified) verified
 	@echo $(errors) errors
 
+clean: $(EXAMPLES:%=%.clean)
+
 %.target:
-	@cd $(@:%.target=%) && make
+	@echo
+	@echo Example | figlet
+	@echo $(notdir $*)
+	@cd $* && make
+
+%.clean:
+	@echo
+	@echo Cleaning $*
+	@cd $* && make clean

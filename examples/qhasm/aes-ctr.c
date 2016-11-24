@@ -1099,11 +1099,11 @@ void ECRYPT_init(unsigned int* arg1, unsigned int* arg2, void* arg3, void* arg4,
 
 void aes_ctr_wrapper(unsigned int* arg1, unsigned int* arg2, void* arg3, void* arg4, unsigned int arg5) {
 
-	public_in_value(__SMACK_value(arg1));
-	public_in_value(__SMACK_value(arg2));
-	public_in_value(__SMACK_value(arg3));
-	public_in_value(__SMACK_value(arg4));
-	public_in_value(__SMACK_value(arg5));
+	public_in(__SMACK_value(arg1));
+	public_in(__SMACK_value(arg2));
+	public_in(__SMACK_value(arg3));
+	public_in(__SMACK_value(arg4));
+	public_in(__SMACK_value(arg5));
 
 	//ECRYPT_init(arg1,arg2,arg3,arg4,arg5);
 	//ECRYPT_ivsetup(arg1,arg2,arg3,arg4,arg5);

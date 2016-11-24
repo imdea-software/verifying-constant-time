@@ -12,9 +12,8 @@ ENTRIES += fix_convert_from_int64 fix_convert_to_int64 fix_round_up_int64 fix_ce
 ENTRIES += fix_sin fix_cos fix_tan
 ENTRIES += fix_exp fix_sqrt fix_pow
 
-GOALS = $(ENTRIES:%=%@$(L)/ftfp.c)
-
-all: $(L)/base.h $(GOALS:%=%.$(v))
+goals += $(ENTRIES:%=%@$(L)/ftfp.c)
+prereqs += $(L)/base.h
 
 $(L)/base.h:
 	cd $(L) && python generate_base.py --file base.h --pyfile base.py --lutfile lut.h --intbits 32

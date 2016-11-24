@@ -6,10 +6,13 @@ entrypoint = $(word 1, $(subst @, ,$1))
 sourcefile = $(word 2, $(subst @, ,$1))
 
 ctverif := $(mydir)../bin/ct-verif.rb
+
+goals   ?=
 unroll	?=
 time		?= 5
 cflags  ?=
 extras  ?=
+prereqs ?=
 secure  ?= true
 
 flags = $(strip \
@@ -23,10 +26,10 @@ p = product.bpl
 v = verified
 
 .PRECIOUS: %.$(c) %.$(p)
-.PHONY: %.$(v)
+.PHONY: %.$(v) clean
 
 .SECONDEXPANSION:
-%.$(c): $$(call sourcefile,$$*) $$(extras)
+%.$(c): $$(call sourcefile,$$*) $$(extras) $(prereqs)
 	@echo
 	@echo Compile | figlet
 	@echo $*
@@ -49,3 +52,11 @@ v = verified
 	@$(ctverif) $(flags) --no-compile --no-product $< | tee $*.log
 	@$(secure) || [ -z "$$(grep " 0 errors" $*.log)" ]
 	@not $(secure) || [ -n "$$(grep " 0 errors" $*.log)" ]
+
+all: $$(patsubst %,%.$(v),$$(goals))
+
+clean:
+	@echo Removing intermediate files
+	@rm -vf $$(find . -name "*.compiled.bpl")
+	@rm -vf $$(find . -name "*.product.bpl")
+	@rm -vf $$(find . -name "*.log")
