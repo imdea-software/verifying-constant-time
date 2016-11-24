@@ -10,6 +10,7 @@ unroll	?=
 time		?= 5
 cflags  ?=
 extras  ?=
+secure  ?= true
 
 flags = $(strip \
 	$(if $(strip $(unroll)),--unroll-limit $(unroll)) \
@@ -46,3 +47,5 @@ v = verified
 	@echo $*
 	@echo
 	@$(ctverif) $(flags) --no-compile --no-product $< | tee $*.log
+	@$(secure) || [ -z "$$(grep " 0 errors" $*.log)" ]
+	@not $(secure) || [ -n "$$(grep " 0 errors" $*.log)" ]
