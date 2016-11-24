@@ -24,13 +24,14 @@ v = verified
 .PRECIOUS: %.$(c) %.$(p)
 .PHONY: %.$(v)
 
-%.$(c): # TODO add dependency $(call entrypoint,$(@:.$(c)=))
+.SECONDEXPANSION:
+%.$(c): $$(call sourcefile,$$*) $$(extras)
 	@echo
 	@echo Compile | figlet
 	@echo $(@:.$(c)=)
 	@echo
 	@mkdir -p $(dir $@)
-	@$(ctverif) $(flags) -a $@ --no-product --no-verify -e $(call entrypoint,$(@:.$(c)=)) $(call sourcefile,$(@:.$(c)=)) $(extras)
+	$(ctverif) $(flags) -a $@ --no-product --no-verify -e $(call entrypoint,$(@:.$(c)=)) $(call sourcefile,$(@:.$(c)=)) $(extras)
 
 %.$(p): %.$(c)
 	@echo
