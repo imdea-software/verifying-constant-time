@@ -28,21 +28,21 @@ v = verified
 %.$(c): $$(call sourcefile,$$*) $$(extras)
 	@echo
 	@echo Compile | figlet
-	@echo $(@:.$(c)=)
+	@echo $*
 	@echo
 	@mkdir -p $(dir $@)
-	$(ctverif) $(flags) -a $@ --no-product --no-verify -e $(call entrypoint,$(@:.$(c)=)) $(call sourcefile,$(@:.$(c)=)) $(extras)
+	@$(ctverif) $(flags) -a $@ --no-product --no-verify -e $(call entrypoint,$*) $(call sourcefile,$*) $(extras)
 
 %.$(p): %.$(c)
 	@echo
 	@echo Product | figlet
-	@echo $(@:.$(p)=)
+	@echo $*
 	@echo
 	@$(ctverif) $(flags) -b $@ --no-compile --no-verify $<
 
 %.$(v): %.$(p)
 	@echo
 	@echo Verify | figlet
-	@echo $(@:.$(v)=)
+	@echo $*
 	@echo
-	@$(ctverif) $(flags) --no-compile --no-product $<
+	@$(ctverif) $(flags) --no-compile --no-product $< | tee $*.log
