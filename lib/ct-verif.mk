@@ -9,6 +9,7 @@ ctverif := $(mydir)../bin/ct-verif.rb
 
 goals   ?=
 unroll	?=
+looplim ?=
 time		?= 5
 cflags  ?=
 extras  ?=
@@ -17,6 +18,7 @@ secure  ?= true
 
 flags = $(strip \
 	$(if $(strip $(unroll)),--unroll-limit $(unroll)) \
+	$(if $(strip $(looplim)),--loop-limit $(looplim)) \
 	$(if $(strip $(time)),--time-limit $(time)) \
 	$(if $(strip $(cflags)),--clang-options="$(cflags)") \
 )

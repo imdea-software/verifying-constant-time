@@ -45,6 +45,10 @@ def get_parameters
       params[:unroll] = u
     end
 
+    opts.on('-l', '--loop-limit NUMBER', "Loop analysis limit.") do |l|
+      params[:loop] = l
+    end
+
     opts.on('-a FILE', "Intermediate file after Boogie translation.") do |f|
       params[:a] = f
     end
@@ -97,6 +101,7 @@ begin
   if params[:compile]
     flags = ["-t"]
     flags << "--clang-options=\"#{params[:clang_options] * " "}\"" if params[:clang_options].any?
+    flags << "--loop-limit #{params[:loop]}" if params[:loop]
     flags << "--verifier boogie"
     flags << "--entry-points #{params[:entries] * ","}"
     flags << "-bpl #{params[:a]}"
