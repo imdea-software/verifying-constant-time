@@ -57,6 +57,4 @@ all: $$(patsubst %,%.$(v),$$(goals))
 
 clean:
 	@echo Removing intermediate files
-	@rm -vf $$(find . -name "*.compiled.bpl")
-	@rm -vf $$(find . -name "*.product.bpl")
-	@rm -vf $$(find . -name "*.log")
+	@rm -vrf $$(find . -name "*@*")
