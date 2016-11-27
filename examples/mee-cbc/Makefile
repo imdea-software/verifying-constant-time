@@ -6,4 +6,5 @@ extras = mac-then-encrypt/aes128.c mac-then-encrypt/aes128cbc.c \
 					mac-then-encrypt/pad_cbc_aes128.c mac-then-encrypt/mac_then_encrypt.c
 cflags = -Imac-then-encrypt
 
-goals += dv_wrapper@mee-cbc.c dv_wrapper@mee-cbc-declassify.c
+goals += dv_wrapper@mee-cbc.c
+goals += dv_wrapper@mee-cbc-declassify.c
