@@ -19,6 +19,8 @@ The following examples are currently stable:
 
 * sort
 
+* tea
+
 The following examples are currently unstable:
 
 * curve25519-donna
@@ -28,5 +30,3 @@ The following examples are currently unstable:
 * openssl
 
 * qhasm
-
-* tea
