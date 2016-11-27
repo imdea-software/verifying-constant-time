@@ -7,6 +7,8 @@ verified constant-time implementations.
 
 The following examples are currently stable:
 
+* pkcs
+
 * polarssl
 
 * rlwe
@@ -24,8 +26,6 @@ The following examples are currently unstable:
 * mee-cbc
 
 * openssl
-
-* pkcs
 
 * qhasm
 

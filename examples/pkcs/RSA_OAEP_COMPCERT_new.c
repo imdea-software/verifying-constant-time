@@ -285,12 +285,12 @@ void c_Dec_wrapper(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_
   public_in_value(__SMACK_value(c_n));
 
   /* Important */
-  public_in_object(__SMACK_object(c_c,MAX_CAOINT_LEN)); /* ciphertext */
-  public_in_object(__SMACK_object(c_n,MAX_CAOINT_LEN)); /* modulus    */
-  public_in_object(__SMACK_object(c_lHash,hLen));       /* hash label -- public in any case on decryption */
+  public_in(__SMACK_values(c_c,MAX_CAOINT_LEN)); /* ciphertext */
+  public_in(__SMACK_values(c_n,MAX_CAOINT_LEN)); /* modulus    */
+  public_in(__SMACK_values(c_lHash,hLen));       /* hash label -- public in any case on decryption */
 
-  declassified_out_object(__SMACK_object(_r0,msgLen));
-  declassified_out_object(__SMACK_object(_r1,1));
+  declassified_out(__SMACK_values(_r0,msgLen));
+  declassified_out(__SMACK_values(_r1,1));
 
   c_Dec(_r0,_r1,c_d,c_c,c_lHash,c_n);
 }
