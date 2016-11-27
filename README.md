@@ -11,6 +11,8 @@ The following examples are currently stable:
 
 * rlwe
 
+* sodium
+
 * sort
 
 The following examples are currently unstable:
@@ -26,7 +28,5 @@ The following examples are currently unstable:
 * pkcs
 
 * qhasm
-
-* sodium
 
 * tea
