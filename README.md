@@ -7,6 +7,8 @@ verified constant-time implementations.
 
 The following examples are currently stable:
 
+* ftfp
+
 * pkcs
 
 * polarssl
@@ -20,8 +22,6 @@ The following examples are currently stable:
 The following examples are currently unstable:
 
 * curve25519-donna
-
-* ftfp
 
 * mee-cbc
 

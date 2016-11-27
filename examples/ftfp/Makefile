@@ -15,5 +15,11 @@ ENTRIES += fix_exp fix_sqrt fix_pow
 goals += $(ENTRIES:%=%@$(L)/ftfp.c)
 prereqs += $(L)/base.h
 
+unroll := 1
+
+## TODO previous Makefile classified `fix_pow` as trouble, and called Boogie
+## TODO without unrolling ...
+# fix_pow%: unroll :=
+
 $(L)/base.h:
 	cd $(L) && python generate_base.py --file base.h --pyfile base.py --lutfile lut.h --intbits 32

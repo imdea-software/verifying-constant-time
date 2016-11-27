@@ -1,4 +1,2 @@
 examples/sodium/libsodium/build
-*.compiled.bpl
-*.product.bpl
-*.log
+*@*
