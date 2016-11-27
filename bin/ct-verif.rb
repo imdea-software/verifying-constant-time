@@ -119,6 +119,7 @@ begin
     flags << "/doModSetAnalysis"
     flags << "/loopUnroll:#{params[:unroll]}" if params[:unroll]
     flags << "/timeLimit:#{params[:time]}" if params[:time]
+    warn "warning: only unrolling up to #{params[:unroll]}" if params[:unroll]
     puts `#{echo} boogie #{flags * " "} #{params[:b]}`
     raise "failed to process product program" unless $?.success?
   end
