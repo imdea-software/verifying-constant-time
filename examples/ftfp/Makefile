@@ -15,7 +15,7 @@ ENTRIES += fix_exp fix_sqrt fix_pow
 goals += $(ENTRIES:%=%@$(L)/ftfp.c)
 prereqs += $(L)/base.h
 
-unroll := 1
+# unroll := 1
 
 ## TODO previous Makefile classified `fix_pow` as trouble, and called Boogie
 ## TODO without unrolling ...
