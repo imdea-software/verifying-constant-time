@@ -15,22 +15,24 @@ The following examples are currently stable:
 
 * rlwe
 
-* sodium
-
 * sort
 
 * tea
 
-The following examples are currently unstable:
+* sodium: except `crypto_hash_sha{256,512}_wrapper` and after
 
-* ftfp: `fix_tan` and `fix_pow`
+The following examples are currently unstable:
 
 * curve25519-donna
 
-* polarssl: `mbedtls_des3_DEcrypt_cbc_wrapper`
+* ftfp: `fix_tan` and `fix_pow`
 
 * mee-cbc
 
 * openssl
 
+* polarssl: `mbedtls_des3_DEcrypt_cbc_wrapper`
+
 * qhasm
+
+* sodium: timeout on `crypto_hash_sha{256,512}_wrapper`

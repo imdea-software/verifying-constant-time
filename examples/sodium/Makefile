@@ -2,8 +2,6 @@ include ../../lib/ct-verif.mk
 
 L = libsodium/src/libsodium
 
-unroll = 1
-
 cflags += -I$(L)/include
 cflags += -I$(L)/include/sodium
 extras += $(L)/sodium/utils.c
