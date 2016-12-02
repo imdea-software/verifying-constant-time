@@ -11,7 +11,7 @@ The following examples are currently stable:
 
 * pkcs
 
-* polarssl
+* polarssl: except `mbedtls_des3_DEcrypt_cbc_wrapper`
 
 * rlwe
 
@@ -26,6 +26,8 @@ The following examples are currently unstable:
 * ftfp: `fix_tan` and `fix_pow`
 
 * curve25519-donna
+
+* polarssl: `mbedtls_des3_DEcrypt_cbc_wrapper`
 
 * mee-cbc
 
