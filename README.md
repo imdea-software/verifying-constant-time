@@ -7,7 +7,7 @@ verified constant-time implementations.
 
 The following examples are currently stable:
 
-* ftfp
+* ftfp: except `fix_tan` and `fix_pow`
 
 * pkcs
 
@@ -22,6 +22,8 @@ The following examples are currently stable:
 * tea
 
 The following examples are currently unstable:
+
+* ftfp: `fix_tan` and `fix_pow`
 
 * curve25519-donna
 
