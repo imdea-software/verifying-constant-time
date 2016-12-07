@@ -7,6 +7,8 @@ verified constant-time implementations.
 
 The following examples are currently stable:
 
+* curve25519-donna
+
 * ftfp: except `fix_pow`
 
 * mee-cbc
@@ -26,8 +28,6 @@ The following examples are currently stable:
 * tea
 
 The following examples are currently unstable:
-
-* curve25519-donna
 
 * ftfp: `fix_pow`
 
