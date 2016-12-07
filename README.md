@@ -9,6 +9,8 @@ The following examples are currently stable:
 
 * ftfp: except `fix_pow`
 
+* openssl: except `ssl3_cbc_digest_record_wrapper`
+
 * pkcs
 
 * polarssl: except `mbedtls_des3_DEcrypt_cbc_wrapper`
@@ -29,7 +31,7 @@ The following examples are currently unstable:
 
 * mee-cbc
 
-* openssl
+* openssl: `ssl3_cbc_digest_record_wrapper`
 
 * polarssl: `mbedtls_des3_DEcrypt_cbc_wrapper`
 
