@@ -19,11 +19,11 @@ The following examples are currently stable:
 
 * rlwe
 
+* sodium: `salsa20`, `chacha20`
+
 * sort
 
 * tea
-
-* sodium: except `crypto_hash_sha{256,512}_wrapper` and after
 
 The following examples are currently unstable:
 
@@ -37,4 +37,4 @@ The following examples are currently unstable:
 
 * qhasm: apparently never worked
 
-* sodium: timeout on `crypto_hash_sha{256,512}_wrapper`
+* sodium: all after `crypto_hash_sha256_wrapper`
