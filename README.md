@@ -33,6 +33,6 @@ The following examples are currently unstable:
 
 * polarssl: `mbedtls_des3_DEcrypt_cbc_wrapper`
 
-* qhasm
+* qhasm: apparently never worked
 
 * sodium: timeout on `crypto_hash_sha{256,512}_wrapper`
