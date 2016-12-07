@@ -9,6 +9,8 @@ The following examples are currently stable:
 
 * ftfp: except `fix_pow`
 
+* mee-cbc
+
 * openssl: except `ssl3_cbc_digest_record_wrapper`
 
 * pkcs
@@ -28,8 +30,6 @@ The following examples are currently unstable:
 * curve25519-donna
 
 * ftfp: `fix_pow`
-
-* mee-cbc
 
 * openssl: `ssl3_cbc_digest_record_wrapper`
 
