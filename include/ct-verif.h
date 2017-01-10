@@ -27,6 +27,7 @@ void public_in(smack_value_t);
 void public_out(smack_value_t);
 void declassified_out(smack_value_t);
 void public_invariant(smack_value_t);
+void benign(void);
 
 #define __disjoint_regions(addr1,len1,addr2,len2) \
   assume(addr1 + len1 * sizeof(*addr1) < addr2 || \

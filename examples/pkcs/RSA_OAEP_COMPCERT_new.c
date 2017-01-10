@@ -266,6 +266,7 @@ void c_Dec(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_hOctets 
     CAO_bool_and(c_result, t3259, c_result3);
   }
   if (c_result) {
+    benign();
     CAO_vector_range_select(c_msg, c_DB, hLen+1, hLen+msgLen);
   } else {
     CAO_vector_range_select(c_msg, c_err_msg, 0, msgLen-1);
@@ -277,12 +278,12 @@ void c_Dec(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_hOctets 
 
 void c_Dec_wrapper(CAO_msgOctets _r0,CAO_bool *_r1, CAO_int c_d,CAO_int c_c,CAO_hOctets c_lHash, CAO_int c_n) {
   /* Boilerplate */
-  public_in_value(__SMACK_value(_r1));
-  public_in_value(__SMACK_value(_r0));     /* safe: CAO_msgOctets hides a star behind a typedef */
-  public_in_value(__SMACK_value(c_lHash)); /* safe: CAO_hOctets hides a star behind a typedef */
-  public_in_value(__SMACK_value(c_d));     /* safe: CAO_int hides a star behind a typedef */
-  public_in_value(__SMACK_value(c_c));
-  public_in_value(__SMACK_value(c_n));
+  public_in(__SMACK_value(_r1));
+  public_in(__SMACK_value(_r0));     /* safe: CAO_msgOctets hides a star behind a typedef */
+  public_in(__SMACK_value(c_lHash)); /* safe: CAO_hOctets hides a star behind a typedef */
+  public_in(__SMACK_value(c_d));     /* safe: CAO_int hides a star behind a typedef */
+  public_in(__SMACK_value(c_c));
+  public_in(__SMACK_value(c_n));
 
   /* Important */
   public_in(__SMACK_values(c_c,MAX_CAOINT_LEN)); /* ciphertext */
