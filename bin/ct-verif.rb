@@ -98,15 +98,23 @@ begin
   inputs = params[:sources]
   temp_files = []
 
+  INLINE_ASM_PATTERN = /\basm\b/
+  UNDEFINED_PATTERN = /\bdeclare\b .* @(?!(__SMACK|__builtin|llvm\.))/
+
   if params[:compile]
     flags = ["-t"]
     flags << "--clang-options=\"#{params[:clang_options] * " "}\"" if params[:clang_options].any?
     flags << "--loop-limit #{params[:loop]}" if params[:loop]
     flags << "--verifier boogie"
     flags << "--entry-points #{params[:entries] * ","}"
+    flags << "-ll #{params[:a]}.ll"
     flags << "-bpl #{params[:a]}"
     puts `#{echo} smack #{flags * " "} #{params[:sources] * " "}`
     raise "failed to compile #{params[:sources] * ", "}" unless $?.success?
+    warn "warning: module contains inline assembly" \
+      if File.readlines("#{params[:a]}.ll").grep(INLINE_ASM_PATTERN).any?
+    warn "warning: module contains undefined functions" \
+      if File.readlines("#{params[:a]}.ll").grep(UNDEFINED_PATTERN).any?
   end
 
   if params[:product]
