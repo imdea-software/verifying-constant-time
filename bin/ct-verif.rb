@@ -107,7 +107,8 @@ begin
     "public_out",
     "declassified_out",
     "public_invariant",
-    "benign"
+    "benign",
+    "__disjoint_regions"
   ]
 
   INLINE_ASM_PATTERN = /\basm\b/
