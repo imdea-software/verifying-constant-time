@@ -99,7 +99,7 @@ begin
   temp_files = []
 
   INLINE_ASM_PATTERN = /\basm\b/
-  UNDEFINED_PATTERN = /\bdeclare\b .* @(?!(__SMACK|__builtin|llvm\.))/
+  UNDEFINED_PATTERN = /\bdeclare\b .* @(?!(__SMACK|__builtin|llvm\.))([^(]*)/
 
   if params[:compile]
     flags = ["-t"]
@@ -113,8 +113,13 @@ begin
     raise "failed to compile #{params[:sources] * ", "}" unless $?.success?
     warn "warning: module contains inline assembly" \
       if File.readlines("#{params[:a]}.ll").grep(INLINE_ASM_PATTERN).any?
-    warn "warning: module contains undefined functions" \
-      if File.readlines("#{params[:a]}.ll").grep(UNDEFINED_PATTERN).any?
+
+    ufs = File.readlines("#{params[:a]}.ll")
+        .map{|s| s.match UNDEFINED_PATTERN}
+        .compact
+        .map{|m| m[2]}
+
+    warn "warning: module contains undefined functions: #{ufs * ", "}" if ufs.any?
   end
 
   if params[:product]
