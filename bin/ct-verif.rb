@@ -98,8 +98,20 @@ begin
   inputs = params[:sources]
   temp_files = []
 
+  SPECIAL_FUNCTIONS = [
+    "__SMACK",
+    "__VERIFIER",
+    "__builtin",
+    "llvm\.",
+    "public_in",
+    "public_out",
+    "declassified_out",
+    "public_invariant",
+    "benign"
+  ]
+
   INLINE_ASM_PATTERN = /\basm\b/
-  UNDEFINED_PATTERN = /\bdeclare\b .* @(?!(__SMACK|__builtin|llvm\.))([^(]*)/
+  UNDEFINED_PATTERN = /\bdeclare\b .* @(?!(#{SPECIAL_FUNCTIONS * "|"}))([^(]*)/
 
   if params[:compile]
     flags = ["-t"]
